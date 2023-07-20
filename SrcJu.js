@@ -921,9 +921,8 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
 
             } else if (getItem("parsemode", "3") == "3" && !/hiker/.test(列表[i].url)) {
                 url = 列表[i].url + $("").lazyRule(() => {
-                    require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + "SrcParseS.js");
-                    var video = SrcParseS.嗅探(input, [], 1);
-                    return video
+      require(config.依赖.match(/http(s)?:\/\/.*\//)[0].replace("/Ju/", "/master/") + "SrcParseS.js");
+    return SrcParseS.task({}, input);
 
                 })
             } else {
