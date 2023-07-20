@@ -930,8 +930,9 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                 url ="hiker://empty##"+ 列表[i].url + $("").lazyRule((解析, 公共, 参数) => {
                     eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                     
+                    var url=input.split("##")[1]
                     eval("let 解析2 = " + 解析);
-                    var video = 解析2(input, 公共, 参数);
+                    var video = 解析2(url, 公共, 参数);
 
                     if (getItem("dm") == "1") {
                         var danmu = GetDm(参数.name, 参数.title, 参数.id);
