@@ -3,7 +3,7 @@ function bookCase() {
     try{
         publicfile = config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js';
     }catch(e){
-        let cfgfile = "hiker://files/rules/Src/Ju/config.json";
+        let cfgfile = "hiker://files/rules/Src/Hk/config.json";
         if (fileExist(cfgfile)) {
             eval("let Juconfig=" + fetch(cfgfile) + ";");
             publicfile = Juconfig["依赖"].match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js';
@@ -21,11 +21,11 @@ function bookCase() {
             log("√书架加载异常>"+e.message);
         }
     })
-    setPageTitle('我的书架');
+    setPageTitle('我的收藏');
     let d = [];
     d.push({
         title: ' 本地下载',
-        url: getMyVar("SrcJuBookType","全部")=="全部"?"hiker://page/Main.view?rule=本地资源管理":"hiker://page/Bookrack.view?rule=本地资源管理&ruleName="+MY_RULE.title+"&type="+(getMyVar("SrcJuBookType")=="漫画"?"comic":"novel"),
+        url: "hiker://collection?rule=搜视",
         img: "https://hikerfans.com/tubiao/messy/70.svg",
         col_type: "icon_2"
     });
