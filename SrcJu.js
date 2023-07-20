@@ -852,6 +852,20 @@ function erji() {
                 }
               
             }
+             function PlayList(i) {
+            var urls = [];
+            var tabs = []
+            for (var j in 列表s) {
+                if (列表s[j][i]) {
+                    urls.push("video://" + 列表s[j][i].url)
+                    tabs.push(线路s[j])
+                }
+            }
+            return {
+                urls: urls,
+                names: tabs
+            }
+        }
             function GetDm(name, title, i) {
 
             var danmu = $.require("hiker://page/danmu?rule=Mikan Project");
@@ -894,19 +908,65 @@ function erji() {
                 if(list_col_type.indexOf("_left")>-1){
                     extra.textAlign = 'left';
                 }
-                d.push({
-                    title: 列表[i].title.trim().replace(/ |-|_/g,'').replace(name,''),
-                    url: "hiker://empty##" + 列表[i].url + $("").lazyRule((解析,publicfile,参数)=>{
-                        let url =input.split("##")[1];
-                        require(publicfile);
-                        
-                        return getLazy()
+                  if (/qq.com|youku|mgtv|iqiyi|bilibili/.test(列表[i].url)) {
+                url = 列表[i].url + $("").lazyRule((解析) => {
+                    eval("let 解析2 = " + 解析);
+                    return 解析2(input);
+                }, 解析)
+            } else if (getItem("superweb", "0") == "1" && !/hiker/.test(列表[i].url)) {
 
-                    },解析,publicfile,{
+                url = JSON.stringify(PlayList(i)) + $("").lazyRule((GetDm, 参数) => {
+                    var danmu = getItem("dm", 0) == "1" ? GetDm(参数.name, 参数.title, 参数.id) : "";
+                    var url = JSON.parse(input)
+                    url.danmu = danmu
+                    return url
+
+                }, getItem("dm", 0) == "1" ? GetDm : "", {
                     name: name,
                     title: 列表[i].title,
                     id: i
-                    }),
+                })
+
+            } else if (getItem("parsemode", "3") == "3" && !/hiker/.test(列表[i].url)) {
+                url = 列表[i].url + $("").lazyRule(() => {
+                    require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + "SrcParseS.js");
+                    var video = SrcParseS.嗅探(input, [], 1);
+                    return video
+
+                })
+            } else {
+                url = 列表[i].url + $("").lazyRule((解析, 公共, GetDm, 参数) => {
+                    eval("let 解析2 = " + 解析);
+                    var video = 解析2(input, 公共, 参数);
+
+                    if (getItem("dm") == "1") {
+                        var danmu = GetDm(参数.name, 参数.title, 参数.id);
+                        try {
+                            var urls = JSON.parse(video)
+                            urls.danmu = danmu
+                            return urls
+                        } catch (e) {
+                            return JSON.stringify({
+                                urls: [video],
+                                danmu: danmu
+                            })
+                        }
+                    } else {
+                        return video
+                    }
+
+                }, 解析, 公共, getItem("dm", "0") == 1 ? GetDm : "", {
+                    "规则名": MY_RULE.title,
+                    "标识": 标识,
+                    name: name,
+                    title: 列表[i].title,
+                    id: i
+                })
+            }
+
+                d.push({
+                    title: 列表[i].title.trim().replace(/ |-|_/g,'').replace(name,''),
+                    url: url,
                     desc: 列表[i].desc,
                     img: 列表[i].img,
                     col_type: list_col_type,
