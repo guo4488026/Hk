@@ -957,7 +957,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                     url: url,
                     desc: 列表[i].desc,
                     img: 列表[i].img,
-                    col_type: list_col_type,
+                    col_type: extra.col_type?extra.col_type:list_col_type,
                     extra: extra
                 });
             }
