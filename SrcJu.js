@@ -130,28 +130,19 @@ function yiji() {
             })
         }else{
             d.push({
-                title: "搜索",
-                url: sousuopage,
-                pic_url: "https://hikerfans.com/tubiao/more/101.png",
-                col_type: 'icon_5',
-                extra: sousuoextra
-            })
-        }
-        if(parse&&parse["更新"]){
-            d.push({
-                title: "更新",
-                url: rulePage('更新',页码["更新"]),
-                pic_url: "https://hikerfans.com/tubiao/more/288.png",
-                col_type: 'icon_5'
-            })
-        }else{
-            d.push({
                 title: "历史",
                 url: "hiker://history?rule="+MY_RULE.title,
                 pic_url: "https://hikerfans.com/tubiao/more/213.png",
                 col_type: 'icon_5'
             })
         }
+         d.push({
+                title: "搜索",
+                url: sousuopage,
+                pic_url: "https://hikerfans.com/tubiao/more/101.png",
+                col_type: 'icon_5',
+                extra: sousuoextra
+            })
         
         d.push({
             title: Juconfig["btnmenu5"] || "书架",
