@@ -1,4 +1,4 @@
-let cfgfile = "hiker://files/rules/Src/Ju/config.json";
+let cfgfile = "hiker://files/rules/Src/Hk/config.json";
 let Jucfg=fetch(cfgfile);
 if(Jucfg != ""){
     eval("var Juconfig=" + Jucfg+ ";");
@@ -6,11 +6,11 @@ if(Jucfg != ""){
     var Juconfig= {};
     writeFile(cfgfile, JSON.stringify(Juconfig));
 }
-let runModes = ["漫画","小说","听书","图集","影视"];
-let runMode = Juconfig["runMode"] || "漫画";
+let runModes = ["正版","动漫","影视","其他"];
+let runMode = Juconfig["runMode"] || "影视";
 let sourcename = Juconfig[runMode+'sourcename'] || "";//主页源名称
 
-let sourcefile = "hiker://files/rules/Src/Ju/jiekou.json";
+let sourcefile = "hiker://files/rules/Src/Hk/jiekou.json";
 let sourcedata = fetch(sourcefile);
 if(sourcedata != ""){
     try{
@@ -77,6 +77,42 @@ function rulePage(type,page) {
     },type)
 }
 
+
+function getLazy(){
+    function GetDm(name, title, i) {
+            var danmu = $.require("hiker://page/danmu?rule=Mikan Project");
+            let dmList = danmu.getDanMu(encodeURIComponent(name));
+            var anime = dmList.animes;
+            if (anime.length > 0) {
+                var episode = anime[0].episodes
+                if (episode.length - 1 >= i) {
+                    var episodeId = episode[i].episodeId;
+                    var episodeTitle = episode[i].episodeTitle;
+                    try {
+                        let path = danmu.getLocalDanMu(episodeId, name + "_" + title) || danmu.downloadDanMu(episodeId, name + "_" + title);
+
+                        if (path == undefined) {
+                            toast("暂无弹幕")
+                            return getMyVar("path", "")
+
+                        } else {
+                            toast("弹幕加载成功")
+                            putMyVar("path", path)
+                            return path
+                        }
+                    } catch (e) {
+                        toast("弹幕加载失败")
+                        return getMyVar("path", "")
+                    }
+                }
+            }
+            toast("暂无弹幕")
+            return getMyVar("path", "")
+        }
+     eval("var 解析2="+解析)
+     return 解析2(url)
+    
+}
 //获取一级数据
 function getYiData(type,od) {
     let d = od || [];
@@ -139,30 +175,12 @@ function getYiData(type,od) {
                 require(config.依赖);
                 erji();
             }):item.url
-            /*
-            if(extra.stype=="图集" && /js:|select:|\(|\)|=>|toast:/.test(item.url)){
-                extra.longClick = [{
-                    title: "下载本地📥",
-                    js: $.toString(() => {
-                        return "hiker://page/download.view#noRecordHistory##noRefresh##noHistory#?rule=本地资源管理"
-                    })
-                }];
-                extra.chapterList = [{title:"正文", url:item.url.split("@")[0]}],
-                extra.defaultView = "1";
-                extra.info = {
-                    "bookName": extra.name,
-                    "bookTopPic": extra.img,
-                    "parseCode": item.url.split("js:")[1],
-                    "ruleName": MY_RULE.title,
-                    "type": "comic"
-                }
-            }
-            */
+          
         })
         d = d.concat(data);
     }else{
         d.push({
-            title: "请先配置一个主页源\n设置-选择漫画/小说/听书/...",
+            title: "请先配置一个主页源\n设置-选择影视/动漫/...",
             url: "hiker://empty",
             col_type: "text_center_1",
         })
