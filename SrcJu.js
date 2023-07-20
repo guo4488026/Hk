@@ -224,6 +224,8 @@ function erji() {
         clearMyVar('SrcJudescload');
         clearMyVar('已选择换源列表');
         clearMyVar('二级源接口信息');
+        clearMyVar("sousuoname");
+        clearMyVar("sousuoPageType");
         clearMyVar("listloading");
         if(getMyVar('SrcBookCase')){
             clearMyVar('SrcBookCase');
