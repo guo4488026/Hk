@@ -1320,8 +1320,6 @@ function search(keyword, mode, sdata, group, type) {
                         item.extra = extra;
                         item.url = /sousuo/.test(objmode) ? /js:|select:|\(|\)|=>|hiker:\/\/page|toast:/.test(item.url)?item.url:$("hiker://empty#immersiveTheme##autoCache#").rule(() => {
                             require(config.依赖);
-                             clearMyVar("sousuoname");
-                             clearMyVar("sousuoPageType");
                             erji();
                         }) : "hiker://empty##"+ item.url + $("#noLoading#").b64().lazyRule((extra) => {
                             if(getMyVar('已选择换源列表')){
