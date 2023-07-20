@@ -904,7 +904,9 @@ function erji() {
                 if(list_col_type.indexOf("_left")>-1){
                     extra.textAlign = 'left';
                 }
-                  if (/qq.com|youku|mgtv|iqiyi|bilibili/.test(列表[i].url)) {
+                if(列表[i].url.includes("aliyundrive.com")){
+                    url = "hiker://page/aliyun?pageTitle=打开链接&page=fypage&realurl=" + encodeURIComponent(input)
+                }else if (/qq.com|youku|mgtv|iqiyi|bilibili/.test(列表[i].url)) {
                 url = 列表[i].url + $("").lazyRule((解析) => {
                     eval("let 解析2 = " + 解析);
                     return 解析2(input);
