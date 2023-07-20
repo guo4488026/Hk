@@ -78,40 +78,81 @@ function rulePage(type,page) {
 }
 
 
-function getLazy(){
-    function GetDm(name, title, i) {
-            var danmu = $.require("hiker://page/danmu?rule=Mikan Project");
-            let dmList = danmu.getDanMu(encodeURIComponent(name));
-            var anime = dmList.animes;
-            if (anime.length > 0) {
-                var episode = anime[0].episodes
-                if (episode.length - 1 >= i) {
-                    var episodeId = episode[i].episodeId;
-                    var episodeTitle = episode[i].episodeTitle;
-                    try {
-                        let path = danmu.getLocalDanMu(episodeId, name + "_" + title) || danmu.downloadDanMu(episodeId, name + "_" + title);
+function lunbo(start, arr, data, cfg) {
+     
+    let id = 'juyue';
+    var rnum = Math.floor(Math.random() * data.length);
+    var item = data[rnum];
+    putMyVar('rnum', rnum);
+    let time = 5000;
+    let col_type = 'pic_1_card';
+    let desc = '';
+    if (cfg != undefined) {
+        time = cfg.time ? cfg.time : time;
+        col_type = cfg.col_type ? cfg.col_type : col_type;
+        desc = cfg.desc ? cfg.desc : desc;
+    }
 
-                        if (path == undefined) {
-                            toast("暂无弹幕")
-                            return getMyVar("path", "")
-
-                        } else {
-                            toast("弹幕加载成功")
-                            putMyVar("path", path)
-                            return path
-                        }
-                    } catch (e) {
-                        toast("弹幕加载失败")
-                        return getMyVar("path", "")
-                    }
-                }
-            }
-            toast("暂无弹幕")
-            return getMyVar("path", "")
+    arr.push({
+        col_type: col_type,
+        img: item.img,
+        desc: desc,
+        title: item.title,
+        url: item.url,
+        extra: {
+            id: 'bar',
         }
-     eval("var 解析2="+解析)
-     return 解析2(url)
-    
+    })
+
+    if (start == false || getMyVar('benstart', 'true') == 'false') {
+        unRegisterTask(id)
+        return
+    }
+
+    let obj = {
+        data: data,
+    };
+
+    registerTask(id, time, $.toString((obj) => {
+        var data = obj.data;
+        var rum = getMyVar('rnum');
+
+        var i = Number(getMyVar('banneri', '0'));
+        if (rum != '') {
+            i = Number(rum) + 1
+            clearMyVar('rnum')
+        } else {
+            i = i + 1;
+        }
+        //log(i)
+        //log(data.length)
+
+        if (i > data.length - 1) {
+            i = 0
+        }
+        var item = data[i];
+        //log(item)
+        try {
+            updateItem('bar', {
+                title: item.title,
+                img: item.img,
+                extra: {
+                    name: item.title,
+                    sname: item.extra.sname,
+                    stype: item.extra.stype,
+                    surl: item.url,
+                    //img:item.img,
+                    pageTitle: item.title,
+                }
+            })
+        } catch (e) {
+            log(e.message)
+            unRegisterTask('banner')
+        }
+        putMyVar('banneri', i);
+
+    }, obj))
+
 }
 //获取一级数据
 function getYiData(type,od) {
