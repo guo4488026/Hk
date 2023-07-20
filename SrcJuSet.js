@@ -3,7 +3,7 @@ let publicfile;
 try{
     publicfile = config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js';
 }catch(e){
-    let cfgfile = "hiker://files/rules/Src/Ju/config.json";
+    let cfgfile = "hiker://files/rules/Src/Hk/config.json";
     if (fileExist(cfgfile)) {
         eval("let Juconfig=" + fetch(cfgfile) + ";");
         publicfile = Juconfig["依赖"].match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js';
@@ -19,48 +19,7 @@ function SRCSet() {
     clearMyVar('duoselect');
     setPageTitle("♥管理"+getMyVar('SrcJu-Version', ''));
     let d = [];
-    /*
-    let sourcenames = yidatalist.map(it=>{
-        return it.name;
-    })
-    
-    d.push({
-        title: sourcename?sourcename:'设置主页源',
-        url: $(sourcenames,2).select((runMode,sourcename,cfgfile,Juconfig) => {
-            clearMyVar(MY_RULE.title + "分类");
-            clearMyVar(MY_RULE.title + "更新");
-            clearMyVar(MY_RULE.title + "类别");
-            clearMyVar(MY_RULE.title + "地区");
-            clearMyVar(MY_RULE.title + "进度");
-            clearMyVar(MY_RULE.title + "排序");
-            clearMyVar("排名");
-            clearMyVar("分类");
-            clearMyVar("更新");
-            clearMyVar(runMode+"_"+sourcename);
-            Juconfig[runMode+'sourcename'] = input;
-            writeFile(cfgfile, JSON.stringify(Juconfig));
-            refreshPage(false);
-            return 'toast://'+runMode+' 主页源已设置为：' + input;
-        }, runMode, sourcename, cfgfile, Juconfig),
-        img: "https://hikerfans.com/tubiao/messy/13.svg",
-        col_type: "icon_2"
-    });
-
-    d.push({
-        title: (runMode||runModes[0]) + "模式",
-        url: $(runModes,2,"切换运行模式").select((cfgfile,Juconfig) => {
-            Juconfig["runMode"] = input;
-            writeFile(cfgfile, JSON.stringify(Juconfig));
-            refreshPage(false);
-            return 'toast://运行模式已设置为：' + input;
-        }, cfgfile, Juconfig),
-        img: "https://hikerfans.com/tubiao/messy/12.svg",
-        col_type: "icon_2"
-    });
-    d.push({
-        col_type: "blank_block"
-    })
-    */
+   
     d.push({
         title: '增加',
         url: $('hiker://empty#noRecordHistory##noHistory#').rule((sourcefile) => {
@@ -131,7 +90,7 @@ function SRCSet() {
     });
     d.push({
         title: '导入',
-        url: $("", "聚阅分享口令").input(() => {
+        url: $("", "搜视分享口令").input(() => {
             require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuSet.js');
             JYimport(input)
         }),
@@ -153,7 +112,7 @@ function SRCSet() {
     });
     d.push({
         title: '分享',
-        url: yxdatalist.length == 0 ? "toast://有效聚阅接口为0，无法分享" : $().b64().lazyRule(() => {
+        url: yxdatalist.length == 0 ? "toast://有效搜视接口为0，无法分享" : $().b64().lazyRule(() => {
             let sharelist;
             let duoselect = storage0.getMyVar('duoselect')?storage0.getMyVar('duoselect'):[];
             if(duoselect.length>0){
@@ -168,10 +127,10 @@ function SRCSet() {
                 let pasteurl = sharePaste(aesEncode('SrcJu', JSON.stringify(sharelist)), input);
                 hideLoading();
                 if (/^http/.test(pasteurl)) {
-                    let code = '聚阅接口￥' + aesEncode('SrcJu', pasteurl) + '￥共' + sharelist.length + '条('+input+')';
+                    let code = '搜视接口￥' + aesEncode('SrcJu', pasteurl) + '￥共' + sharelist.length + '条('+input+')';
                     copy('云口令：'+code+`@import=js:$.require("hiker://page/import?rule=`+MY_RULE.title+`");`);
                     refreshPage(false);
-                    return "toast://聚阅分享口令已生成";
+                    return "toast://搜视分享口令已生成";
                 } else {
                     return "toast://分享失败，剪粘板或网络异常"+pasteurl;
                 }
@@ -193,11 +152,7 @@ function SRCSet() {
     //typebtn.push("失效");
     typebtn.forEach(it =>{
         let typename = it;
-        /*
-        if(it != "全部" && getItem(it+'stoptype')=="1"){
-            typename = typename+"(关)";
-        }
-        */
+      
         let obj = {
             title: getMyVar("SrcJuJiekouType","全部")==it?`““””<b><span style="color: #3399cc">`+typename+`</span></b>`:typename,
             url: $('#noLoading#').lazyRule((it) => {
@@ -207,23 +162,7 @@ function SRCSet() {
             },it),
             col_type: 'scroll_button'
         }
-        /*
-        if(it != "全部"){
-            obj.extra = {};
-            obj["extra"].longClick = [{
-                title: (getItem(it+'stoptype')=="1"?"启用":"停用")+it,
-                js: $.toString((it) => {
-                    if(getItem(it+'stoptype')=="1"){
-                        clearItem(it+'stoptype');
-                    }else{
-                        setItem(it+'stoptype','1');
-                    }
-                    refreshPage(false);
-                    return "hiker://empty";
-                },it)
-            }]
-        }
-        */
+       
         d.push(obj);
     })
     d.push({
@@ -260,7 +199,7 @@ function SRCSet() {
                         let pasteurl = sharePaste(aesEncode('SrcJu', JSON.stringify(oneshare)));
                         hideLoading();
                         if (pasteurl) {
-                            let code = '聚阅接口￥' + aesEncode('SrcJu', pasteurl) + '￥' + data.name;
+                            let code = '搜视接口￥' + aesEncode('SrcJu', pasteurl) + '￥' + data.name;
                             copy('云口令：'+code+`@import=js:$.require("hiker://page/import?rule=`+MY_RULE.title+`");`);
                             return "toast://(单个)分享口令已生成";
                         } else {
@@ -268,7 +207,7 @@ function SRCSet() {
                         }
                     } else if (input == "编辑") {
                         return $('hiker://empty#noRecordHistory##noHistory#').rule((sourcefile, data) => {
-                            setPageTitle('编辑 | 聚阅接口');
+                            setPageTitle('编辑 | 搜视接口');
                             require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuSet.js');
                             jiekouapi(sourcefile, data);
                         }, sourcefile, data)
@@ -381,7 +320,7 @@ function jiekouapi(sourcefile, data) {
         }
     });
     d.push({
-        title: '接口类型：'+ getMyVar('jiekoutype','漫画'),
+        title: '接口类型：'+ getMyVar('jiekoutype','影视'),
         col_type: 'text_1',
         url: $(runModes,2,"接口类型").select(() => {
             putMyVar('jiekoutype',input);
@@ -458,7 +397,7 @@ function jiekouapi(sourcefile, data) {
         url: $(getItem('searchtestkey', '斗罗大陆'),"输入测试搜索关键字").input(()=>{
             setItem("searchtestkey",input);
             let name = getMyVar('jiekouname');
-            let type = getMyVar('jiekoutype','漫画');
+            let type = getMyVar('jiekoutype','影视');
             let erparse = getMyVar('jiekouerparse');
             let public = getMyVar('jiekoupublic');
             if(!name || !erparse){
@@ -513,7 +452,7 @@ function jiekouapi(sourcefile, data) {
             }
             try {
                 let name = getMyVar('jiekouname');
-                let type = getMyVar('jiekoutype','漫画');
+                let type = getMyVar('jiekoutype','影视');
                 let group = getMyVar('jiekougroup');
                 let parse = getMyVar('jiekouparse');
                 let erparse = getMyVar('jiekouerparse');
@@ -588,7 +527,7 @@ function JYimport(input) {
     try {
         input = input.replace("云口令：","");
         let inputname = input.split('￥')[0];
-        if (inputname == "聚阅接口") {
+        if (inputname == "搜视接口") {
             showLoading("正在导入，请稍后...");
             let parseurl = aesDecode('SrcJu', input.split('￥')[1]);
             let content = parsePaste(parseurl);
