@@ -1320,6 +1320,8 @@ function search(keyword, mode, sdata, group, type) {
                         item.extra = extra;
                         item.url = /sousuo/.test(objmode) ? /js:|select:|\(|\)|=>|hiker:\/\/page|toast:/.test(item.url)?item.url:$("hiker://empty#immersiveTheme##autoCache#").rule(() => {
                             require(config.依赖);
+                             clearMyVar("sousuoname");
+                             clearMyVar("sousuoPageType");
                             erji();
                         }) : "hiker://empty##"+ item.url + $("#noLoading#").b64().lazyRule((extra) => {
                             if(getMyVar('已选择换源列表')){
@@ -1421,7 +1423,7 @@ function search(keyword, mode, sdata, group, type) {
 
 //取本地足迹记录
 function getMark(name, stype) {
-    let markfile = "hiker://files/rules/Src/Ju/mark.json";
+    let markfile = "hiker://files/rules/Src/Hk/mark.json";
     let markdata = fetch(markfile);
     if (markdata != "") {
         eval("var marklist=" + markdata + ";");
@@ -1439,7 +1441,7 @@ function getMark(name, stype) {
 }
 //保存本地足迹记录
 function setMark(data) {
-    let markfile = "hiker://files/rules/Src/Ju/mark.json";
+    let markfile = "hiker://files/rules/Src/Hk/mark.json";
     let markdata = fetch(markfile);
     if (markdata != "") {
         eval("var marklist=" + markdata + ";");
