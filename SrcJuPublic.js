@@ -173,6 +173,8 @@ function getYiData(type,od) {
             }
             item.url = (extra.surl||!item.url)?$('hiker://empty#immersiveTheme##autoCache#').rule(() => {
                 require(config.依赖);
+                 clearMyVar("sousuoname");
+                 clearMyVar("sousuoPageType");
                 erji();
             }):item.url
           
