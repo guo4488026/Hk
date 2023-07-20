@@ -884,7 +884,6 @@ function erji() {
             return getMyVar("path", "")
 
         }
-            let list_col_type = getItem('SrcJuList_col_type', 'text_2');//列表样式
             for(let i=0; i<列表.length; i++) {
                 let extra = details["extra"] || {};
                 extra.id = name + "_选集_" + i;
@@ -908,7 +907,7 @@ function erji() {
                     }),
                     desc: 列表[i].desc,
                     img: 列表[i].img,
-                    col_type: 列表[i].col_type || list_col_type.replace("_left",""),
+                    col_type: list_col_type,
                     extra: extra
                 });
             }
@@ -938,6 +937,108 @@ function erji() {
             }
         });
         setResult(d);
+          if (getMyVar(surl) == "98") {
+        let diskMark = storage0.getMyVar('diskMark') || {};
+        if (diskMark[MY_PARAMS.name]) {
+            deleteItemByCls("playlist")
+            deleteItemByCls("loadlist")
+
+            // deleteItemByCls('listsort');
+            addItemBefore('listloading', diskMark[MY_PARAMS.name]);
+        } else {
+            require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJyAliDisk.js');
+            aliDiskSearch(MY_PARAMS.name);
+        }
+    }
+
+    if (getMyVar("sousuoname")) {
+
+
+        deleteItemByCls("playlist")
+        deleteItemByCls("loadlist")
+        if (runModes.includes(getMyVar('sousuoPageType'))) {
+            let info = storage0.getMyVar('一级源接口信息') || {};
+
+            let type = getMyVar("sousuoPageType", info.type);
+
+            search(getMyVar("sousuoname"), "sousuopage", false, info.group, type);
+        } else if (getMyVar('sousuoPageType') == "聚影") {
+            require(config.依赖.match(/http(s)?:\/\/.*\//)[0].replace('Ju', 'master') + 'SrcJyXunmi.js');
+            xunmi(name);
+        } else {
+            let rules = $.require("hiker://page/data?rule=" + getMyVar('sousuoPageType'))();
+            var p = 1
+            var name = getMyVar("sousuoname");
+            let data = $.require("hiker://page/data?rule=" + getMyVar('sousuoPageType'))(p, r != "" ? r : null);
+            if (data.length > 0) {
+                //多线程加载        
+                let realPage = "" == r ? 1 : p;
+                let tasks = data.map(it => {
+                    return {
+                        func: function(rule) {
+                            return rule.find(name, realPage);
+                        },
+                        param: it,
+                        id: "rule@" + it.name
+                    }
+                });
+
+                batchExecute(tasks, {
+                    func: function(param, id, error, result) {
+                        //log("listener: " + (result || []).length)
+                        param.i = param.i + 1;
+                        if (result) {
+                            try {
+                                if (result.length >= 1) {
+                                    addItemBefore("sousuoloading" + getMyVar('sousuoPageType'), {
+                                        title: id.split("@")[1],
+                                        col_type: "text_1",
+                                        url: "hiker://empty"
+                                    })
+                                }
+                                for (let it of result) {
+                                    param.j = param.j + 1;
+
+                                    addItemBefore("sousuoloading" + getMyVar('sousuoPageType'), {
+                                        title: it.title,
+                                        //desc: it.desc,
+                                        url: it.url,
+                                        pic_url: getMyVar('sousuoPageType') == "云盘君" ? "hiker://files/cache/src/文件夹.svg" : "https://hikerfans.com/tubiao/messy/27.svg",
+                                        col_type: "avatar",
+                                        extra: {
+                                            id: "__app" + MY_PAGE + "@" + param.j,
+                                            inheritTitle: false
+                                        }
+                                    })
+                                }
+
+                            } catch (e) {}
+
+                        }
+                        if (param.i >= param.all) {
+                            deleteItem(pageid)
+                        } else {
+                            updateItem({
+                                title: "加载第" + MY_PAGE + "页中，进度：" + (param.i + 1) + "/" + param.all,
+                                url: "",
+                                col_type: "text_center_1",
+                                desc: "",
+                                pic_url: "",
+                                extra: {
+                                    id: pageid
+                                }
+                            })
+                        }
+                    },
+                    param: {
+                        all: data.length,
+                        i: 0,
+                        j: -1
+                    }
+                })
+            }
+        }
+    }
         if(!getMyVar(sname+"_"+name)){
             toast('当前数据源：' + sname + (sauthor?", 作者：" + sauthor:""));
         }
