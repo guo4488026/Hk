@@ -4,7 +4,7 @@ let publicfile;
 try{
     publicfile = config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js';
 }catch(e){
-    let cfgfile = "hiker://files/rules/Src/Ju/config.json";
+    let cfgfile = "hiker://files/rules/Src/Hk/config.json";
     if (fileExist(cfgfile)) {
         eval("let Juconfig=" + fetch(cfgfile) + ";");
         publicfile = Juconfig["依赖"].match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js';
@@ -50,23 +50,7 @@ function yiji() {
     let d = [];
     if(MY_PAGE==1){
         clearItem('searchmode');//临时先去掉视界聚合代理搜索
-        if(getMyVar('SrcJu-VersionCheck', '0') == '0'){
-            let programversion = $.require("config").version || 0;
-            if(programversion<10){
-                confirm({
-                    title: "温馨提示",
-                    content: "发现小程序新版本",
-                    confirm: $.toString(() => {
-                        return "海阔视界首页频道规则【聚阅√】￥home_rule_url￥http://hiker.nokia.press/hikerule/rulelist.json?id=6337"
-                    }),
-                    cancel: $.toString(() => {
-                        return "toast://不升级小程序，则功能不全或有异常"
-                    })
-                });
-            }
-            Version();
-            downloadicon();
-        }
+  
         let adminbtn = Object.assign([],runModes);
         adminbtn.unshift("快速切换");
         adminbtn.unshift("接口管理");
@@ -93,37 +77,7 @@ function yiji() {
             }),
             pic_url: "https://hikerfans.com/tubiao/more/129.png",
             col_type: 'icon_5',
-            extra: {
-                newWindow: true,
-                windowId: MY_RULE.title + "管理",
-                longClick: runModes.map((it)=>{
-                    return {
-                        title: it,
-                        js: $.toString((cfgfile,Juconfig,input)=>{
-                            Juconfig["runMode"] = input;
-                            writeFile(cfgfile, JSON.stringify(Juconfig));
-                            refreshPage(false);
-                            return 'toast://运行模式已切换为：' + input;
-                        }, cfgfile, Juconfig,it)
-                    }
-                }).concat([{
-                    title:getItem('runtypebtn')=="1"?"关界面按钮":"开界面按钮",
-                    js: $.toString(()=>{
-                            if(getItem('runtypebtn')=="1"){
-                                clearItem('runtypebtn');
-                            }else{
-                                setItem('runtypebtn','1');
-                                return $(["scroll_button","text_5"],1,"样式选择").select(() => {
-                                    setItem('runModes_btntype',input);
-                                    refreshPage(false);
-                                    return "hiker://empty";
-                                })
-                            }
-                            refreshPage(false);
-                            return  "hiker://empty";
-                        })
-                }])
-            }
+            
         })
         if(parse&&parse["排行"]){
             d.push({
@@ -164,22 +118,7 @@ function yiji() {
                     return sousuopage;
                 },sousuopage)
             }]
-            /*
-            ,{
-                title: "聚搜："+(getItem('searchmode')=="jusousuo"?"程序":"规则"),
-                js: $.toString(() => {
-                    return $().lazyRule(() => {
-                        if(getItem('searchmode')=="jusousuo"){
-                            clearItem('searchmode');
-                        }else{
-                            setItem('searchmode',"jusousuo");
-                        }
-                        refreshPage(false);
-                        return "toast://已切换";
-                    })
-                })
-            }
-            */
+         
         }
         if(parse&&parse["分类"]){
             d.push({
@@ -237,7 +176,7 @@ function yiji() {
                 }]
             }
         })
-        if(getItem('runtypebtn')=="1"){
+       
             let runModes_btntype = getItem('runModes_btntype','scroll_button');
             runModes.forEach((it) =>{
                 d.push({
@@ -251,17 +190,17 @@ function yiji() {
                         refreshPage(false);
                         return 'toast://运行模式已切换为：' + input;
                     }, cfgfile, Juconfig ,it),
-                    col_type: runModes_btntype
+                  col_type: 'text_' + runModes.length
                 });
             })
-            if(runModes_btntype=="text_5"){
+        
                 for (let i = 0; i < 8; i++) {
                     d.push({
                         col_type: "blank_block"
                     })
                 }
-            }
-        }
+            
+        
         d.push({
             col_type: 'blank_block'
         })
