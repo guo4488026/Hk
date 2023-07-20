@@ -535,9 +535,9 @@ var erdata = {
         var 更 = lists[n].length;
         setResult("更新至第" + 更 + "集")
     },
-    "解析": function() {
+    "解析": function(url) {
             var data = JSON.parse(fetch("hiker://files/rules/cy/动漫城.json"))
             eval("var lazy=" + data.rules[公共.sname].lazy)
-            return lazy()       
+            return lazy(url)       
     }
 }
