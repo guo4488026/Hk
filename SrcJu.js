@@ -894,7 +894,7 @@ function erji() {
             for(let i=0; i<列表.length; i++) {
                 let extra = details["extra"] || {};
                 extra.id = name + "_选集_" + i;
-                extra.url = 列表[i].url;
+                extra.referer = 列表[i].url;
                 extra.cls = "loadlist playlist";
                 var 参数 = {
                     name: name,
