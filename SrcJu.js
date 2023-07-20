@@ -896,6 +896,11 @@ function erji() {
                 extra.id = name + "_选集_" + i;
                 extra.url = 列表[i].url;
                 extra.cls = "loadlist playlist";
+                var 参数 = {
+                    name: name,
+                    title: 列表[i].title,
+                    id: i
+                }
                 if(list_col_type.indexOf("_left")>-1){
                     extra.textAlign = 'left';
                 }
@@ -905,18 +910,14 @@ function erji() {
                     return 解析2(input);
                 }, 解析)
             } else if (getItem("superweb", "0") == "1" && !/hiker/.test(列表[i].url)) {
-
+eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                 url = JSON.stringify(PlayList(i)) + $("").lazyRule((GetDm, 参数) => {
                     var danmu = getItem("dm", 0) == "1" ? GetDm(参数.name, 参数.title, 参数.id) : "";
                     var url = JSON.parse(input)
                     url.danmu = danmu
                     return url
 
-                }, getItem("dm", 0) == "1" ? GetDm : "", {
-                    name: name,
-                    title: 列表[i].title,
-                    id: i
-                })
+                },参数)
 
             } else if (getItem("parsemode", "3") == "3" && !/hiker/.test(列表[i].url)) {
                 url = 列表[i].url + $("").lazyRule(() => {
@@ -926,7 +927,9 @@ function erji() {
 
                 })
             } else {
-                url = 列表[i].url + $("").lazyRule((解析, 公共, GetDm, 参数) => {
+                url ="hiker://empty##"+ 列表[i].url + $("").lazyRule((解析, 公共, 参数) => {
+                    eval(JSON.parse(fetch("hiker://page/danmu")).rule);
+                    
                     eval("let 解析2 = " + 解析);
                     var video = 解析2(input, 公共, 参数);
 
@@ -946,13 +949,7 @@ function erji() {
                         return video
                     }
 
-                }, 解析, 公共, getItem("dm", "0") == 1 ? GetDm : "", {
-                    "规则名": MY_RULE.title,
-                    "标识": 标识,
-                    name: name,
-                    title: 列表[i].title,
-                    id: i
-                })
+                }, 解析, 公共, 参数)
             }
 
                 d.push({
