@@ -893,6 +893,7 @@ function erji() {
         }
             for(let i=0; i<列表.length; i++) {
                 let extra = details["extra"] || {};
+                log(details["extra"])
                 extra.id = name + "_选集_" + i;
                 extra.referer = 列表[i].url;
                 extra.cls = "loadlist playlist";
