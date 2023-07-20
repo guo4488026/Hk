@@ -177,7 +177,7 @@ function yiji() {
             }
         })
        
-            let runModes_btntype = getItem('runModes_btntype','scroll_button');
+         
             runModes.forEach((it) =>{
                 d.push({
                     title: Juconfig["runMode"]==it?`““””<b><span style="color: #3399cc">`+it+`</span></b>`:it,
@@ -331,6 +331,15 @@ function erji() {
             erjidetails.detail2 =  details.detail2 || erjidetails.detail2;
             erjidetails.desc = details.desc || erjidetails.desc;
             d.push({
+            desc: '0&&list',
+            col_type: "x5_webview_single",
+            url: "hiker://empty",
+            extra: {
+                ua: MOBILE_UA,
+                id: "listsou"
+            }
+        })
+            d.push({
                 title: erjidetails.detail1 || "",
                 desc: erjidetails.detail2 || "",
                 pic_url: erjidetails.img,
@@ -338,7 +347,8 @@ function erji() {
                 col_type: 'movie_1_vertical_pic_blur',
                 extra: {
                     id: "detailid",
-                    gradient: true
+                    gradient: true,
+                    cls: "detailid",
                 }
             })
             detailload = 1;
@@ -401,30 +411,90 @@ function erji() {
             let lazy;
             let itype;
             let 解析 = parse['解析'];
-            if (stype=="小说" || details.rule==1) {
-                lazy = $(stype=="小说"?"#readTheme##autoPage#":"#noRecordHistory#").rule((解析,参数) => {
-                    let url = MY_PARAMS.url || "";
-                    let 公共 = $.require('jiekou').公共(参数.标识);
-                    eval("let 解析2 = " + 解析);
-                    解析2(url,公共,参数);
-                }, 解析, {"规则名": MY_RULE.title, "标识": 标识});
-                itype = "novel";
-            }else{
-                lazy = $("").lazyRule((解析,参数) => {
-                    let url = input.split("##")[1];
-                    let 公共 = $.require('jiekou').公共(参数.标识);
-                    eval("let 解析2 = " + 解析);
-                    return 解析2(url,公共,参数);
-                }, 解析, {"规则名": MY_RULE.title, "标识": 标识});
-                if(stype=="漫画"){
-                    itype = "comic";
-                }
-            }
-            let download = $.toString((解析,公共,参数) => {
-                eval("let 解析2 = " + 解析);
-                return 解析2(input,公共,参数);
-            }, 解析, 公共, {"规则名": MY_RULE.title, "标识": 标识});
+          
+               d.push({
+            title: "搜索",
+            url: $(runModes, 2).select((name) => {
+                if (getMyVar("sousuoname")) {
+                    clearMyVar("sousuoname")
+                    clearMyVar("sousuoPageType")
 
+                } else {
+
+
+                    putMyVar("sousuoname", name)
+                    putMyVar("sousuoPageType", input)
+                }
+                refreshPage()
+                return "hiker://empty"
+            }, MY_PARAMS.name),
+            img: "https://hikerfans.com/tubiao/more/103.png",
+            col_type: "icon_4"
+        })
+
+        d.push({
+            title: "云盘君",
+            url: $("").lazyRule((name) => {
+                clearItem("r");
+                if (getMyVar('sousuoPageType') != "云盘君") {
+                    putMyVar("sousuoPageType", "云盘君")
+                    putMyVar("sousuoname", name)
+                } else {
+
+                    clearMyVar("sousuoname")
+                    clearMyVar("sousuoPageType")
+
+                }
+                refreshPage()
+                return "hiker://empty"
+
+            }, MY_PARAMS.name),
+            img: "https://p2.itc.cn/q_70/images03/20211009/59c75745d3524163b9277c4006020ac0.jpeg",
+            col_type: "icon_4",
+            extra: {
+                longClick: [{
+                    title: "云盘君",
+                    js: $.toString(() => {
+                        return "hiker://page/yijidata?rule=云盘君"
+
+                    })
+                }]
+            }
+        })
+
+        d.push({
+            title: "夸克",
+            url: $("").lazyRule((name) => {
+                clearItem("r");
+                if (getMyVar('sousuoPageType') != "夸克网盘") {
+                    putMyVar("sousuoPageType", "夸克网盘")
+                    putMyVar("sousuoname", name)
+                } else {
+                    clearMyVar("sousuoname")
+                    clearMyVar("sousuoPageType")
+                }
+                refreshPage()
+                return "hiker://empty"
+            }, MY_PARAMS.name),
+            img: "http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256",
+            col_type: "icon_4",
+            extra: {
+                longClick: [{
+                    title: "uckk云",
+                    js: $.toString(() => {
+                        return "hiker://page/search2?rule=uckk云"
+
+                    })
+                }]
+            }
+        })
+
+        d.push({
+            title: "聚影",
+            url: "hiker://search?rule=聚影√&s=" + name,
+            img: "https://hikerfans.com/tubiao/movie/61.svg",
+            col_type: "icon_4"
+        })
             d.push({
                 title: "详情简介",
                 url: $("#noLoading#").lazyRule((desc) => {
@@ -454,57 +524,22 @@ function erji() {
                 pic_url: "https://hikerfans.com/tubiao/messy/32.svg",
                 col_type: 'icon_small_3',
                 extra: {
-                    cls: "loadlist"
+                     cls: "tabs playlist"
                 }
             })
-            if(stype=="影视"){
-                d.push({
-                    title: "聚影搜索",
-                    url: "hiker://search?rule=聚影√&s=" + name,
-                    pic_url: 'https://hikerfans.com/tubiao/messy/25.svg',
-                    col_type: 'icon_small_3',
-                    extra: {
-                        cls: "loadlist"
-                    }
-                })
-            }else{
-                d.push({
-                    title: "书架/下载",
-                    url: $("hiker://empty###noRecordHistory##noHistory#").rule(() => {
-                        require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcBookCase.js');
-                        bookCase();
-                    }),
-                    pic_url: 'https://hikerfans.com/tubiao/messy/70.svg',
-                    col_type: 'icon_small_3',
-                    extra: {
-                        cls: "loadlist",
-                        inheritTitle: false,
-                        longClick: [{
-                            title: "下载本地📥",
-                            js: $.toString((itype) => {
-                                if(itype){
-                                    return "hiker://page/download.view#noRecordHistory##noRefresh##noHistory#?rule=本地资源管理"
-                                }else{
-                                    return "toast://不支持下载的类型"
-                                }
-                            },itype)
-                        }],
-                        chapterList: 列表,
-                        "defaultView": "1",
-                        "info": {
-                            "bookName": name,
-                            "bookTopPic": pic,
-                            "parseCode": download,
-                            "ruleName": MY_RULE.title,
-                            "type": itype,
-                            "decode": 公共["imgdec"]?$.type(公共["imgdec"])=="function"?$.toString((imgdec)=>{
-                                let imgDecrypt = imgdec;
-                                return imgDecrypt();
-                            },公共["imgdec"]):公共["imgdec"]:""
-                        }
-                    }
-                })
+            d.push({
+            title: "观影设置",
+            url: $("hiker://empty###noRecordHistory##noHistory#").rule(() => {
+                 require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJyMenu.js');
+                 lookset()
+            }),
+            pic_url: 'https://hikerfans.com/tubiao/messy/37.svg',
+            col_type: 'icon_small_3',
+            extra: {
+                cls: "tabs playlist",
+
             }
+          })
             
             d.push({
                 title: "切换站源",
@@ -541,8 +576,8 @@ function erji() {
                 pic_url: 'https://hikerfans.com/tubiao/messy/20.svg',
                 col_type: 'icon_small_3',
                 extra: {
-                    cls: "loadlist",
-                    longClick: [{
+                     cls: "tabs playlist",
+                     longClick: [{
                         title: "精准匹配："+(getItem('searchMatch','1')=="1"?"是":"否"),
                         js: $.toString(() => {
                             let sm;
@@ -567,101 +602,206 @@ function erji() {
                     col_type: "blank_block"
                 })
             }
-            d.push({
-                title: getMyVar(sname + 'sort') == '1' ? `““””<b><span style="color: #66CCEE">排序⇅</span></b>` : `““””<b><span style="color: #55AA44">排序⇅</span></b>`,
-                url: $("#noLoading#").lazyRule((sname) => {
-                    let 列表 = findItemsByCls('playlist') || [];
-                    if(列表.length==0){
-                        return 'toast://未获取到列表'
-                    }
-                    deleteItemByCls('playlist');
-                    if (getMyVar(sname + 'sort') == '1') {
-                        putMyVar(sname + 'sort', '0');
-                        updateItem('listsort', {
-                            title: `““””<b><span style="color: #55AA44">排序⇅</span></b>`
-                        });
-                    } else {
-                        putMyVar(sname + 'sort', '1')
-                        updateItem('listsort', {
-                            title: `““””<b><span style="color: #66CCEE">排序⇅</span></b>`
-                        });
-                    };
-                    列表.reverse();
-                    列表.forEach(item => {
-                        item.col_type = item.type;
-                    })
-                    addItemBefore(getMyVar("listloading","1")=="1"?"listloading":"listloading2", 列表);
-                    return 'toast://切换排序成功'
-                }, sname),
-                col_type: 'scroll_button',
-                extra: {
-                    id: "listsort",
-                    cls: "loadlist"
+              d.push({
+            title: getMyVar(sname + 'sort') == '1' ? `““””<b><span style="color: #66CCEE">∨</span></b>` : `““””<b><span style="color: #55AA44">∧</span></b>`,
+            url: $("#noLoading#").lazyRule((sname) => {
+                let 列表 = findItemsByCls('loadlist') || [];
+                if (列表.length == 0) {
+                    return 'toast://未获取到列表'
                 }
-            })
-            d.push({
-                title: `““””<b><span style="color: #f47983">样式<small>🎨</small></span></b>`,
-                url: $(["text_1","text_2","text_3","text_4","flex_button","text_2_left","text_3_left"],2,"选集列表样式").select(() => {
-                    let 列表 = findItemsByCls('playlist') || [];
-                    if(列表.length==0){
-                        return 'toast://未获取到列表'
-                    }
-                    deleteItemByCls('playlist');
-                    let list_col_type = input;
-                    列表.forEach(item => {
-                        item.col_type = list_col_type.replace("_left","");
-                        if(list_col_type.indexOf("_left")>-1){
-                            item.extra.textAlign = 'left';
-                        }else{
-                            delete item.extra.textAlign;
-                        }
-                    })
-                    addItemBefore(getMyVar("listloading","1")=="1"?"listloading":"listloading2", 列表);
-                    setItem('SrcJuList_col_type', input);
-                    return 'hiker://empty'
-                }),
-                col_type: 'scroll_button',
-                extra: {
-                    cls: "loadlist"
-                }
-            })
-            
-            if(线路s.length>1){
-                线路s.forEach((it,i)=>{
-                    d.push({
-                        title: getMyVar("SrcJu_"+surl+"_line")==i?`““””<b><span style="color: #09c11b">`+it+`</span></b>`:it,
-                        url: $("#noLoading#").lazyRule((surl,lineid) => {
-                            let index = getMyVar("SrcJu_"+surl+"_line","0");
-                            if(lineid != index){
-                                putMyVar("SrcJu_"+surl+"_line", lineid);
-                                refreshPage(false);
-                            }
-                            return 'hiker://empty'
-                        }, surl, i),
-                        col_type: 'scroll_button',
-                        extra: {
-                            cls: "loadlist"
-                        }
-                    })
+                deleteItemByCls('loadlist');
+                if (getMyVar(sname + 'sort') == '1') {
+                    putMyVar(sname + 'sort', '0');
+                    updateItem('listsort', {
+                        title: `““””<b><span style="color: #55AA44">∧</span></b>`
+                    });
+                } else {
+                    putMyVar(sname + 'sort', '1')
+                    updateItem('listsort', {
+                        title: `““””<b><span style="color: #66CCEE">∨</span></b>`
+                    });
+                };
+                列表.reverse();
+
+                列表.forEach(item => {
+                    item.col_type = item.type
+
                 })
-                /*
-                d.push({
-                    title: `““””<b><span style="color: #AABBFF">`+线路s[lineid]+`<small>⚡</small></span></b>`,
-                    url: $(线路s,2,"选择线路").select((线路s,surl,lineid) => {
-                        let index = 线路s.indexOf(input);
-                        if(lineid != index){
-                            putMyVar("SrcJu_"+surl+"_line", index);
-                            refreshPage(false);
-                        }
-                        return 'hiker://empty'
-                    }, 线路s, surl, lineid),
-                    col_type: 'scroll_button',
-                    extra: {
-                        cls: "loadlist"
-                    }
-                })
-                */
+                addItemBefore(getMyVar("listloading", "1") == "1" ? "listloading" : "listloading2", 列表);
+                return 'toast://切换排序成功'
+            }, sname),
+            col_type: 'scroll_button',
+            extra: {
+                id: "listsort",
+                cls: "tabs playlist",
+
             }
+        })
+
+        var Marksum = 30;
+        var Color1 = getItem('SrcJy$linecolor1', '#09c11b') || '#09c11b';
+        var Color2 = getItem('SrcJy$linecolor2', '');
+        var Color3 = getItem('SrcJy$playcolor', '');
+
+        function getHead(title, Color, strong) {
+            if (Color) {
+                if (strong) {
+                    return '‘‘’’<strong><font color="' + Color + '">' + title + '</front></strong>';
+                } else {
+                    return '‘‘’’<font color="' + Color + '">' + title + '</front>';
+                }
+            } else {
+                return title;
+            }
+        }
+        let list_col_type = getItem('SrcJuList_col_type' + sname, 'text_2');
+
+
+        for (var i in 线路s) {
+              if(线路s[i]=="undefined"){
+                  线路s[i]="线路"+(parseInt(i)+1)
+              }
+            d.push({
+                title: getMyVar("SrcJu_" + surl + "_line", '0') == i ? `““””<b><span style="color: #AABBFF">` + 线路s[i] + `<small>⚡</small></span></b>` : 线路s[i],
+                url: $("#noLoading#").lazyRule((surl, index, sname) => {
+                    if (getMyVar("SrcJu_" + surl + "_line", '0') != index) {
+                        putMyVar("SrcJu_" + surl + "_line", index);
+                        refreshPage(false)
+
+                    }else{
+                    return  $(["text_1","text_2","text_3","text_4","flex_button","text_2_left","text_3_left"],2,"选集列表样式").select((sname)=>{
+                     setItem("SrcJuList_col_type"+sname,input)
+                    refreshPage()
+                     return "hiker://empty"
+                      },sname)
+                   }
+                    return 'hiker://empty'
+                }, surl, i, sname),
+                col_type: 'scroll_button',
+                extra: {
+                    cls: "tabs playlist",
+                    id: surl + "_线路_" + i
+                }
+            })
+        }
+
+
+        if (Juconfig['yundiskLine'] == 1) {
+            d.push({
+                title: getMyVar(surl, '0') == "98" ? getHead('云盘搜索', Color1, 1) : getHead('云盘搜索', Color2),
+                url: $("#noLoading#").lazyRule((surl, Marksum) => {
+                    let i = 98;
+
+                    if (parseInt(getMyVar(surl, '0')) != i) {
+                        if (getMyVar('diskSearch') == "1") {
+                            return 'toast://搜索线程中，稍等片刻.'
+                        }
+                        try {
+                            eval('var SrcMark = ' + fetch("hiker://files/cache/SrcMark.json"));
+                        } catch (e) {
+                            var SrcMark = "";
+                        }
+                        if (SrcMark == "") {
+                            SrcMark = {
+                                route: {}
+                            };
+                        } else if (SrcMark.route == undefined) {
+                            SrcMark.route = {};
+                        }
+                        SrcMark.route[surl] = i;
+                        var key = 0;
+                        var one = "";
+                        for (var k in SrcMark.route) {
+                            key++;
+                            if (key == 1) {
+                                one = k
+                            }
+                        }
+                        if (key > Marksum) {
+                            delete SrcMark.route[one];
+                        }
+                        writeFile("hiker://files/cache/SrcMark.json", JSON.stringify(SrcMark));
+                        putMyVar(surl, i);
+                        refreshPage(false);
+
+                        return '#noHistory#hiker://empty'
+                    } else {
+                        putMyVar(surl, "0")
+                        refreshPage()
+                        return "hiker://empty"
+                    }
+                }, surl, Marksum),
+                col_type: 'scroll_button',
+                extra: {
+                    cls: "tabs playlist",
+                }
+            });
+
+        }
+        if (getItem('enabledpush', '') == '1') {
+            let push = {
+                "name": MY_PARAMS.name,
+                "pic": pic.split('@')[0],
+                "content": details.desc || "",
+                "director": details.detail1 || "",
+                "actor": details.detail2 || "",
+                "from": 线路s.join("$$$")
+            };
+            let tvip = getItem('hikertvboxset', '');
+            d.push({
+                title: '推送TVBOX',
+                url: $("#noLoading#").lazyRule((push, lists, tvip) => {
+                    if (tvip == "") {
+                        return 'toast://观影设置中设置TVBOX接收端ip地址，完成后回来刷新一下';
+                    }
+
+                    var url = ""
+                    if (lists) {
+                        lists.forEach((ite, i) => {
+                            if (getMyVar('shsort') == '1') {
+                                ite = ite.reverse();
+                            }
+                            ite.forEach(item => {
+                                var a = item.title + "$" + item.url.replace("#isVideo=true#", "")
+                                url += a + "#"
+                            })
+
+                            if (i + 1 != lists.length) {
+                                url += "$$$"
+                            }
+                        })
+
+                    }
+
+                    if (lists.length > 0) {
+                        push['url'] = url;
+                        log(push)
+                        var state = request(tvip + '/action', {
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                //'X-Requested-With': 'XMLHttpRequest',
+                                'Referer': tvip
+                            },
+                            timeout: 2000,
+                            body: 'do=push&url=' + JSON.stringify(push),
+                            method: 'POST'
+                        });
+                        //log(push);
+                        //log(state);
+                        if (state == 'ok') {
+                            return 'toast://推送成功，如果tvbox显示“没找到数据”可能是该链接需要密码或者当前的jar不支持。';
+                        } else {
+                            return 'toast://推送失败'
+                        }
+                    }
+                    return 'toast://所有线路均不支持推送列表';
+                }, push, 列表s, tvip),
+                col_type: 'scroll_button',
+                extra: {
+                    cls: "tabs playlist"
+                }
+            })
+        }
             if(details.page && details.pageparse){
                 let 分页s = details.page
                 let 分页链接 = [];
@@ -708,48 +848,64 @@ function erji() {
                         }
                     })
                 }
-                /*
-                分页s.forEach((it,i)=>{
-                    d.push({
-                        title: pageid==i?'““””<b><span style="color: #87CEFA">'+it.title:it.title,
-                        url: $("#noLoading#").lazyRule((pageurl,nowid,newid) => {
-                            if(nowid != newid){
-                                putMyVar(pageurl, newid);
-                                refreshPage(false);
-                            }
-                            return 'hiker://empty'
-                        }, "SrcJu_"+surl+"_page", pageid, i),
-                        col_type: 'scroll_button',
-                        extra: {
-                            cls: "loadlist"
-                        }
-                    })
-                })
-                */
+              
             }
+            function GetDm(name, title, i) {
 
+            var danmu = $.require("hiker://page/danmu?rule=Mikan Project");
+            let dmList = danmu.getDanMu(encodeURIComponent(name));
+
+            var anime = dmList.animes;
+            if (anime.length > 0) {
+                var episode = anime[0].episodes
+                if (episode.length - 1 >= i) {
+                    var episodeId = episode[i].episodeId;
+                    var episodeTitle = episode[i].episodeTitle;
+
+                    try {
+                        let path = danmu.getLocalDanMu(episodeId, name + "_" + title) || danmu.downloadDanMu(episodeId, name + "_" + title);
+
+                        if (path == undefined) {
+                            toast("暂无弹幕")
+                            return getMyVar("path", "")
+
+                        } else {
+                            toast("弹幕加载成功")
+                            putMyVar("path", path)
+                            return path
+                        }
+                    } catch (e) {
+                        toast("弹幕加载失败")
+                        return getMyVar("path", "")
+                    }
+                }
+            }
+            toast("暂无弹幕")
+            return getMyVar("path", "")
+
+        }
             let list_col_type = getItem('SrcJuList_col_type', 'text_2');//列表样式
             for(let i=0; i<列表.length; i++) {
                 let extra = details["extra"] || {};
                 extra.id = name + "_选集_" + i;
                 extra.url = 列表[i].url;
                 extra.cls = "loadlist playlist";
-                if(stype=="听书"||stype=="影视"){
-                    extra.jsLoadingInject = true;
-                    let blockRules = ['.m4a', '.mp3', '.gif', '.jpeg', '.jpg', '.ico', '.png', 'hm.baidu.com', '/ads/*.js', 'cnzz.com', '51.la'];
-                    if(extra.blockRules && $.type(extra.blockRules)=="array"){
-                        try{
-                            blockRules = Object.assign(blockRules,extra.blockRules);
-                        }catch(e){}
-                    }
-                    extra.blockRules = blockRules;
-                }
                 if(list_col_type.indexOf("_left")>-1){
                     extra.textAlign = 'left';
                 }
                 d.push({
                     title: 列表[i].title.trim().replace(/ |-|_/g,'').replace(name,''),
-                    url: "hiker://empty##" + 列表[i].url + lazy,
+                    url: "hiker://empty##" + 列表[i].url + $("").lazyRule((解析,publicfile,参数)=>{
+                        let url =input.split("##")[1];
+                        require(publicfile);
+                        
+                        return getLazy()
+
+                    },解析,publicfile,{
+                    name: name,
+                    title: 列表[i].title,
+                    id: i
+                    }),
                     desc: 列表[i].desc,
                     img: 列表[i].img,
                     col_type: 列表[i].col_type || list_col_type.replace("_left",""),
@@ -1217,35 +1373,7 @@ function downloadicon() {
 }
 
 //版本检测
-function Version() {
-    var nowVersion = getItem('Version', "0.3");//现在版本 
-    var nowtime = Date.now();
-    var oldtime = parseInt(getItem('VersionChecktime', '0').replace('time', ''));
-    if (getMyVar('SrcJu-VersionCheck', '0') == '0' && nowtime > (oldtime + 12 * 60 * 60 * 1000)) {
-        try {
-            eval(request(config.依赖.match(/http(s)?:\/\/.*\//)[0].replace('/Ju/', '/master/') + 'SrcTmplVersion.js'))
-            if (parseFloat(newVersion.SrcJu) > parseFloat(nowVersion)) {
-                confirm({
-                    title: '发现新版本，是否更新？',
-                    content: nowVersion + '=>' + newVersion.SrcJu + '\n' + newVersion.SrcJudesc[newVersion.SrcJu],
-                    confirm: $.toString((nowtime,newVersion) => {
-                        setItem('Version', newVersion);
-                        setItem('VersionChecktime', nowtime + 'time');
-                        deleteCache();
-                        delete config.依赖;
-                        refreshPage();
-                    }, nowtime, newVersion.SrcJu),
-                    cancel: ''
-                })
-                log('√检测到新版本！\nV' + newVersion.SrcJu + '版本》' + newVersion.SrcJudesc[newVersion.SrcJu]);
-            }
-            putMyVar('SrcJu-Version', '-V' + newVersion.SrcJu);
-        } catch (e) { }
-        putMyVar('SrcJu-VersionCheck', '1');
-    } else {
-        putMyVar('SrcJu-Version', '-V' + nowVersion);
-    }
-}
+
 //新搜索页
 function newsousuopage() {
     let d = [];
