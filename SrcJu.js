@@ -941,6 +941,7 @@ function erji() {
                 lineVisible: false
             }
         });
+        let r = getItem("r", "");
         setResult(d);
           if (getMyVar(surl) == "98") {
         let diskMark = storage0.getMyVar('diskMark') || {};
