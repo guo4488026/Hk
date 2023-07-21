@@ -316,34 +316,33 @@ function erji() {
             MY_PARAMS = erjiextra;
             eval("let 二获获取 = " + parse['二级'])
             details = detailsmark || 二获获取(surl);
-            pic = details.img || oldMY_PARAMS.img|| "https://p1.ssl.qhimgs1.com/sdr/400__/t018d6e64991221597b.jpg";
-            
-            pic = pic.indexOf("@Referer=") == -1 ? pic + "@Referer=" : pic;
+            pic = details.img || oldMY_PARAMS.img;// || "https://p1.ssl.qhimgs1.com/sdr/400__/t018d6e64991221597b.jpg";
+            pic = pic && pic.indexOf("@Referer=") == -1 ? pic + "@Referer=" : pic;
             erjiextra.img = pic;
             erjidetails.img = erjiextra.img || erjidetails.img;
             erjidetails.detail1 = details.detail1 || erjidetails.detail1;
-            erjidetails.detail2 =  details.detail2 || erjidetails.detail2;
+            erjidetails.detail2 = details.detail2 || erjidetails.detail2;
             erjidetails.desc = details.desc || erjidetails.desc;
+            let detailextra = details.detailextra || {};
+            detailextra.id = "detailid";
+            detailextra.cls = 'detailid';
+            detailextra.gradient = detailextra.gradient || true;
             d.push({
-            desc: '0&&list',
-            col_type: "x5_webview_single",
-            url: "hiker://empty",
-            extra: {
-                ua: MOBILE_UA,
-                id: "listsou"
-            }
-        })
+                desc: '0&&list',
+                col_type: "x5_webview_single",
+                url: "hiker://empty",
+                extra: {
+                    ua: MOBILE_UA,
+                    id: "listsou"
+                }
+            })
             d.push({
                 title: erjidetails.detail1 || "",
                 desc: erjidetails.detail2 || "",
                 pic_url: erjidetails.img,
                 url: details.detailurl || surl,
                 col_type: 'movie_1_vertical_pic_blur',
-                extra: {
-                    id: "detailid",
-                    gradient: true,
-                    cls: "detailid",
-                }
+                extra: detailextra
             })
             detailload = 1;
             lineid = parseInt(getMyVar("SrcJu_"+surl+"_line", (datasource[2].lineid || 0).toString()));
