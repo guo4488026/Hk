@@ -7,7 +7,7 @@ function readData(fileid,datatype){
         if(cachefiledata){
             eval("jkdata=" + cachefiledata);
         }else{
-            let sourcefile = "hiker://files/rules/Src/Ju/jiekou.json";
+            let sourcefile = "hiker://files/rules/Src/Hk/jiekou.json";
             let sourcedata = fetch(sourcefile);
             if(sourcedata != ""){
                 try{
