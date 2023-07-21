@@ -77,6 +77,10 @@ function yiji() {
             }),
             pic_url: "https://hikerfans.com/tubiao/more/129.png",
             col_type: 'icon_5',
+            extra: {
+            newWindow: true,
+            windowId: MY_RULE.title + "管理",
+            }
             
         })
         if(parse&&parse["排行"]){
@@ -530,7 +534,8 @@ function erji() {
             col_type: 'icon_small_3',
             extra: {
                 cls: "tabs playlist",
-
+                newWindow: true,
+                windowId: MY_RULE.title + "观影",
             }
           })
             
