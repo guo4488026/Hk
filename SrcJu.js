@@ -1361,6 +1361,9 @@ function search(keyword, mode, sdata, group, type) {
                 ssdata = 搜索(name,page,公共,参数) || [];
                 //log('√'+objdata.name+">搜索结果>"+ssdata.length);
                 let resultdata = [];
+                if(/hiker:\/\/page|@/.test(ssdata[0].url)){
+                   return {result:ssdata, success:1};
+                }else{
                 ssdata.forEach(item => {
                     let extra = item.extra || {};
                     extra.name = extra.name || extra.pageTitle || (item.title?item.title.replace(/‘|’|“|”|<[^>]+>|全集|国语|粤语/g,"").trim():"");
@@ -1393,7 +1396,9 @@ function search(keyword, mode, sdata, group, type) {
                         resultdata.push(item);
                     }
                 })
+                
                 return {result:resultdata, success:1};
+                }
             }
             return {result:[], success:0};
         } catch (e) {
