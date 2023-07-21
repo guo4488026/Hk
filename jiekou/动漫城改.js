@@ -28,6 +28,7 @@ let yidata = {
         var 更新表 = M[6]
         var 大标题 = M[7]
         var 大列表 = M[5]
+       
         var len = pdfa(html, 大列表);
         if (更新表 && 更新表 != "*") {
             var tabs = ["一", "二", "三", "四", "五", "六", "日"];
@@ -147,14 +148,13 @@ let yidata = {
 
         for (var i in len) {
 
-
+            
             var le = pdfa(len[i], M[0]).slice(0, 6)
 
-
-            if (rule.libs) {
-
-                var title = rule.libs[i]
-            } else {
+            if(rule.libs){
+            eval("var libs ="+rule.libs)
+            var title = libs[i]
+             } else {
                 title = pdfh(len[i], 大标题);
             }
             d.push({
