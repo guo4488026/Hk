@@ -909,12 +909,12 @@ function erji() {
                         title: "下载弹幕",
                         js: $.toString((vipUrl)=>{
     return $("").lazyRule((vipUrl)=>{
-        dm = $.require("hiker://page/dmFun?rule=dm.盒子").dmRoute(vipUrl);
-                                hideLoading();
+        dm = $.require("hiker://page/dmFun?rule=dm盒子").dmRoute(vipUrl);
+                               
                                 if (dm === false) {
-                                    return "toast://\u8c8c\u4f3c\u4e0b\u8f7d\u51fa\u9519\u4e86\u545c\u545c\u545c";
+                                    return "toast://加载弹幕失败";
                                 } else {
-                                    return "toast://\u4e0b\u8f7d\u6210\u529f\uff0c\u5feb\u53bb\u89c2\u5f71\u5427\uff0c\u3002";
+                                    return "toast://加载弹幕成功";
                                 }
                         },vipUrl)
 },列表[i].url)
