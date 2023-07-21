@@ -904,7 +904,7 @@ function erji() {
                 extra.id = name + "_选集_" + i;
                 extra.referer = 列表[i].url;
                 extra.cls = "loadlist playlist";
-                if(/qq.com|bilibili|iqiyi|youku/.test()){
+                if(/qq.com|bilibili|iqiyi|youku/.test(列表[i].url)){
                     extra.longClick=[{
                         title: "下载弹幕",
                         js: $.toString((vipUrl)=>{
