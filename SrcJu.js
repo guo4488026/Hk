@@ -316,7 +316,7 @@ function erji() {
             MY_PARAMS = erjiextra;
             eval("let 二获获取 = " + parse['二级'])
             details = detailsmark || 二获获取(surl);
-            pic = details.img || oldMY_PARAMS.img; // || "https://p1.ssl.qhimgs1.com/sdr/400__/t018d6e64991221597b.jpg";
+            pic = details.img || oldMY_PARAMS.img|| "https://p1.ssl.qhimgs1.com/sdr/400__/t018d6e64991221597b.jpg";
             
             pic = pic.indexOf("@Referer=") == -1 ? pic + "@Referer=" : pic;
             erjiextra.img = pic;
@@ -962,7 +962,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                     title: 列表[i].title.trim().replace(/ |-|_/g,'').replace(name,''),
                     url: url,
                     desc: 列表[i].desc,
-                    //img: 列表[i].img,
+                    img: 列表[i].img,
                     col_type: extra.col_type?extra.col_type:list_col_type,
                     extra: extra
                 });
