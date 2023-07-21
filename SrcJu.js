@@ -1391,11 +1391,11 @@ function search(keyword, mode, sdata, group, type) {
                             }
                         }, extra);
                          }
-                        item.title = objmode=="erji"?objdata.name:item.title;
+                        item.title = item.title;
                         //item.content = item.content || item.desc;
                         item.desc = item.desc || "";
                         item.desc = objmode=="sousuo"||objmode=="sousuopage"  ? MY_RULE.title+' · '+objdata.name+' · '+item.desc :objmode=="sousuotest"?(item.content || item.desc): (extra.desc || item.desc);
-                        item.col_type = objmode=="sousuo"||objmode=="jusousuo"  ? "video" : (objmode=="sousuotest"||objmode=="sousuopage") ? "movie_1_vertical_pic" : "avatar";
+                        item.col_type = "movie_1_vertical_pic"
                         resultdata.push(item);
                     }
                 })
