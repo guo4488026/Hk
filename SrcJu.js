@@ -662,7 +662,7 @@ function erji() {
                         refreshPage(false)
 
                     }else{
-                    return  $(["text_1","text_2","text_3","text_4","flex_button","moive_2","pic_2"],2,"选集列表样式").select((sname)=>{
+                    return  $(["text_1","text_2","text_3","text_4","flex_button","movie_2","pic_2"],2,"选集列表样式").select((sname)=>{
                      setItem("SrcJuList_col_type"+sname,input)
                     refreshPage()
                      return "hiker://empty"
