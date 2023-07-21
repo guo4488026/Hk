@@ -904,6 +904,20 @@ function erji() {
                 extra.id = name + "_选集_" + i;
                 extra.referer = 列表[i].url;
                 extra.cls = "loadlist playlist";
+                if(/qq.com|bilibili|iqiyi|youku/.test()){
+                    extra.longClick=[{
+                        title: "下载弹幕",
+                        js: $.toString((vipUrl)=>{
+      dm = $.require("hiker://page/dmFun?rule=dm.盒子").dmRoute(vipUrl);
+                                hideLoading();
+                                if (dm === false) {
+                                    return "toast://\u8c8c\u4f3c\u4e0b\u8f7d\u51fa\u9519\u4e86\u545c\u545c\u545c";
+                                } else {
+                                    return "toast://\u4e0b\u8f7d\u6210\u529f\uff0c\u5feb\u53bb\u89c2\u5f71\u5427\uff0c\u3002";
+                                }
+},列表[i].url)
+                    }]
+                }
                 var 参数 = {
                     name: name,
                     title: 列表[i].title,
