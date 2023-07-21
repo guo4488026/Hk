@@ -893,7 +893,7 @@ function erji() {
 
         }
             for(let i=0; i<列表.length; i++) {
-                let extra = details["extra"] ||{};
+                let extra = 列表[i].extra || {};
                 try {
                     extra = Object.assign(extra, details["extra"] || {});
                 } catch (e) {}
