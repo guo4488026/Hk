@@ -1361,9 +1361,8 @@ function search(keyword, mode, sdata, group, type) {
                 ssdata = 搜索(name,page,公共,参数) || [];
                 //log('√'+objdata.name+">搜索结果>"+ssdata.length);
                 let resultdata = [];
-                if(/hiker:\/\/page|@/.test(ssdata[0].url)){
-                   return {result:ssdata, success:1};
-                }else{
+               
+              
                 ssdata.forEach(item => {
                     let extra = item.extra || {};
                     extra.name = extra.name || extra.pageTitle || (item.title?item.title.replace(/‘|’|“|”|<[^>]+>|全集|国语|粤语/g,"").trim():"");
@@ -1374,7 +1373,10 @@ function search(keyword, mode, sdata, group, type) {
                         extra.pageTitle = extra.pageTitle || extra.name;
                         extra.surl = item.url && !/js:|select:|\(|\)|=>|hiker:\/\/page|@|toast:/.test(item.url) ? item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#readTheme#|#autoPage#|#noLoading#|#/g, "") : "";
                         item.extra = extra;
-                        item.url = /sousuo/.test(objmode) ? /js:|select:|\(|\)|=>|hiker:\/\/page|toast:/.test(item.url)?item.url:$("hiker://empty#immersiveTheme##autoCache#").rule(() => {
+                         if(/js:|select:|\(|\)|=>|hiker:\/\/page|toast:/.test(item.url)){
+                             item.url = item.url
+                         }else{
+                        item.url = /sousuo/.test(objmode) ? $("hiker://empty#immersiveTheme##autoCache#").rule(() => {
                             require(config.依赖);
                             erji();
                         }) : "hiker://empty##"+ item.url + $("#noLoading#").b64().lazyRule((extra) => {
@@ -1388,6 +1390,7 @@ function search(keyword, mode, sdata, group, type) {
                                 return "toast://已切换源：" + extra.sname;
                             }
                         }, extra);
+                         }
                         item.title = objmode=="erji"?objdata.name:item.title;
                         //item.content = item.content || item.desc;
                         item.desc = item.desc || "";
@@ -1398,7 +1401,7 @@ function search(keyword, mode, sdata, group, type) {
                 })
                 
                 return {result:resultdata, success:1};
-                }
+                
             }
             return {result:[], success:0};
         } catch (e) {
