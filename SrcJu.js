@@ -891,7 +891,7 @@ function erji() {
             return getMyVar("path", "")
 
         }
-            /*for(let i=0; i<列表.length; i++) {
+            for(let i=0; i<列表.length; i++) {
                 let extra = 列表[i].extra || {};
                 try {
                     extra = Object.assign(extra, details["extra"] || {});
@@ -965,7 +965,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                     col_type: extra.col_type?extra.col_type:list_col_type,
                     extra: extra
                 });
-            }*/
+            }
             
             if(列表.length>0 || getMyVar('jiekouedit')){
                 isload = 1;
