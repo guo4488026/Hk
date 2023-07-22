@@ -411,7 +411,7 @@ function erji() {
           
                d.push({
             title: "搜索",
-            url: $(runModes, 2).select((name) => {
+            url: $(runModes, 2).select((name,sgroup) => {
             
                return $("#noLoading#").lazyRule((name,sgroup,stype) => {
                     updateItem("listloading2", { 
@@ -444,7 +444,7 @@ function erji() {
                         return  "hiker://empty";
                     }
                 }, name,sgroup,input)
-            },MY_PARAMS.name),
+            },MY_PARAMS.name,sgroup),
             img: "https://hikerfans.com/tubiao/more/103.png",
             col_type: "icon_4"
         })
