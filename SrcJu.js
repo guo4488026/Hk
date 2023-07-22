@@ -956,10 +956,10 @@ function erji() {
                 }else if(列表[i].url.includes("aliyundrive.com")){
                     url = "hiker://page/aliyun?rule=云盘君.简&pageTitle=打开链接&page=fypage&realurl=" + encodeURIComponent(列表[i].url)
                 }else if (/qq.com|youku|mgtv|iqiyi|bilibili/.test(列表[i].url)) {
-                url = 列表[i].url + $("").lazyRule((解析) => {
+                url = 列表[i].url + $("").lazyRule((解析,参数) => {
                     eval("let 解析2 = " + 解析);
                     return 解析2(input);
-                }, 解析)
+                }, 解析,参数)
             } else if (getItem("superweb", "0") == "1" && !/hiker/.test(列表[i].url)) {
 eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                 url = JSON.stringify(PlayList(i)) + $("").lazyRule((GetDm, 参数) => {
