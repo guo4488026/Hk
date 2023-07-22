@@ -564,7 +564,8 @@ function erji() {
                     }else{
                         clearMyVar('已选择换源列表');
                         require(config.依赖);
-                        deleteItemByCls('loadlist');
+                        deleteItemByCls('playlist');
+
                         showLoading('搜源中,请稍后.');
                         search(name,"erji",false,sgroup,stype);
                         hideLoading();
@@ -1419,8 +1420,8 @@ function search(keyword, mode, sdata, group, type) {
                         item.title = item.title;
                         //item.content = item.content || item.desc;
                         var erdesc = item.desc? "("+ item.desc +")":"";
-                        objmode=="erji"? objdata.name + erdesc :item.desc;
-                        item.desc = objmode=="sousuo"||objmode=="sousuopage"  ? MY_RULE.title+' · '+objdata.name+' · '+item.desc :objmode=="sousuotest"?(item.content || item.desc): (extra.desc || item.desc);
+                      
+                        item.desc = objmode=="sousuo"||objmode=="sousuopage"||objmode=="erji"  l? objdata.name+' · '+item.desc :objmode=="sousuotest"?(item.content || item.desc): (extra.desc || item.desc);
                          item.col_type = objmode=="sousuo"||objmode=="jusousuo"  ? "video" : (objmode=="sousuotest"||objmode=="sousuopage") ? "movie_1_vertical_pic" : "avatar";
                         resultdata.push(item);
                     }
