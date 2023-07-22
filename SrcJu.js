@@ -958,7 +958,7 @@ function erji() {
                 }else if (/qq.com|youku|mgtv|iqiyi|bilibili/.test(列表[i].url)) {
                 url = 列表[i].url + $("").lazyRule((解析,参数) => {
                     eval("let 解析2 = " + 解析);
-                    return 解析2(input);
+                    return 解析2(input,参数);
                 }, 解析,参数)
             } else if (getItem("superweb", "0") == "1" && !/hiker/.test(列表[i].url)) {
 eval(JSON.parse(fetch("hiker://page/danmu")).rule);
