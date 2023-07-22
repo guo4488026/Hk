@@ -201,7 +201,7 @@ function getYiData(type,od) {
         }
         data.forEach(item => {
             let extra = item.extra || {};
-            log(extra)
+         
             extra.name = extra.name || extra.pageTitle || (item.title?item.title.replace(/‘|’|“|”|<[^>]+>/g,""):"");
             extra.img = extra.img || item.pic_url || item.img;
             
@@ -209,7 +209,7 @@ function getYiData(type,od) {
             extra.pageTitle = extra.pageTitle || extra.name;
             if(item.url && !/js:|select:|\(|\)|=>|@|toast:|hiker:\/\/page/.test(item.url)){
                 extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g,"");
-                extra.sname = sourcename;
+                extra.sname = extra.sname||sourcename;
             }
             if((item.col_type!="scroll_button") || item.extra){
                 item.extra = extra;
