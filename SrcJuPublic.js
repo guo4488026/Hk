@@ -201,6 +201,7 @@ function getYiData(type,od) {
         }
         data.forEach(item => {
             let extra = item.extra || {};
+            log(extra)
             extra.name = extra.name || extra.pageTitle || (item.title?item.title.replace(/‘|’|“|”|<[^>]+>/g,""):"");
             extra.img = extra.img || item.pic_url || item.img;
             
