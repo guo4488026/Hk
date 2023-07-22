@@ -928,7 +928,11 @@ function erji() {
                 if(list_col_type.indexOf("_left")>-1){
                     extra.textAlign = 'left';
                 }
-                if(列表[i].url.includes("aliyundrive.com")){
+                
+                if(/@|hiker:\/\/page\/|lazyRule/.test(列表[i].url)){
+                    url=列表[i].url
+                    
+                }else if(列表[i].url.includes("aliyundrive.com")){
                     url = "hiker://page/aliyun?rule=云盘君.简&pageTitle=打开链接&page=fypage&realurl=" + encodeURIComponent(列表[i].url)
                 }else if (/qq.com|youku|mgtv|iqiyi|bilibili/.test(列表[i].url)) {
                 url = 列表[i].url + $("").lazyRule((解析) => {
