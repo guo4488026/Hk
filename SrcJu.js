@@ -240,7 +240,7 @@ function erji() {
     let 公共;
     let 标识;
     let details;
-    let stype = MY_PARAMS.stype;
+    let stype = myerjiextra.stype||MY_PARAMS.stype;
     let datasource = [myerjiextra, MY_PARAMS, getMark(name, stype)];
     let erjiextra;
     let sname;
