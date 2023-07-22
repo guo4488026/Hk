@@ -929,7 +929,7 @@ function erji() {
                     extra.textAlign = 'left';
                 }
                 
-                if(/@|hiker:\/\/page\/|lazyRule/.test(列表[i].url)){
+                if(/@|ed2k:\/\/|\.torrent|hiker:\/\/page\/|lazyRule/.test(列表[i].url)){
                     url=列表[i].url
                     
                 }else if(列表[i].url.includes("aliyundrive.com")){
