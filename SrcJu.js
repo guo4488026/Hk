@@ -426,7 +426,7 @@ function erji() {
                     }else if(!getMyVar('SrcJuSearching')){
                         clearMyVar('已选择换源列表');
                         require(config.依赖);
-                        deleteItemByCls('loadlist');
+                        deleteItemByCls('playlist');
                         showLoading('搜源中,请稍后.');
                         search(name,"erji",false,sgroup,stype);
                         hideLoading();
@@ -574,7 +574,7 @@ function erji() {
                     }else if(!getMyVar('SrcJuSearching')){
                         clearMyVar('已选择换源列表');
                         require(config.依赖);
-                        deleteItemByCls('loadlist');
+                        deleteItemByCls('playlist');
                         showLoading('搜源中,请稍后.');
                         search(name,"erji",false,sgroup,stype);
                         hideLoading();
