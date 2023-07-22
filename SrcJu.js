@@ -443,8 +443,8 @@ function erji() {
                         hideLoading();
                         return  "hiker://empty";
                     }
-                }, name,sgroup,input),
-            }, MY_PARAMS.name),
+                }, name,sgroup,input)
+            },MY_PARAMS.name),
             img: "https://hikerfans.com/tubiao/more/103.png",
             col_type: "icon_4"
         })
