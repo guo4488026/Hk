@@ -1421,7 +1421,10 @@ function search(keyword, mode, sdata, group, type) {
                         //item.content = item.content || item.desc;
                         var erdesc = item.desc? "("+ item.desc +")":"";
                       
-                        item.desc = objmode=="sousuo"||objmode=="sousuopage"  ? MY_RULE.title+' · '+objdata.name+' · '+item.desc :objmode=="sousuotest"?(item.content || item.desc): (extra.desc || item.desc);
+                        item.desc = objmode=="sousuo"||objmode=="sousuopage" ? MY_RULE.title+' · '+objdata.name+' · '+item.desc :objmode=="sousuotest"?(item.content || item.desc): (extra.desc || item.desc);
+                        if(mode=="erji"){
+                            item.desc=extra.sname+"·"+item.desc
+                        }
                          item.col_type = objmode=="sousuo"||objmode=="jusousuo"  ? "video" : (objmode=="sousuotest"||objmode=="sousuopage") ? "movie_1_vertical_pic" : "avatar";
                         resultdata.push(item);
                     }
