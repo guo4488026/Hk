@@ -412,18 +412,38 @@ function erji() {
                d.push({
             title: "搜索",
             url: $(runModes, 2).select((name) => {
-                if (getMyVar("sousuoname")) {
-                    clearMyVar("sousuoname")
-                    clearMyVar("sousuoPageType")
+            
+               return $("#noLoading#").lazyRule((name,sgroup,stype) => {
+                    updateItem("listloading2", { 
+                        extra: {
+                            id: "listloading",
+                            lineVisible: false
+                        } 
+                    });
+                    putMyVar("listloading","1");//做为排序和样式动态处理插入列表时查找id判断
+                    if(getMyVar('SrcJuSousuoTest')){
+                        return "toast://编辑测试模式下不允许换源.";
+                    }else if(!getMyVar('SrcJuSearching')){
+                        clearMyVar('已选择换源列表');
+                        require(config.依赖);
+                        deleteItemByCls('loadlist');
+                        showLoading('搜源中,请稍后.');
+                        search(name,"erji",false,sgroup,stype);
+                        hideLoading();
+                        return  "hiker://empty";
+                    }else if(getMyVar('SrcJuSearchMode')=="sousuo"){
+                        return "toast://上一个搜索线程还未结束，稍等...";
+                    }else{
+                        clearMyVar('已选择换源列表');
+                        require(config.依赖);
+                        deleteItemByCls('playlist');
 
-                } else {
-
-
-                    putMyVar("sousuoname", name)
-                    putMyVar("sousuoPageType", input)
-                }
-                refreshPage()
-                return "hiker://empty"
+                        showLoading('搜源中,请稍后.');
+                        search(name,"erji",false,sgroup,stype);
+                        hideLoading();
+                        return  "hiker://empty";
+                    }
+                }, name,sgroup,input),
             }, MY_PARAMS.name),
             img: "https://hikerfans.com/tubiao/more/103.png",
             col_type: "icon_4"
@@ -1042,7 +1062,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
 
 
         deleteItemByCls("playlist")
-        deleteItemByCls("loadlist")
+        
         if (runModes.includes(getMyVar('sousuoPageType'))) {
             let info = storage0.getMyVar('一级源接口信息') || {};
 
