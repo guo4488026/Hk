@@ -966,7 +966,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                     if (getItem("dm") == "1") {
                         var danmu = GetDm(参数.name, 参数.title, 参数.id);
                         try {
-                            var urls = JSON.parse(video)
+                            var urls = video
                             urls.danmu = danmu
                             return urls
                         } catch (e) {
