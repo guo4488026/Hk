@@ -1439,7 +1439,9 @@ function search(keyword, mode, sdata, group, type) {
                          }
                         item.title = item.title;
                         //item.content = item.content || item.desc;
-                        var erdesc = item.desc? "("+ item.desc +")":"";
+                        if(!item.desc){
+                           item.desc = "未知"
+                        }
                       
                         item.desc = objmode=="sousuo"||objmode=="sousuopage" ? MY_RULE.title+' · '+objdata.name+' · '+item.desc :objmode=="sousuotest"?(item.content || item.desc): (extra.desc || item.desc);
                         if(mode=="erji"){
