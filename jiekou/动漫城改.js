@@ -87,9 +87,9 @@ let yidata = {
                                 extra: {
                                     cls: MY_URL + "_选集",
                                     name: pdfh(data, tu[1]),
-                                    stype: stype,
+                                    stype: runMode,
                                     pageTitle: pdfh(data, tu[1]),
-                                    sname: runMode,
+                                    sname: sname,
                                     surl: getHome(MY_URL) + pdfh(data, tu[4]),
                                     img: pdfh(data, tu[2]),
 
