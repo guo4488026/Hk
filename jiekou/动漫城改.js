@@ -59,7 +59,7 @@ let yidata = {
             tabs.forEach((data, id) => {
                 d.push({
                     title: getMyVar(MY_URL, 定位(week)) == id ? '‘‘’’<strong><font color="#FA7298">☀周' + data + '</font></strong>' : data,
-                    url: $("#noLoading#").lazyRule((线路, id, MY_URL, tu, sname) => {
+                    url: $("#noLoading#").lazyRule((线路, id, MY_URL, tu, sname,runMode) => {
                         MY_URL = MY_URL
                         var lists = storage0.getMyVar("lists_1");
 
@@ -87,9 +87,9 @@ let yidata = {
                                 extra: {
                                     cls: MY_URL + "_选集",
                                     name: pdfh(data, tu[1]),
-                                    stype: "影视",
+                                    stype: stype,
                                     pageTitle: pdfh(data, tu[1]),
-                                    sname: sname,
+                                    sname: runMode,
                                     surl: getHome(MY_URL) + pdfh(data, tu[4]),
                                     img: pdfh(data, tu[2]),
 
@@ -99,7 +99,7 @@ let yidata = {
                         deleteItemByCls(MY_URL + "_选集");
                         addItemBefore(MY_URL + "footer", cp);
                         return "hiker://empty"
-                    }, tabs, id, MY_URL, M, 公共.sname),
+                    }, tabs, id, MY_URL, M, 公共.sname,runMode),
                     col_type: 'flex_button',
                     extra: {
                         id: MY_URL + "_线路" + id
