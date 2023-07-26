@@ -1643,7 +1643,7 @@ function newsousuopage(keyword, searchtype, relyfile) {
             }, it),
             col_type: 'text_5'
         }
-        if (i == 4) {
+        if (i == (typebtn.length-1)) {
             obj.extra = {};
             obj["extra"].longClick = [{
                 title: "🔍聚影搜索",
