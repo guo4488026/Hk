@@ -979,7 +979,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                 })
             } else {
                 url ="hiker://empty##"+ 列表[i].url + $("").lazyRule((解析, 公共, 参数) => {
-                    eval(JSON.parse(fetch("hiker://page/danmu")).rule);
+                    
                     
                     var url=input.split("##")[1]
                     eval("let 解析2 = " + 解析);
