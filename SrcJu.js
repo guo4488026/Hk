@@ -986,7 +986,9 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                     var video = 解析2(url, 公共, 参数);
 
                     if (getItem("dm") == "1") {
-                        var danmu = GetDm(参数.name, 参数.title, 参数.id);
+                        var id=参数.name+"_选集_"+参数.id;
+                        if(getMyVar(id)){
+                        var danmu = getMyVar(id);
                         if(video.includes("urls")){
                   
                                              
@@ -1000,6 +1002,9 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                                 danmu: danmu
                             })
                         }
+                       }else{
+                           return "hiker://page/loadDm?rule=云盘君.简&name="+参数.name+"&id="+id
+                       }
                     } else {
                         return video
                     }
