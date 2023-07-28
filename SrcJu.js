@@ -1056,7 +1056,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
             // deleteItemByCls('listsort');
             addItemBefore('listloading', diskMark[MY_PARAMS.name]);
         } else {
-            require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJyAliDisk.js');
+            require(config.依赖.match(/http(s)?:\/\/.*\//)[0].replace("/Ju/","/master/") + 'SrcJyAliDisk.js');
             aliDiskSearch(MY_PARAMS.name);
         }
     }
