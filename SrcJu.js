@@ -998,7 +998,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                                 urls: [video],
                                 danmu: danmu
                             })
-                        }}
+                        }
                     } else {
                         return video
                     }
