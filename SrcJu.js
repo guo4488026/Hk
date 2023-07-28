@@ -331,7 +331,7 @@ function erji() {
             detailextra.id = "detailid";
             detailextra.cls = 'detailid';
             detailextra.gradient = detailextra.gradient || true;
-            detailextra.name = name
+           
             d.push({
                 desc: '0&&list',
                 col_type: "x5_webview_single",
@@ -345,7 +345,7 @@ function erji() {
                 title: erjidetails.detail1 || "",
                 desc: erjidetails.detail2 || "",
                 pic_url: erjidetails.img,
-                url:getItem("dm")=="1"? "hiker://page/loadDm?rule=云盘君.简": (details.detailurl? details.detailurl: surl),
+                url:details.detailurl? details.detailurl: surl,
                 col_type: 'movie_1_vertical_pic_blur',
                 extra: detailextra
             })
@@ -1003,7 +1003,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                             })
                         }
                        }else{
-                           return "hiker://page/loadDm?rule=云盘君.简&name="+参数.name+"&id="+id
+                           return "hiker://page/loadDm#autoCache#?name="+参数.name+"&id="+id
                        }
                     } else {
                         return video
