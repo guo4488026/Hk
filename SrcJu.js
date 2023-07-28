@@ -989,7 +989,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                         if(video.includes("urls")){
                   
                                              
-                            var urls = video
+                            var urls = JSON.parse(video)
                             urls.danmu = danmu
                             return urls
                             
