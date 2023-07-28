@@ -986,16 +986,19 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
 
                     if (getItem("dm") == "1") {
                         var danmu = GetDm(参数.name, 参数.title, 参数.id);
-                        try {
+                        if(video.includes("urls")){
+                  
+                                             
                             var urls = video
                             urls.danmu = danmu
                             return urls
-                        } catch (e) {
+                            
+                        } else {
                             return JSON.stringify({
                                 urls: [video],
                                 danmu: danmu
                             })
-                        }
+                        }}
                     } else {
                         return video
                     }
