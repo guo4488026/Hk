@@ -454,8 +454,8 @@ function erji() {
             title: "云盘君",
             url: $("").lazyRule((name) => {
                 clearItem("r");
-                if (getMyVar('sousuoPageType') != "云盘君") {
-                    putMyVar("sousuoPageType", "云盘君")
+                if (getMyVar('sousuoPageType') != "云盘君.简") {
+                    putMyVar("sousuoPageType", "云盘君.简")
                     putMyVar("sousuoname", name)
                 } else {
 
@@ -466,14 +466,14 @@ function erji() {
                 refreshPage()
                 return "hiker://empty"
 
-            }, MY_PARAMS.name),
+            }, name),
             img: "https://p2.itc.cn/q_70/images03/20211009/59c75745d3524163b9277c4006020ac0.jpeg",
             col_type: "icon_4",
             extra: {
                 longClick: [{
                     title: "云盘君",
                     js: $.toString(() => {
-                        return "hiker://page/yijidata?rule=云盘君"
+                        return "hiker://page/yijidata?rule=云盘君.简"
 
                     })
                 }]
@@ -481,30 +481,11 @@ function erji() {
         })
 
         d.push({
-            title: "夸克",
-            url: $("").lazyRule((name) => {
-                clearItem("r");
-                if (getMyVar('sousuoPageType') != "夸克网盘") {
-                    putMyVar("sousuoPageType", "夸克网盘")
-                    putMyVar("sousuoname", name)
-                } else {
-                    clearMyVar("sousuoname")
-                    clearMyVar("sousuoPageType")
-                }
-                refreshPage()
-                return "hiker://empty"
-            }, MY_PARAMS.name),
+            title: "动漫花园",
+            url: "hiker://page/搜索结果#noRecordHistory##noHistory#?rule=动漫花园同步站&page=fypage&keyword="+name,
             img: "http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256",
             col_type: "icon_4",
-            extra: {
-                longClick: [{
-                    title: "uckk云",
-                    js: $.toString(() => {
-                        return "hiker://page/search2?rule=uckk云"
-
-                    })
-                }]
-            }
+            
         })
 
         d.push({
