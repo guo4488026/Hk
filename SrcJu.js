@@ -943,13 +943,17 @@ function erji() {
                     return 解析2(input,参数);
                 }, 解析,参数)
             } else if (getItem("superweb", "0") == "1" && !/hiker/.test(列表[i].url)) {
-eval(JSON.parse(fetch("hiker://page/danmu")).rule);
+
                 url = JSON.stringify(PlayList(i)) + $("").lazyRule((GetDm, 参数) => {
-                    var danmu = getItem("dm", 0) == "1" ? GetDm(参数.name, 参数.title, 参数.id) : "";
+                    var id=参数.name+"_选集_"+参数.id;
+                        if(getMyVar(id)){
+                        var danmu = getMyVar(id);
                     var url = JSON.parse(input)
                     url.danmu = danmu
                     return url
-
+}else{
+    return "hiker://page/loadDm?name="+参数.name+"&id="+id
+}
                 },参数)
 
             } else if (getItem("parsemode", "3") == "3" && !/hiker/.test(列表[i].url)) {
@@ -984,7 +988,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                             })
                         }
                        }else{
-                           return "hiker://page/loadDm#autoCache#?name="+参数.name+"&id="+id
+                           return "hiker://page/loadDm?name="+参数.name+"&id="+id
                        }
                     } else {
                         return video
