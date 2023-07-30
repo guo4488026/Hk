@@ -984,7 +984,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                             })
                         }
                        }else{
-                           return "hiker://page/loadDm?name="+参数.name+"&id="+id
+                           return "hiker://page/loadDm#autoCache#?name="+参数.name+"&id="+id
                        }
                     } else {
                         return video
