@@ -1103,7 +1103,7 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                                         pic_url: getMyVar('sousuoPageType') == "云盘君" ? "hiker://files/cache/src/文件夹.svg" : "https://hikerfans.com/tubiao/messy/27.svg",
                                         col_type: "avatar",
                                         extra: {
-                                            id: "__app" + MY_PAGE + "@" + param.j,
+                                            id: "__app" + MY_PAGE + "@" + param.j, name: getMyVar("s"),                                         
                                             inheritTitle: false
                                         }
                                     })
@@ -1122,7 +1122,8 @@ eval(JSON.parse(fetch("hiker://page/danmu")).rule);
                                 desc: "",
                                 pic_url: "",
                                 extra: {
-                                    id: pageid
+                                    id: pageid,
+                                    
                                 }
                             })
                         }
