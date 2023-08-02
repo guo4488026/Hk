@@ -568,6 +568,9 @@ function JYerji(){
             lineVisible: false
         }
     });
+    addListener("onClose", $.toString(() => {
+        clearMyVar('SrcJyDisk$back');
+    }));
     setResult(d);
     if(lineindex == "98"){
         let diskMark = storage0.getMyVar('diskMark') || {};

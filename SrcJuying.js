@@ -463,8 +463,8 @@ function erji() {
     addListener("onClose", $.toString(() => {
         clearMyVar('SrcM3U8');
         clearMyVar('SrcXTNH');
+        clearMyVar('SrcJy$back');
     }));
-    clearMyVar('SrcJy$back');
     require(config.依赖.match(/http(s)?:\/\/.*\//)[0].replace('/Ju/','/master/') + 'SrcJyData.js');
     JYerji();
 
@@ -568,7 +568,7 @@ function sousuo2() {
         url: $.toString((searchurl) => {
                 if(input.indexOf('https://www.aliyundrive.com/s/')>-1){
                     input = input.replace('http','\nhttp');
-                    return $("hiker://empty##fypage#noRecordHistory##noHistory#").rule((input) => {
+                    return $("hiker://empty#noRecordHistory##noHistory#").rule((input) => {
                         require(config.依赖.match(/http(s)?:\/\/.*\//)[0].replace('/Ju/','/master/') + 'SrcJyAliDisk.js');
                         aliShareUrl(input);
                     },input);
@@ -646,7 +646,7 @@ function sousuo2() {
                                 }
                                 if(sug.img!=""){
                                     sugitem.title = sug.title;
-                                    sugitem.img = sug.img + '@Referer=';
+                                    sugitem.img = sug.img + '@Referer=https://www.douban.com';
                                     sugitem.desc = "年份：" + sug.year;
                                     sugitem.col_type = "movie_1_vertical_pic";
                                 }else{
@@ -936,7 +936,7 @@ function sousuo() {
 
 //版本检测
 function Version() {
-    var nowVersion = "7.7";//现在版本 
+    var nowVersion = "7.8";//现在版本 
     var nowtime = Date.now();
     var oldtime = parseInt(getItem('VersionChecktime','0').replace('time',''));
     if (getMyVar('SrcJuying-VersionCheck', '0') == '0' && nowtime > (oldtime+12*60*60*1000)) {
