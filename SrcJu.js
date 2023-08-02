@@ -1062,7 +1062,7 @@ function erji() {
             let diskMark = storage0.getMyVar('diskMark') || {};
             if (diskMark[MY_PARAMS.name]) {
                 deleteItemByCls("playlist")
-                deleteItemByCls("loadlist")
+                
 
                 // deleteItemByCls('listsort');
                 addItemBefore('listloading', diskMark[MY_PARAMS.name]);
