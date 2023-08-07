@@ -342,11 +342,10 @@ function erji() {
             detailextra.id = "detailid";
             detailextra.cls = 'detailid';
             detailextra.gradient = detailextra.gradient || true;
-
+            
             d.push({
                 desc: '0&&list',
                 col_type: "x5_webview_single",
-                url: "hiker://empty",
                 extra: {
                     ua: MOBILE_UA,
                     id: "listsou"
@@ -422,7 +421,17 @@ function erji() {
             let lazy;
             let itype;
             let 解析 = parse['解析'];
-
+            lazy = $("").lazyRule((解析,参数) => {
+                    let url = input.split("##")[1];
+                    let 公共 = {};
+                    try{
+                        公共 = $.require('jiekou'+(/聚阅/.test(参数.规则名)?'':'?rule=聚阅√')).公共(参数.标识);
+                    }catch(e){
+                        toast('未找到聚阅规则子页面');
+                    }
+                    eval("let 解析2 = " + 解析);
+                    return 解析2(url,公共,参数);
+                }, 解析, {"规则名": MY_RULE.title, "标识": 标识});
             d.push({
                 title: "搜索",
                 url: $(runModes, 2).select((name, sgroup) => {
@@ -913,123 +922,40 @@ function erji() {
                 return getMyVar("path", "")
 
             }
-            for (let i = 0; i < 列表.length; i++) {
+             for(let i=0; i<列表.length; i++) {
                 let extra = 列表[i].extra || {};
-                try {
+                try{
                     extra = Object.assign(extra, details["extra"] || {});
-                } catch (e) {}
-                extra.id = name + "_选集_" + i;
-                extra.referer = 列表[i].url;
+                }catch(e){}
+                extra.id =  列表[i].url;
+                extra.url = 列表[i].url;
                 extra.cls = "loadlist playlist";
-                if (/qq.com|bilibili|iqiyi|youku/.test(列表[i].url)) {
-                    extra.longClick = [{
-                        title: "下载弹幕",
-                        js: $.toString((vipUrl) => {
-                            return $("").lazyRule((vipUrl) => {
-                                dm = $.require("hiker://page/dmFun?rule=dm盒子").dmRoute(vipUrl);
-
-                                if (dm === false) {
-                                    return "toast://加载弹幕失败";
-                                } else {
-                                    return "toast://加载弹幕成功";
-                                }
-                            }, vipUrl)
-                        }, 列表[i].url)
-                    }]
+                
+                extra.jsLoadingInject = true;
+                let blockRules = ['.m4a', '.mp3', '.gif', '.jpeg', '.jpg', '.ico', '.png', 'hm.baidu.com', '/ads/*.js', 'cnzz.com', '51.la'];
+                if(extra.blockRules && $.type(extra.blockRules)=="array"){
+                try{
+                    blockRules = Object.assign(blockRules,extra.blockRules);
+                    }catch(e){}
                 }
-                var 参数 = {
-                    name: name,
-                    title: 列表[i].title,
-                    id: i
-                }
-                if (list_col_type.indexOf("_left") > -1) {
+                    extra.blockRules = blockRules;
+                
+                if(list_col_type.indexOf("_left")>-1){
                     extra.textAlign = 'left';
                 }
-
-                if (/@|ed2k:\/\/|\.torrent|magnet:|hiker:\/\/page\/|lazyRule/.test(列表[i].url)) {
-                    url = 列表[i].url
-
-                } else if (列表[i].url.includes("aliyundrive.com")) {
-                    url = "hiker://page/aliyun?rule=云盘君.简&pageTitle=打开链接&page=fypage&realurl=" + encodeURIComponent(列表[i].url)
-                } else if (/qq.com|youku|mgtv|iqiyi|bilibili/.test(列表[i].url)) {
-                    url = 列表[i].url + $("").lazyRule((解析, 参数) => {
-                        eval("let 解析2 = " + 解析);
-                        return 解析2(input, 参数);
-                    }, 解析, 参数)
-                } else if (getItem("superweb", "0") == "1" && !/hiker/.test(列表[i].url)) {
-
-                    url = JSON.stringify(PlayList(i)) + $("").lazyRule((参数) => {
-                        var id = 参数.name + "_选集_" + 参数.id;
-
-
-                        if (getMyVar(id)) {
-                            var danmu = getMyVar(id);
-                            var url = JSON.parse(input)
-                            url.danmu = danmu
-                            return url
-                        } else {
-                            if (getItem("dm") == "0") {
-                                return input
-                            } else {
-                                return "hiker://page/loadDm?name=" + 参数.name + "&id=" + id
-                            }
-                        }
-                    }, 参数)
-
-                } else if (getItem("parsemode", "3") == "3" && !/hiker/.test(列表[i].url)) {
-                    url = 列表[i].url + $("").lazyRule(() => {
-                        require(config.依赖.match(/http(s)?:\/\/.*\//)[0].replace("/Ju/", "/master/") + "SrcParseS.js");
-                        return SrcParseS.task({}, input);
-
-                    })
-                } else {
-                    url = "hiker://empty##" + 列表[i].url + $("").lazyRule((解析, 公共, 参数) => {
-
-
-                        var url = input.split("##")[1]
-                        eval("let 解析2 = " + 解析);
-                        var video = 解析2(url, 公共, 参数);
-
-                        if (getItem("dm") == "1") {
-                            var id = 参数.name + "_选集_" + 参数.id;
-                            if (getMyVar(id)) {
-                                var danmu = getMyVar(id);
-                                if (video.includes("urls")) {
-
-
-                                    var urls = JSON.parse(video)
-                                    urls.danmu = danmu
-                                    return urls
-
-                                } else {
-                                    return JSON.stringify({
-                                        urls: [video],
-                                        danmu: danmu
-                                    })
-                                }
-                            } else {
-                                return "hiker://page/loadDm?name=" + 参数.name + "&id=" + id
-                            }
-                        } else {
-                            return video
-                        }
-
-                    }, 解析, 公共, 参数)
-                }
-
                 d.push({
-                    title: 列表[i].title.trim().replace(/ |-|_/g, ''),
-                    url: url,
+                    title: 列表[i].title.trim().replace(/ |-|_/g,'').replace(name,''),
+                    url: "hiker://empty##" + 列表[i].url + lazy,
                     desc: 列表[i].desc,
                     img: 列表[i].img,
-                    col_type: 列表[i].col_type ? 列表[i].col_type : list_col_type,
+                    col_type: 列表[i].col_type || list_col_type.replace("_left",""),
                     extra: extra
                 });
             }
-
-            if (列表.length > 0 || getMyVar('jiekouedit')) {
+            
+            if(列表.length>0 || getMyVar('jiekouedit')){
                 isload = 1;
-            } else if (列表.length == 0) {
+            }else if(列表.length==0){
                 toast("选集列表为空，请更换其他源");
             }
         }
