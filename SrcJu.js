@@ -968,7 +968,7 @@ function erji() {
             putMyVar("listloading", "2");
         }
         if (getMyVar('sousuoPageType')) {
-            var loadid = getMyVar('sousuoPageType') == "聚影" ? "loading" : "sousuoloading" + getMyVar('sousuoPageType', '')
+            var loadid = "sousuoloading" + getMyVar('sousuoPageType', '')
         } else {
             loadid = getMyVar('已选择换源列表') ? "listloading2" : "listloading"
         }
@@ -1008,10 +1008,7 @@ function erji() {
                 let type = getMyVar("sousuoPageType", info.type);
 
                 search(getMyVar("sousuoname"), "sousuopage", false, info.group, type);
-            } else if (getMyVar('sousuoPageType') == "聚影") {
-                require(config.依赖.match(/http(s)?:\/\/.*\//)[0].replace('Ju', 'master') + 'SrcJyXunmi.js');
-                xunmi(name);
-            } else {
+            }  else {
                 let rules = $.require("hiker://page/data?rule=" + getMyVar('sousuoPageType'))();
                 var p = 1
                 var name = getMyVar("sousuoname");
