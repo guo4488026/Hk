@@ -475,7 +475,7 @@ function erji() {
                         js: $.toString(() => {
                             return $("").input(() => {
                                 if (input) {
-                                    setItem("img_2", input);
+                                    setItem("img_1", input);
                                     refreshPage(false);
                                     return "hiker://empty"
                                 }
