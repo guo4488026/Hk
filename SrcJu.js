@@ -929,7 +929,10 @@ function erji() {
                 extra.id =  列表[i].url;
                 extra.url = 列表[i].url;
                 extra.cls = "loadlist playlist";
-                
+                if(stype!="正版"){
+                   extra.linkid = i;
+                   extra.name = name
+                }
                 extra.jsLoadingInject = true;
                 let blockRules = ['.m4a', '.mp3', '.gif', '.jpeg', '.jpg', '.ico', '.png', 'hm.baidu.com', '/ads/*.js', 'cnzz.com', '51.la'];
                 if(extra.blockRules && $.type(extra.blockRules)=="array"){
