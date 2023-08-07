@@ -140,6 +140,7 @@ function lunbo(start, arr, data, cfg) {
                     name: item.title,
                     sname: item.extra.sname,
                     stype: item.extra.stype,
+                    img: item.img,
                     surl: item.url,
                     //img:item.img,
                     pageTitle: item.title,
