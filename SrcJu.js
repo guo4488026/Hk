@@ -423,7 +423,7 @@ function erji() {
           
             lazy = $("").lazyRule((解析,参数) => {
                    eval(JSON.parse(fetch("hiker://page/lazy")).rule)
-                   return lazy(input)
+                   return Lazy(input)
                 }, 解析, {"规则名": MY_RULE.title, "标识": 标识});
            
 
