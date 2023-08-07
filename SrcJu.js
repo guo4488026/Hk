@@ -471,18 +471,8 @@ function erji() {
             d.push({
                 title: "云盘君",
                 url: $("").lazyRule((name) => {
-                    clearItem("r");
-                    if (getMyVar('sousuoPageType') != "云盘君.简") {
-                        putMyVar("sousuoPageType", "云盘君.简")
-                        putMyVar("sousuoname", name)
-                    } else {
-
-                        clearMyVar("sousuoname")
-                        clearMyVar("sousuoPageType")
-
-                    }
-                    refreshPage()
-                    return "hiker://empty"
+                   putMyVar("s",name)
+                   eval(JSON.parse(("hiker://page/sou?rule=云盘君.简")).rule)
 
                 }, name),
                 img: getItem("img_1","https://p2.itc.cn/q_70/images03/20211009/59c75745d3524163b9277c4006020ac0.jpeg"),
@@ -491,7 +481,8 @@ function erji() {
                     longClick: [{
                         title: "云盘君",
                         js: $.toString(() => {
-                            return "hiker://page/yijidata?rule=云盘君.简"
+                            clearMyVar("s");
+                            return "hiker://page/sou?rule=云盘君.简"
 
                         })
                     }]
@@ -1008,81 +999,7 @@ function erji() {
                 let type = getMyVar("sousuoPageType", info.type);
 
                 search(getMyVar("sousuoname"), "sousuopage", false, info.group, type);
-            }  else {
-                let rules = $.require("hiker://page/data?rule=" + getMyVar('sousuoPageType'))();
-                var p = 1
-                var name = getMyVar("sousuoname");
-                let data = $.require("hiker://page/data?rule=" + getMyVar('sousuoPageType'))(p, r != "" ? r : null);
-                if (data.length > 0) {
-                    //多线程加载        
-                    let realPage = "" == r ? 1 : p;
-                    let tasks = data.map(it => {
-                        return {
-                            func: function(rule) {
-                                return rule.find(name, realPage);
-                            },
-                            param: it,
-                            id: "rule@" + it.name
-                        }
-                    });
-
-                    batchExecute(tasks, {
-                        func: function(param, id, error, result) {
-                            //log("listener: " + (result || []).length)
-                            param.i = param.i + 1;
-                            if (result) {
-                                try {
-                                    if (result.length >= 1) {
-                                        addItemBefore("sousuoloading" + getMyVar('sousuoPageType'), {
-                                            title: id.split("@")[1],
-                                            col_type: "text_1",
-                                            url: "hiker://empty"
-                                        })
-                                    }
-                                    for (let it of result) {
-                                        param.j = param.j + 1;
-
-                                        addItemBefore("sousuoloading" + getMyVar('sousuoPageType'), {
-                                            title: it.title,
-                                            //desc: it.desc,
-                                            url: it.url,
-                                            pic_url: getMyVar('sousuoPageType') == "云盘君" ? "hiker://files/cache/src/文件夹.svg" : "https://hikerfans.com/tubiao/messy/27.svg",
-                                            col_type: "avatar",
-                                            extra: {
-                                                id: "__app" + MY_PAGE + "@" + param.j,
-                                                name: getMyVar("s"),
-                                                inheritTitle: false
-                                            }
-                                        })
-                                    }
-
-                                } catch (e) {}
-
-                            }
-                            if (param.i >= param.all) {
-                                deleteItem(pageid)
-                            } else {
-                                updateItem({
-                                    title: "加载第" + MY_PAGE + "页中，进度：" + (param.i + 1) + "/" + param.all,
-                                    url: "",
-                                    col_type: "text_center_1",
-                                    desc: "",
-                                    pic_url: "",
-                                    extra: {
-                                        id: pageid,
-
-                                    }
-                                })
-                            }
-                        },
-                        param: {
-                            all: data.length,
-                            i: 0,
-                            j: -1
-                        }
-                    })
-                }
-            }
+            }  
         }
         if (!getMyVar(sname + "_" + name)) {
             toast('当前数据源：' + sname + (sauthor ? ", 作者：" + sauthor : ""));
