@@ -468,7 +468,21 @@ function erji() {
                     }, name, sgroup, input)
                 }, MY_PARAMS.name, sgroup),
                 img: getItem("img_1", "https://hikerfans.com/tubiao/more/103.png"),
-                col_type: "icon_4"
+                col_type: "icon_4",
+                extra: {
+                    longClick: [{
+                        title: "更换图标",
+                        js: $.toString(() => {
+                            return $("").input(() => {
+                                if (input) {
+                                    setItem("img_2", input);
+                                    refreshPage(false);
+                                    return "hiker://empty"
+                                }
+                            })
+                        })
+                    }]
+                }
             })
 
             d.push({
