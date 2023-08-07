@@ -157,7 +157,7 @@ function yiji() {
         })
 
         d.push({
-            title: Juconfig["btnmenu5"] || "书架",
+            title: Juconfig["btnmenu5"] || "订阅",
             url: Juconfig["btnmenu5"] == "历史" ? "hiker://history?rule=" + MY_RULE.title : Juconfig["btnmenu5"] == "收藏" ? "hiker://collection?rule=" + MY_RULE.title : $("hiker://empty###noRecordHistory##noHistory#").rule(() => {
                 require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcBookCase.js');
                 bookCase();
@@ -169,7 +169,7 @@ function yiji() {
                     title: "切换按钮",
                     js: $.toString(() => {
                         require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js');
-                        return $(["书架", "收藏", "历史"], 1).select((cfgfile, Juconfig) => {
+                        return $(["订阅", "收藏", "历史"], 1).select((cfgfile, Juconfig) => {
                             Juconfig["btnmenu5"] = input;
                             writeFile(cfgfile, JSON.stringify(Juconfig));
                             refreshPage(false);
@@ -459,7 +459,7 @@ function erji() {
                         }
                     }, name, sgroup, input)
                 }, MY_PARAMS.name, sgroup),
-                img: "https://hikerfans.com/tubiao/more/103.png",
+                img: getItem("img_1","https://hikerfans.com/tubiao/more/103.png"),
                 col_type: "icon_4"
             })
 
@@ -480,7 +480,7 @@ function erji() {
                     return "hiker://empty"
 
                 }, name),
-                img: "https://p2.itc.cn/q_70/images03/20211009/59c75745d3524163b9277c4006020ac0.jpeg",
+                img: getItem("img_1","https://p2.itc.cn/q_70/images03/20211009/59c75745d3524163b9277c4006020ac0.jpeg"),
                 col_type: "icon_4",
                 extra: {
                     longClick: [{
@@ -496,7 +496,7 @@ function erji() {
             d.push({
                 title: "动漫花园",
                 url: "hiker://page/搜索结果#noRecordHistory##noHistory#?rule=动漫花园同步站&page=fypage&keyword=" + name,
-                img: "http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256",
+                img: getItem("img_1","http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),---
                 col_type: "icon_4",
 
             })
@@ -504,7 +504,7 @@ function erji() {
             d.push({
                 title: "聚影",
                 url: "hiker://search?rule=聚影√&s=" + name,
-                img: "https://hikerfans.com/tubiao/movie/61.svg",
+                img: getItem("img_1","https://hikerfans.com/tubiao/movie/61.svg"),
                 col_type: "icon_4"
             })
             d.push({
