@@ -424,9 +424,9 @@ function erji() {
                     let url = input.split("##")[1];
                     let 公共 = {};
                     try{
-                        公共 = $.require('jiekou'+(/聚阅/.test(参数.规则名)?'':'?rule=聚阅√')).公共(参数.标识);
+                        公共 = $.require('jiekou'+(/搜视/.test(参数.规则名)?'':'?rule=搜视')).公共(参数.标识);
                     }catch(e){
-                        toast('未找到聚阅规则子页面');
+                        toast('未找到搜视规则子页面');
                     }
                     eval("let 解析2 = " + 解析);
                     return 解析2(url,公共,参数);
