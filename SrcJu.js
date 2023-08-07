@@ -344,11 +344,10 @@ function erji() {
             detailextra.gradient = detailextra.gradient || true;
             
             d.push({
-                desc: '0&&list',
+                desc: '240&&list',
                 col_type: "x5_webview_single",
                 extra: {
                     ua: MOBILE_UA,
-                    id: "listsou"
                 }
             })
             d.push({
