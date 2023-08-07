@@ -496,7 +496,7 @@ function erji() {
             d.push({
                 title: "动漫花园",
                 url: "hiker://page/搜索结果#noRecordHistory##noHistory#?rule=动漫花园同步站&page=fypage&keyword=" + name,
-                img: getItem("img_1","http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),---
+                img: getItem("img_1","http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),
                 col_type: "icon_4",
 
             })
