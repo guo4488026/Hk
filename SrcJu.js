@@ -344,7 +344,7 @@ function erji() {
             detailextra.gradient = detailextra.gradient || true;
             
             d.push({
-                desc: '240&&list',
+                desc: '240&&float',
                 col_type: "x5_webview_single",
                 extra: {
                     ua: MOBILE_UA,
