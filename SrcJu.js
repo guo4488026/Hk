@@ -423,7 +423,7 @@ function erji() {
           
             lazy = $("").lazyRule((解析,参数) => {
                    require("lazy")
-                   return lazy()
+                   return lazy(input)
                 }, 解析, {"规则名": MY_RULE.title, "标识": 标识});
            
 
