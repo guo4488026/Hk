@@ -24,7 +24,7 @@ function bookCase() {
     setPageTitle('我的收藏');
     let d = [];
     d.push({
-        title: ' 本地下载',
+        title: '我的收藏',
         url: "hiker://collection?rule=搜视",
         img: "https://hikerfans.com/tubiao/messy/70.svg",
         col_type: "icon_2"
