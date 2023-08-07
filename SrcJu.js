@@ -470,20 +470,13 @@ function erji() {
 
             d.push({
                 title: "云盘君",
-                url: "hiker://page/sou#noHistory#?p=fypage",
+                url: "hiker://page/sou#noHistory#?rule=云盘君.简&p=fypage",
                 img: getItem("img_1","https://p2.itc.cn/q_70/images03/20211009/59c75745d3524163b9277c4006020ac0.jpeg"),
                 col_type: "icon_4",
                 extra: {
                     pageTitle: "搜索" + name,
                     searchTerms: name,
-                    longClick: [{
-                        title: "云盘君",
-                        js: $.toString(() => {
-                            clearMyVar("s");
-                            return "hiker://page/sou?rule=云盘君.简"
-
-                        })
-                    }]
+                    
                 }
             })
 
