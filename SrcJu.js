@@ -420,17 +420,13 @@ function erji() {
             let lazy;
             let itype;
             let 解析 = parse['解析'];
+          
             lazy = $("").lazyRule((解析,参数) => {
-                    let url = input.split("##")[1];
-                    let 公共 = {};
-                    try{
-                        公共 = $.require('jiekou'+(/搜视/.test(参数.规则名)?'':'?rule=搜视')).公共(参数.标识);
-                    }catch(e){
-                        toast('未找到搜视规则子页面');
-                    }
-                    eval("let 解析2 = " + 解析);
-                    return 解析2(url,公共,参数);
+                   require("lazy")
                 }, 解析, {"规则名": MY_RULE.title, "标识": 标识});
+           
+
+        
             d.push({
                 title: "搜索",
                 url: $(runModes, 2).select((name, sgroup) => {
