@@ -470,7 +470,7 @@ function erji() {
 
             d.push({
                 title: "云盘君",
-                url: $("hiker://empty#noHistory#").rule((name) => {
+                url: $("hiker://empty##fypage#noHistory#").rule((name) => {
                    putMyVar("s",name)
                    eval(JSON.parse(("hiker://page/sou?rule=云盘君.简")).rule)
 
