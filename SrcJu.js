@@ -342,7 +342,7 @@ function erji() {
             detailextra.id = "detailid";
             detailextra.cls = 'detailid';
             detailextra.gradient = detailextra.gradient || true;
-            
+
             d.push({
                 desc: '240&&float',
                 col_type: "x5_webview_single",
@@ -420,14 +420,17 @@ function erji() {
             let lazy;
             let itype;
             let 解析 = parse['解析'];
-          
-            lazy = $("").lazyRule((解析,参数) => {
-                   eval(JSON.parse(fetch("hiker://page/lazy")).rule)
-                   return Lazy(input)
-                }, 解析, {"规则名": MY_RULE.title, "标识": 标识});
-           
 
-        
+            lazy = $("").lazyRule((解析, 参数) => {
+                eval(JSON.parse(fetch("hiker://page/lazy")).rule)
+                return Lazy(input)
+            }, 解析, {
+                "规则名": MY_RULE.title,
+                "标识": 标识
+            });
+
+
+
             d.push({
                 title: "搜索",
                 url: $(runModes, 2).select((name, sgroup) => {
@@ -464,35 +467,74 @@ function erji() {
                         }
                     }, name, sgroup, input)
                 }, MY_PARAMS.name, sgroup),
-                img: getItem("img_1","https://hikerfans.com/tubiao/more/103.png"),
+                img: getItem("img_1", "https://hikerfans.com/tubiao/more/103.png"),
                 col_type: "icon_4"
             })
 
             d.push({
                 title: "云盘君",
                 url: "hiker://page/sou#noHistory#?rule=云盘君.简&p=fypage",
-                img: getItem("img_1","https://p2.itc.cn/q_70/images03/20211009/59c75745d3524163b9277c4006020ac0.jpeg"),
+                img: getItem("img_2", "https://p2.itc.cn/q_70/images03/20211009/59c75745d3524163b9277c4006020ac0.jpeg"),
                 col_type: "icon_4",
                 extra: {
                     pageTitle: "搜索" + name,
                     searchTerms: name,
-                    
+                    longClick: [{
+                        title: "更换图标",
+                        js: $.toString(() => {
+                            return $("").input(() => {
+                                if (input) {
+                                    setItem("img_2", input);
+                                    refreshPage(false);
+                                    return "hiker://empty"
+                                }
+                            })
+                        })
+                    }]
+
                 }
             })
 
             d.push({
                 title: "动漫花园",
                 url: "hiker://page/搜索结果#noRecordHistory##noHistory#?rule=动漫花园同步站&page=fypage&keyword=" + name,
-                img: getItem("img_1","http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),
+                img: getItem("img_3", "http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),
                 col_type: "icon_4",
-
+                extra: {
+                    longClick: [{
+                        title: "更换图标",
+                        js: $.toString(() => {
+                            return $("").input(() => {
+                                if (input) {
+                                    setItem("img_3", input);
+                                    refreshPage(false);
+                                    return "hiker://empty"
+                                }
+                            })
+                        })
+                    }]
+                }
             })
 
             d.push({
                 title: "聚影",
                 url: "hiker://search?rule=聚影√&s=" + name,
-                img: getItem("img_1","https://hikerfans.com/tubiao/movie/61.svg"),
-                col_type: "icon_4"
+                img: getItem("img_4", "https://hikerfans.com/tubiao/movie/61.svg"),
+                col_type: "icon_4",
+                extra: {
+                    longClick: [{
+                        title: "更换图标",
+                        js: $.toString(() => {
+                            return $("").input(() => {
+                                if (input) {
+                                    setItem("img_4", input);
+                                    refreshPage(false);
+                                    return "hiker://empty"
+                                }
+                            })
+                        })
+                    }]
+                }
             })
             d.push({
                 title: "详情简介",
@@ -523,7 +565,8 @@ function erji() {
                 pic_url: "https://hikerfans.com/tubiao/messy/32.svg",
                 col_type: 'icon_small_3',
                 extra: {
-                    cls: "tabs playlist"
+                    cls: "tabs playlist",
+
                 }
             })
             d.push({
@@ -900,43 +943,43 @@ function erji() {
                 return getMyVar("path", "")
 
             }
-             for(let i=0; i<列表.length; i++) {
+            for (let i = 0; i < 列表.length; i++) {
                 let extra = 列表[i].extra || {};
-                try{
+                try {
                     extra = Object.assign(extra, details["extra"] || {});
-                }catch(e){}
-                extra.id =  列表[i].url;
+                } catch (e) {}
+                extra.id = 列表[i].url;
                 extra.url = 列表[i].url;
                 extra.cls = "loadlist playlist";
-                if(stype!="正版"){
-                   extra.linkid = i;
-                   extra.name = name
+                if (stype != "正版") {
+                    extra.linkid = i;
+                    extra.name = name
                 }
                 extra.jsLoadingInject = true;
                 let blockRules = ['.m4a', '.mp3', '.gif', '.jpeg', '.jpg', '.ico', '.png', 'hm.baidu.com', '/ads/*.js', 'cnzz.com', '51.la'];
-                if(extra.blockRules && $.type(extra.blockRules)=="array"){
-                try{
-                    blockRules = Object.assign(blockRules,extra.blockRules);
-                    }catch(e){}
+                if (extra.blockRules && $.type(extra.blockRules) == "array") {
+                    try {
+                        blockRules = Object.assign(blockRules, extra.blockRules);
+                    } catch (e) {}
                 }
-                    extra.blockRules = blockRules;
-                
-                if(list_col_type.indexOf("_left")>-1){
+                extra.blockRules = blockRules;
+
+                if (list_col_type.indexOf("_left") > -1) {
                     extra.textAlign = 'left';
                 }
                 d.push({
-                    title: 列表[i].title.trim().replace(/ |-|_/g,'').replace(name,''),
+                    title: 列表[i].title.trim().replace(/ |-|_/g, '').replace(name, ''),
                     url: "hiker://empty##" + 列表[i].url + lazy,
                     desc: 列表[i].desc,
                     img: 列表[i].img,
-                    col_type: 列表[i].col_type || list_col_type.replace("_left",""),
+                    col_type: 列表[i].col_type || list_col_type.replace("_left", ""),
                     extra: extra
                 });
             }
-            
-            if(列表.length>0 || getMyVar('jiekouedit')){
+
+            if (列表.length > 0 || getMyVar('jiekouedit')) {
                 isload = 1;
-            }else if(列表.length==0){
+            } else if (列表.length == 0) {
                 toast("选集列表为空，请更换其他源");
             }
         }
@@ -969,7 +1012,7 @@ function erji() {
             let diskMark = storage0.getMyVar('diskMark') || {};
             if (diskMark[MY_PARAMS.name]) {
                 deleteItemByCls("loadlist")
-                
+
 
                 // deleteItemByCls('listsort');
                 addItemBefore('listloading', diskMark[MY_PARAMS.name]);
@@ -990,7 +1033,7 @@ function erji() {
                 let type = getMyVar("sousuoPageType", info.type);
 
                 search(getMyVar("sousuoname"), "sousuopage", false, info.group, type);
-            }  
+            }
         }
         if (!getMyVar(sname + "_" + name)) {
             toast('当前数据源：' + sname + (sauthor ? ", 作者：" + sauthor : ""));
