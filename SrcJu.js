@@ -726,13 +726,14 @@ storage0.putMyVar("list",列表s);
        var lists = storage0.getMyVar("list");
        var list=lists[index]
        
-       var 列表 = list.map(it=>{
-           let extra = it.extra || {};
+          for(var i in list){
+              var it= list[i]
+              let extra = it.extra || {};
                 extra.id =it.url;
                 extra.url = it.url;
                 extra.cls = "loadlist playlist";
                
-                extra.linkid = index;
+                extra.linkid = i;
                 extra.name = name
                 extra.jsLoadingInject = true;
                 
@@ -744,7 +745,7 @@ storage0.putMyVar("list",列表s);
                col_type: getItem("SrcJuList_col_type"+sname,"text_2"),
                extra: extra
            }
-       })
+       }
        if(getMyVar(sname+"sort")=="1"){
         列表.reverse();
        }
