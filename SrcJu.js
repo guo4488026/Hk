@@ -1179,15 +1179,15 @@ function search(keyword, mode, sdata, group, type) {
         }
     }
     let name = keyword.split('  ')[0];
-    let searchMark = storage0.getMyVar('searchMark') || {}; //二级换源缓存
+    let searchMark = storage0.getMyVar('searchMark'+getMyVar('sousuoPageType')) || {}; //二级换源缓存
     if (mode == "erji" && searchMark[name]) {
         addItemBefore(updateItemid, searchMark[name]);
         updateItem(updateItemid, {
             title: getMyVar('SrcJuSearching') == "1" ? "‘‘’’<small>搜索中</small>" : "‘‘’’<small>当前搜索为缓存</small>",
             url: $("确定删除“" + name + "”搜索缓存吗？").confirm((name) => {
-                let searchMark = storage0.getMyVar('searchMark') || {};
+                let searchMark = storage0.getMyVar('searchMark'+getMyVar('sousuoPageType')) || {};
                 delete searchMark[name];
-                storage0.putMyVar('searchMark', searchMark);
+                storage0.putMyVar('searchMark'+getMyVar('sousuoPageType'), searchMark);
                 refreshPage(true);
                 return "toast://已清除";
             }, name)
@@ -1400,10 +1400,10 @@ function search(keyword, mode, sdata, group, type) {
                     if (data.length > 0) {
                         success++;
                         if (mode == "erji") {
-                            let searchMark = storage0.getMyVar('searchMark') || {}; //二级换源缓存
+                            let searchMark = storage0.getMyVar('searchMark'+getMyVar('sousuoPageType')) || {}; //二级换源缓存
                             searchMark[name] = searchMark[name] || [];
                             searchMark[name] = searchMark[name].concat(data);
-                            storage0.putMyVar('searchMark', searchMark);
+                            storage0.putMyVar('searchMark'+getMyVar('sousuoPageType'), searchMark);
                             if (!getMyVar('已选择换源列表')) {
                                 addItemBefore("listloading", data);
                             }
@@ -1425,7 +1425,7 @@ function search(keyword, mode, sdata, group, type) {
         });
         /*
         if (mode=="erji") {
-            storage0.putMyVar('searchMark', searchMark);
+            storage0.putMyVar('searchMark'+getMyVar('sousuoPageType'), searchMark);
         }
         */
         clearMyVar('SrcJuSearching');
