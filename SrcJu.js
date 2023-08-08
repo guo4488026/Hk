@@ -726,12 +726,12 @@ storage0.putMyVar("list",列表s);
        var list=lists[index]
        
        var 列表 = list.map(it=>{
-           let extra = 列表[i].extra || {};
+           let extra = it.extra || {};
                 extra.id =it.url;
                 extra.url = it.url;
                 extra.cls = "loadlist playlist";
                
-                extra.linkid = i;
+                extra.linkid = index;
                 extra.name = name
                 
                 
