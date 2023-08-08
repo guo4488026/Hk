@@ -710,7 +710,7 @@ function erji() {
                 }
                 d.push({
                     title: getMyVar("SrcJu_" + surl + "_line", '0') == i ? `““””<b><span style="color: #AABBFF">` + 线路s[i] + `<small>⚡</small></span></b>` : 线路s[i],
-                    url: $("#noLoading#").lazyRule((surl, index, sname,线路,列表) => {
+                    url: $("#noLoading#").lazyRule((surl, index, sname,列表,线路) => {
                         if (getMyVar("SrcJu_" + surl + "_line", '0') != index) {
                             putMyVar("SrcJu_" + surl + "_line", index);
                             
