@@ -375,7 +375,7 @@ function lookset() {
     });
     
     d.push({
-        title: "高度"+getItem("float","256"),
+        title: "高度"+getItem("float","240"),
         url: "select://" + JSON.stringify({
             title: "选择模式",
             options: ["240","256", "300","320"],
