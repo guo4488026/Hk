@@ -739,7 +739,7 @@ storage0.putMyVar("list",列表s);
                title: it.title,
                img: it.img?it.img:"",
                desc: it.desc?it.desc:"",
-               url: it.url+lazy,
+               url:"hiker://empty##" +it.url+lazy,
                col_type: getItem("SrcJuList_col_type"+sname,"text_2"),
                extra: extra
            }
