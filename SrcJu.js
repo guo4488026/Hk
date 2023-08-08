@@ -405,14 +405,15 @@ function erji() {
 
             let lazy;
             let itype;
+            log(parse)
             let 解析 = parse['解析'];
 
-        putMyVar("Lazy",解析)
+            
           
             lazy = $("").lazyRule((解析, 参数) => {
                 eval(JSON.parse(fetch("hiker://page/lazy")).rule)
                 return Lazy(input)
-            }, getMyVar("Lazy"), {
+            },解析, {
                 "规则名": MY_RULE.title,
                 "标识": 标识
             });
