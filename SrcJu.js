@@ -407,7 +407,7 @@ function erji() {
             let itype;
             let 解析 = parse['解析'];
 
-           storagst.putMyVar("Lazy",解析);
+           storage0.putMyVar("Lazy",解析);
           
             lazy = $("").lazyRule((解析, 参数) => {
                 eval(JSON.parse(fetch("hiker://page/lazy")).rule)
