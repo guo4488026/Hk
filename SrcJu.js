@@ -725,7 +725,7 @@ storage0.putMyVar("list",列表s);
        deleteItemByCls("loadlist");
        var lists = storage0.getMyVar("list");
        var list=lists[index]
-       
+       var 列表 =[]
           for(var i in list){
               var it= list[i]
               let extra = it.extra || {};
@@ -737,14 +737,14 @@ storage0.putMyVar("list",列表s);
                 extra.name = name
                 extra.jsLoadingInject = true;
                 
-           return {
+            列表.push({
                title: it.title,
                img: it.img?it.img:"",
                desc: it.desc?it.desc:"",
                url: /.torrent|ed2k:|magnet:|mp4|m3u8/.test(it.url)?it.url:"hiker://empty##" +it.url+lazy,
                col_type: getItem("SrcJuList_col_type"+sname,"text_2"),
                extra: extra
-           }
+           })
        }
        if(getMyVar(sname+"sort")=="1"){
         列表.reverse();
