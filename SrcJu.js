@@ -703,6 +703,7 @@ function erji() {
             }
             let list_col_type = getItem('SrcJuList_col_type' + sname, 'text_2');
 
+storage0.putMyVar("list",列表s);
 
             for (var i in 线路s) {
                 if (线路s[i] == "undefined") {
@@ -720,6 +721,21 @@ function erji() {
                          })  
                             
        }
+       deleteItemByCls("loadlist");
+       var lists=storage0.getMyVar("list");
+       var list=lists[index]
+       
+       var 列表 = list.map(it=>{
+           return {
+               title: it.title,
+               img: it.img?it.img:"",
+               desc: it.desc?it.desc:"",
+               url: it.url+lazy
+           }
+       })
+       if(getMyVar(sname+"sort")=="1"){
+        列表.reverse();
+       }addItemBefore(getMyVar("listloading", "1") == "1" ? "listloading" : "listloading2",列表);
                             
                             
 
@@ -830,7 +846,7 @@ function erji() {
 
                         if (lists.length > 0) {
                             push['url'] = url;
-                            log(push)
+                           
                             var state = request(tvip + '/action', {
                                 headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded',
