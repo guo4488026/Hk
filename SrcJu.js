@@ -60,25 +60,10 @@ function yiji() {
         adminbtn.unshift("接口管理");
         d.push({
             title: "设置",
-            url: $(adminbtn, 2).select(() => {
-                if (input == "接口管理") {
-                    return $("hiker://empty#noRecordHistory##noHistory#").rule(() => {
+            url: $("hiker://empty#noRecordHistory##noHistory#").rule(() => {
                         require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuSet.js');
                         SRCSet();
-                    })
-                } else if (input == "快速切换") {
-                    require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js');
-                    return $(runModes, 2, "运行模式").select((cfgfile, Juconfig) => {
-                        Juconfig["runMode"] = input;
-                        writeFile(cfgfile, JSON.stringify(Juconfig));
-                        refreshPage(false);
-                        return 'toast://运行模式已切换为：' + input;
-                    }, cfgfile, Juconfig)
-                } else {
-                    require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js');
-                    return selectsource(input);
-                }
-            }),
+                    }),
             pic_url: "https://hikerfans.com/tubiao/more/129.png",
             col_type: 'icon_5',
             extra: {
