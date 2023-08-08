@@ -373,25 +373,20 @@ function lookset() {
         }, JYconfig, cfgfile),
         col_type: "text_3"
     });
-    let dmode = getItem("dmode", "本地转码");
-    initConfig({
-        mode: dmode
-    });
+    
     d.push({
-        title: "模式：" + dmode,
+        title: "高度"+getItem("float","256"),
         url: "select://" + JSON.stringify({
             title: "选择模式",
-            options: ["本地转码", "聚影转码", "官方APP", "登录账号"],
+            options: ["240","256", "300","320"],
             col: 1,
             js: $.toString(() => {
-                if ("登录账号" == input) {
-                    return "hiker://page/login#noRecordHistory##noHistory#?rule=云盘君&pageTitle=登录阿里云盘"
-                }
-                setItem("dmode", input);
+                
+                setItem("float", input);
                 refreshPage();
-                if (input == "官方APP") {
-                    return "toast://修改成功，请确保手机有安装阿里云盘官方APP";
-                }
+               
+                return "hiker://empty";
+                
             })
         }),
         col_type: "text_3",
