@@ -1184,13 +1184,13 @@ function search(keyword, mode, sdata, group, type) {
         addItemBefore(updateItemid, searchMark[name]);
         updateItem(updateItemid, {
             title: getMyVar('SrcJuSearching') == "1" ? "‘‘’’<small>搜索中</small>" : "‘‘’’<small>当前搜索为缓存</small>",
-            url: $("确定删除“" + name + "”搜索缓存吗？").confirm((name) => {
-                let searchMark = storage0.getMyVar('searchMark'+getMyVar('sousuoPageType')) || {};
+            url: $("确定删除“" + name + "”搜索缓存吗？").confirm((name,type) => {
+                let searchMark = storage0.getMyVar('searchMark'+type) || {};
                 delete searchMark[name];
-                storage0.putMyVar('searchMark'+getMyVar('sousuoPageType'), searchMark);
+                storage0.putMyVar('searchMark'+type, searchMark);
                 refreshPage(true);
                 return "toast://已清除";
-            }, name)
+            }, name,getMyVar('sousuoPageType'))
         });
         let i = 0;
         let one = "";
