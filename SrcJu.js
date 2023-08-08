@@ -215,6 +215,7 @@ function erji() {
         clearMyVar("sousuoname");
         clearMyVar("sousuoPageType");
         clearMyVar("listloading");
+        clearMyVar("Lazy");
         if (getMyVar('SrcBookCase')) {
             clearMyVar('SrcBookCase');
             refreshPage(false);
@@ -406,6 +407,8 @@ function erji() {
             let itype;
             let 解析 = parse['解析'];
 
+           storagst.putMyVar("Lazy",解析);
+          
             lazy = $("").lazyRule((解析, 参数) => {
                 eval(JSON.parse(fetch("hiker://page/lazy")).rule)
                 return Lazy(input)
@@ -893,55 +896,8 @@ function erji() {
 
             }
 
-            function PlayList(i) {
-                var urls = [];
-                var tabs = []
-                for (var j in 列表s) {
-                    if (列表s[j][i]) {
-                        urls.push("video://" + 列表s[j][i].url)
-                        tabs.push(线路s[j])
-                    }
-                }
-                return {
-                    urls: urls,
-                    names: tabs
-                }
-            }
-
-            function GetDm(name, title, i) {
-
-                var danmu = $.require("hiker://page/danmu?rule=Mikan Project");
-                let dmList = danmu.getDanMu(encodeURIComponent(name));
-
-                var anime = dmList.animes;
-                if (anime.length > 0) {
-                    var episode = anime[0].episodes
-                    if (episode.length - 1 >= i) {
-                        var episodeId = episode[i].episodeId;
-                        var episodeTitle = episode[i].episodeTitle;
-
-                        try {
-                            let path = danmu.getLocalDanMu(episodeId, name + "_" + title) || danmu.downloadDanMu(episodeId, name + "_" + title);
-
-                            if (path == undefined) {
-                                toast("暂无弹幕")
-                                return getMyVar("path", "")
-
-                            } else {
-                                toast("弹幕加载成功")
-                                putMyVar("path", path)
-                                return path
-                            }
-                        } catch (e) {
-                            toast("弹幕加载失败")
-                            return getMyVar("path", "")
-                        }
-                    }
-                }
-                toast("暂无弹幕")
-                return getMyVar("path", "")
-
-            }
+           
+            
             for (let i = 0; i < 列表.length; i++) {
                 let extra = 列表[i].extra || {};
                 try {
