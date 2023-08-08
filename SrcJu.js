@@ -215,7 +215,7 @@ function erji() {
         clearMyVar("sousuoname");
         clearMyVar("sousuoPageType");
         clearMyVar("listloading");
-        clearMyVar("Lazy");
+   
         if (getMyVar('SrcBookCase')) {
             clearMyVar('SrcBookCase');
             refreshPage(false);
