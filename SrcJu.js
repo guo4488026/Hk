@@ -710,10 +710,18 @@ function erji() {
                 }
                 d.push({
                     title: getMyVar("SrcJu_" + surl + "_line", '0') == i ? `““””<b><span style="color: #AABBFF">` + 线路s[i] + `<small>⚡</small></span></b>` : 线路s[i],
-                    url: $("#noLoading#").lazyRule((surl, index, sname) => {
+                    url: $("#noLoading#").lazyRule((surl, index, sname,线路,列表) => {
                         if (getMyVar("SrcJu_" + surl + "_line", '0') != index) {
                             putMyVar("SrcJu_" + surl + "_line", index);
-                            refreshPage(false)
+                            
+                       for(var j in 线路){
+                        updateItem(surl+"_线路_"+j,{
+                             title:j==index? `““””<b><span style="color: #AABBFF">` + 线路[j] + `<small>⚡</small></span></b>`: 线路[j]
+                         })  
+                            
+       }
+                            
+                            
 
                         } else {
                             return $(["text_1", "text_2", "text_3", "text_4", "flex_button", "movie_2", "pic_2"], 2, "选集列表样式").select((sname) => {
@@ -723,7 +731,7 @@ function erji() {
                             }, sname)
                         }
                         return 'hiker://empty'
-                    }, surl, i, sname),
+                    }, surl, i, sname,列表s,线路s),
                     col_type: 'scroll_button',
                     extra: {
                         cls: "tabs playlist",
