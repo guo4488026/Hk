@@ -988,17 +988,16 @@ storage0.putMyVar("list",列表s);
         if (getMyVar('已选择换源列表')) {
             putMyVar("listloading", "2");
         }
-        if (getMyVar('sousuoPageType')) {
-            var loadid = "sousuoloading" + getMyVar('sousuoPageType', '')
-        } else {
-            loadid = getMyVar('已选择换源列表') ? "listloading2" : "listloading"
-        }
+        
+       
+        
+        
         d.push({
             title: "‘‘’’<small><font color=#f20c00>当前数据源：" + sname + (sauthor ? ", 作者：" + sauthor : "") + "</font></small>",
             url: 'hiker://empty',
             col_type: 'text_center_1',
             extra: {
-                id: loadid,
+                id: getMyVar('已选择换源列表') ? "listloading2" : "listloading",
                 lineVisible: false
             }
         });
