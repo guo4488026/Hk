@@ -72,10 +72,10 @@ function yiji() {
             }
 
         })
-        if (parse && parse["排行"]) {
+        if (parse && parse["排行"]||runMode=="正版") {
             d.push({
                 title: "排行",
-                url: rulePage('排行', 页码["排行"]),
+                url:rulePage('排行', 页码["排行"]),
                 pic_url: "https://hikerfans.com/tubiao/more/229.png",
                 col_type: 'icon_5'
             })
