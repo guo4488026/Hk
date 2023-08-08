@@ -711,7 +711,7 @@ storage0.putMyVar("list",列表s);
                 }
                 d.push({
                     title: getMyVar("SrcJu_" + surl + "_line", '0') == i ? `““””<b><span style="color: #AABBFF">` + 线路s[i] + `<small>⚡</small></span></b>` : 线路s[i],
-                    url: $("#noLoading#").lazyRule((surl, index, sname,线路,lazy) => {
+                    url: $("#noLoading#").lazyRule((surl, index, sname,线路,lazy,name) => {
                         if (getMyVar("SrcJu_" + surl + "_line", '0') != index) {
                             putMyVar("SrcJu_" + surl + "_line", index);
                             
@@ -726,11 +726,22 @@ storage0.putMyVar("list",列表s);
        var list=lists[index]
        
        var 列表 = list.map(it=>{
+           let extra = 列表[i].extra || {};
+                extra.id =it.url;
+                extra.url = it.url;
+                extra.cls = "loadlist playlist";
+               
+                extra.linkid = i;
+                extra.name = name
+                
+                
            return {
                title: it.title,
                img: it.img?it.img:"",
                desc: it.desc?it.desc:"",
-               url: it.url+lazy
+               url: it.url+lazy,
+               col_type: getItem("SrcJuList_col_type"+sname,"text_2"),
+               extra: extra
            }
        })
        if(getMyVar(sname+"sort")=="1"){
@@ -746,7 +757,7 @@ storage0.putMyVar("list",列表s);
                             }, sname)
                         }
                         return 'hiker://empty'
-                    }, surl, i, sname,线路s,lazy),
+                    }, surl, i, sname,线路s,lazy,name),
                     col_type: 'scroll_button',
                     extra: {
                         cls: "tabs playlist",
