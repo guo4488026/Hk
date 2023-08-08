@@ -711,7 +711,7 @@ storage0.putMyVar("list",列表s);
                 }
                 d.push({
                     title: getMyVar("SrcJu_" + surl + "_line", '0') == i ? `““””<b><span style="color: #AABBFF">` + 线路s[i] + `<small>⚡</small></span></b>` : 线路s[i],
-                    url: $("#noLoading#").lazyRule((surl, index, sname,列表,线路) => {
+                    url: $("#noLoading#").lazyRule((surl, index, sname,线路,lazy) => {
                         if (getMyVar("SrcJu_" + surl + "_line", '0') != index) {
                             putMyVar("SrcJu_" + surl + "_line", index);
                             
@@ -722,7 +722,7 @@ storage0.putMyVar("list",列表s);
                             
        }
        deleteItemByCls("loadlist");
-       var lists=storage0.getMyVar("list");
+       var lists = storage0.getMyVar("list");
        var list=lists[index]
        
        var 列表 = list.map(it=>{
@@ -735,10 +735,9 @@ storage0.putMyVar("list",列表s);
        })
        if(getMyVar(sname+"sort")=="1"){
         列表.reverse();
-       }addItemBefore(getMyVar("listloading", "1") == "1" ? "listloading" : "listloading2",列表);
-                            
-                            
-
+       }
+       addItemBefore(getMyVar("listloading", "1") == "1" ? "listloading" : "listloading2",列表);
+                                                       
                         } else {
                             return $(["text_1", "text_2", "text_3", "text_4", "flex_button", "movie_2", "pic_2"], 2, "选集列表样式").select((sname) => {
                                 setItem("SrcJuList_col_type" + sname, input)
@@ -747,7 +746,7 @@ storage0.putMyVar("list",列表s);
                             }, sname)
                         }
                         return 'hiker://empty'
-                    }, surl, i, sname,列表s,线路s),
+                    }, surl, i, sname,线路s,lazy),
                     col_type: 'scroll_button',
                     extra: {
                         cls: "tabs playlist",
@@ -821,10 +820,12 @@ storage0.putMyVar("list",列表s);
                 let tvip = getItem('hikertvboxset', '');
                 d.push({
                     title: '推送TVBOX',
-                    url: $("#noLoading#").lazyRule((push, lists, tvip) => {
+                    url: $("#noLoading#").lazyRule((push,tvip) => {
                         if (tvip == "") {
                             return 'toast://观影设置中设置TVBOX接收端ip地址，完成后回来刷新一下';
                         }
+                        var lists=storage0.getMyVar("list");
+
 
                         var url = ""
                         if (lists) {
@@ -866,7 +867,7 @@ storage0.putMyVar("list",列表s);
                             }
                         }
                         return 'toast://所有线路均不支持推送列表';
-                    }, push, 列表s, tvip),
+                    }, push,tvip),
                     col_type: 'scroll_button',
                     extra: {
                         cls: "tabs playlist"
