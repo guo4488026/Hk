@@ -733,7 +733,7 @@ storage0.putMyVar("list",列表s);
                
                 extra.linkid = index;
                 extra.name = name
-                
+                extra.jsLoadingInject = true;
                 
            return {
                title: it.title,
@@ -959,6 +959,9 @@ storage0.putMyVar("list",列表s);
                 if (list_col_type.indexOf("_left") > -1) {
                     extra.textAlign = 'left';
                 }
+                
+                
+                
                 d.push({
                     title: 列表[i].title.trim().replace(/ |-|_/g, '').replace(name, ''),
                     url: "hiker://empty##" + 列表[i].url + lazy,
