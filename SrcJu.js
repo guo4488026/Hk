@@ -423,6 +423,7 @@ function erji() {
             d.push({
                 title: "搜索",
                 url: $(runModes, 2).select((name, sgroup) => {
+putMyVar('sousuoPageType',input)
 
                     return $("#noLoading#").lazyRule((name, sgroup, stype) => {
                         updateItem("listloading2", {
