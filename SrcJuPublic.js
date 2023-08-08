@@ -191,6 +191,10 @@ function getYiData(type,od) {
             eval("let 数据 = " + parse[type])
             data = 数据();
         }catch(e){
+            if(runMode=="正版"){
+                eval(JSON.parse(fetch("hiker://page/updata")).rule);
+                data = d
+            }
             log(e.message);
         }
         if(data.length==0 && page==1){
