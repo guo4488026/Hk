@@ -405,7 +405,7 @@ function erji() {
 
             let lazy;
             let itype;
-            log(parse)
+         
             let 解析 = parse['解析'];
 
             
