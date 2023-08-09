@@ -7,7 +7,7 @@ let yidata = {
         var d = []
 
 
-        var data = JSON.parse(fetch("hiker://files/rules/cy/动漫城.json"));
+        requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48);
 
         var rules = data.rules
         var rule = rules[公共.sname];
@@ -184,10 +184,10 @@ let yidata = {
     },
     "分类": function() {
         var d = [];
-        var data = JSON.parse(fetch("hiker://files/rules/cy/动漫城.json"));
+        requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48)
         var rules = data.rules
         var rule = rules[公共.sname];
-        var svurl = rule.svurl;
+        var svurl =rule.syurl+ rule.svurl;
         var page = MY_PAGE
         MY_URL = svurl;
         if (rule.dtfl != true) {
@@ -406,9 +406,9 @@ let yidata = {
 var erdata = {
     "搜索": function(name, page) {
         var d = []
-        var data = JSON.parse(fetch("hiker://files/rules/cy/动漫城.json"));
+        requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48)
         var rules = data.rules
-        var ssurl = rules[公共.sname].ssurl;
+        var ssurl =rule.syurl+ rules[公共.sname].ssurl;
         ssurl = ssurl.replace("**", name).replace("fypage", page);
 
         var parStr = rules[公共.sname].parStr;
@@ -498,7 +498,7 @@ var erdata = {
     },
     "最新": function(surl) {
         try {
-            var data = JSON.parse(fetch("hiker://files/rules/cy/动漫城.json"));
+            requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48)
             var rules = data.rules
             var rule = rules[公共.sname];
 
@@ -536,7 +536,7 @@ var erdata = {
         setResult("更新至第" + 更 + "集")
     },
     "解析": function(url) {
-            var data = JSON.parse(fetch("hiker://files/rules/cy/动漫城.json"))
+            requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48)
             eval("var lazy=" + data.rules[公共.sname].lazy)
             return lazy(url)       
     }
