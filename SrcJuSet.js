@@ -165,7 +165,23 @@ function SRCSet() {
             }, it),
             col_type: 'scroll_button'
         }
-       
+        /*
+        if(it != "全部"){
+            obj.extra = {};
+            obj["extra"].longClick = [{
+                title: (getItem(it+'stoptype')=="1"?"启用":"停用")+it,
+                js: $.toString((it) => {
+                    if(getItem(it+'stoptype')=="1"){
+                        clearItem(it+'stoptype');
+                    }else{
+                        setItem(it+'stoptype','1');
+                    }
+                    refreshPage(false);
+                    return "hiker://empty";
+                },it)
+            }]
+        }
+        */
         d.push(obj);
     })
     d.push({
@@ -310,7 +326,7 @@ function jiekouapi(sourcefile, data) {
         putMyVar('jiekouedit', '1');
         putMyVar('jiekouname', data.name);
         putMyVar('jiekouimg', data.img || "");
-        putMyVar('jiekoutype', data.type || "影视");
+        putMyVar('jiekoutype', data.type || "");
         putMyVar('jiekougroup', data.group || "");
         storage0.putMyVar('jiekouparse', data.parse);
         storage0.putMyVar('jiekouerparse', data.erparse ? data.erparse : "");
