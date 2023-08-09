@@ -7,7 +7,7 @@ let yidata = {
         var d = []
 
 
-        requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48);
+        eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
 
         var rules = data.rules
         var rule = rules[公共.sname];
@@ -188,7 +188,7 @@ let yidata = {
     },
     "分类": function() {
         var d = [];
-        requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48)
+        eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
         var rules = data.rules
         var rule = rules[公共.sname];
         
@@ -414,7 +414,7 @@ let yidata = {
 var erdata = {
     "搜索": function(name, page) {
         var d = []
-        requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48)
+        eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
         var rules = data.rules
         var ssurl =rule.syurl+ rules[公共.sname].ssurl;
         if(公共.host){
@@ -509,7 +509,7 @@ var erdata = {
     },
     "最新": function(surl) {
         try {
-            requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48)
+            eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
             var rules = data.rules
             var rule = rules[公共.sname];
 
@@ -547,7 +547,7 @@ var erdata = {
         setResult("更新至第" + 更 + "集")
     },
     "解析": function(url) {
-            requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48)
+            eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
             eval("var lazy=" + data.rules[公共.sname].lazy)
             return lazy(url)       
     }
