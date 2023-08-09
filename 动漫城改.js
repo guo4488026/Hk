@@ -11,7 +11,11 @@ let yidata = {
 
         var rules = data.rules
         var rule = rules[公共.sname];
+        if(公共.host){
+            MY_URL=公共.host
+        }else{
         MY_URL = rule.syurl;
+        }
         var cookie = rule.Cookie;
         var parStr = rule.parStr;
 
@@ -187,7 +191,11 @@ let yidata = {
         requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48)
         var rules = data.rules
         var rule = rules[公共.sname];
+        
         var svurl =rule.syurl+ rule.svurl;
+        if(公共.host){
+            var svurl =公共.host+ rule.svurl;
+        }
         var page = MY_PAGE
         MY_URL = svurl;
         if (rule.dtfl != true) {
@@ -409,6 +417,9 @@ var erdata = {
         requireCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48)
         var rules = data.rules
         var ssurl =rule.syurl+ rules[公共.sname].ssurl;
+        if(公共.host){
+           ssurl =公共.host+ rule.ssurl;
+        }
         ssurl = ssurl.replace("**", name).replace("fypage", page);
 
         var parStr = rules[公共.sname].parStr;
