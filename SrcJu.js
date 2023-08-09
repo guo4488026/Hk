@@ -485,6 +485,8 @@ putMyVar('sousuoPageType',input)
                     searchTerms: name,
                     longClick: [{
                         title: "更换图标",
+                        newWindow: true,
+                    windowId: MY_RULE.title + "云盘君",
                         js: $.toString(() => {
                             return $("").input(() => {
                                 if (input) {
