@@ -419,7 +419,7 @@ function erji() {
             });
 
 
-
+name=getPageTitle();
             d.push({
                 title: "搜索",
                 url: $(runModes, 2).select((name, sgroup) => {
@@ -456,7 +456,7 @@ putMyVar('sousuoPageType',input)
                             return "hiker://empty";
                         }
                     }, name, sgroup, input)
-                }, MY_PARAMS.name, sgroup),
+                }, name, sgroup),
                 img: getItem("img_1", "https://hikerfans.com/tubiao/more/103.png"),
                 col_type: "icon_4",
                 extra: {
