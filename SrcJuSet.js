@@ -429,6 +429,17 @@ function jiekouapi(sourcefile, data) {
             })
         }
     });
+    
+    if(data.updatetime){
+        d.push({
+            title: "更新时间："+data.updatetime,
+            url: "hiker://empty",
+            col_type:"text_1",
+            extra: {
+                "lineVisible":false
+            }
+        })
+    }
     d.push({
         title: '测试搜索',
         col_type: 'text_2',
