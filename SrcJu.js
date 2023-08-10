@@ -506,7 +506,8 @@ putMyVar('sousuoPageType',input)
                 img: getItem("img_3", "http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),
                 col_type: "icon_4",
                 extra: {
-                     
+                    newWindow: true,
+                    windowId: "搜弹幕",
                     longClick: [{
                        
                         title: "更换图标",
