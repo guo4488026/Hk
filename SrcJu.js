@@ -774,7 +774,7 @@ storage0.putMyVar("list",列表s);
                             title: "选集缓存",
                             js: $.toString(()=>{
     let 列表 = findItemsByCls('loadlist playlist') || [];
-    storage0.putMyVar("dmList")
+    storage0.putMyVar("dmList",列表)
     return "toast://缓存成功"
 })
                         }]
@@ -783,21 +783,7 @@ storage0.putMyVar("list",列表s);
                 })
             }
 
-if(storage0.getMyVar("dmList")){
-    addItemAfter("listsort",{
-        title: "选集缓存",
-        col_type: "scroll_button",
-        url: $("hiker://empty#noHistory#").rule(()=>{
-           
-            var list= storage0.getMyVar("dmList")
-            setResult(list)
-            
-        }),
-        extra: {
-            dm:1
-        }
-    })
-}
+
 
             if (Juconfig['yundiskLine'] == 1) {
                 d.push({
@@ -1054,8 +1040,26 @@ if(storage0.getMyVar("dmList")){
                 aliDiskSearch(MY_PARAMS.name);
             }
         }
+        
+        if(storage0.getMyVar("dmList")){
+    addItemAfter("listsort",{
+        title: "选集缓存",
+        col_type: "scroll_button",
+        url: $("hiker://empty#noHistory#").rule(()=>{
+           
+            var list= storage0.getMyVar("dmList")
+            setResult(list)
+            
+        }),
+        extra: {
+            dm:1,
+            newWindow: true,
+            
+        }
+    })
+}
 
-        if (getMyVar("sousuoname")) {
+        /*if (getMyVar("sousuoname")) {
 
 
             deleteItemByCls("playlist")
@@ -1067,7 +1071,7 @@ if(storage0.getMyVar("dmList")){
 
                 search(getMyVar("sousuoname"), "sousuopage", false, info.group, type);
             }
-        }
+        }*/
         if (!getMyVar(sname + "_" + name)) {
             toast('当前数据源：' + sname + (sauthor ? ", 作者：" + sauthor : ""));
         }
