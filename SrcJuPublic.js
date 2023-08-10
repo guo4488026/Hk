@@ -209,7 +209,9 @@ function getYiData(type,od) {
          
             extra.name = extra.name || extra.pageTitle || (item.title?item.title.replace(/‘|’|“|”|<[^>]+>/g,""):"");
             extra.img = extra.img || item.pic_url || item.img;
-            
+            extra.newWindow= true;
+                        extra.windowId="搜视二级";
+                        
             extra.stype = extra.stype||sourcedata[0].type;
             extra.pageTitle = extra.pageTitle || extra.name;
             if(item.url && !/js:|select:|\(|\)|=>|@|toast:|hiker:\/\/page/.test(item.url)){
