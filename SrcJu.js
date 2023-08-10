@@ -1045,12 +1045,7 @@ storage0.putMyVar("list",列表s);
     addItemAfter("listsort",{
         title: "选集缓存",
         col_type: "scroll_button",
-        url: $("hiker://empty#noHistory#").rule(()=>{
-           
-            var list= storage0.getMyVar("dmList")
-            setResult(list)
-            
-        }),
+        url: "hiker://page/dmList#noHistory#",
         extra: {
             dm:1,
             newWindow: true,
