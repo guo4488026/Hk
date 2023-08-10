@@ -418,7 +418,8 @@ var erdata = {
         var d = []
         eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
         var rules = data.rules
-        var ssurl =rule.syurl+ rules[公共.sname].ssurl;
+        var rule=rules[公共.sname]
+        var ssurl =rule.syurl+ rule.ssurl;
         if(公共.host){
            ssurl =公共.host+ rule.ssurl;
         }
