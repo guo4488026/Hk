@@ -502,8 +502,29 @@ putMyVar('sousuoPageType',input)
             })
 
             d.push({
-                title: "动漫花园",
-                url: "hiker://page/搜索结果#noRecordHistory##noHistory#?rule=动漫花园同步站&page=fypage&keyword=" + name,
+                title: "新搜索",
+                url: $("hiker://empty#noRecordHistory##noHistory##fullTheme###fypage").rule((name) => {
+            addListener("onClose", $.toString(() => {
+                initConfig({
+                    依赖: getMyVar('SrcJuCfg')
+                });
+                clearMyVar('SrcJuCfg');
+             
+                clearMyVar('sousuoPageType');
+            }));
+            putMyVar("sousuoname",name)
+            addListener('onRefresh', $.toString(() => {
+                initConfig({
+                    依赖: getMyVar('SrcJuCfg')
+                });
+               
+            }));
+            if (!getMyVar('SrcJuCfg')) {
+                putMyVar('SrcJuCfg', config.依赖);
+            }
+            require(getMyVar('SrcJuCfg'));
+            newsousuopage();
+        },name),
                 img: getItem("img_3", "http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),
                 col_type: "icon_4",
                 extra: {
