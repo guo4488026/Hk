@@ -949,7 +949,7 @@ storage0.putMyVar("list",列表s);
                 extra.cls = "loadlist playlist";
                if(getMyVar("SrcJu_"+surl+"_page")!=0){
           var min=getMyVar("SrcJu_"+surl+"_page")     
-                   extra.linkid=(parseInt(min)*列表.length)-1+i
+                   extra.linkid=(parseInt(min)*列表.length)+i;
                }else{
                 extra.linkid = i;
                 }
