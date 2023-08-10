@@ -1037,18 +1037,7 @@ storage0.putMyVar("list",列表s);
             let diskMark = storage0.getMyVar('diskMark') || {};
             if (diskMark[MY_PARAMS.name]) {
                 deleteItemByCls("loadlist")
-           var ali=[];
-           for(var it of diskMark[MY_PARAMS.name]){
-               var extra=it.extra;
-               extra.windowId= "阿里云盘";
-               extra.newWindow= true
-               it.extra=extra;
-            
-           
-           }
-               
-
-                // deleteItemByCls('listsort');
+                         
                 addItemBefore('listloading', diskMark[MY_PARAMS.name]);
             } else {
                 require(config.依赖.match(/http(s)?:\/\/.*\//)[0].replace("/Ju/", "/master/") + 'SrcJyAliDisk.js');
