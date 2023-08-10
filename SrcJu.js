@@ -770,7 +770,7 @@ storage0.putMyVar("list",列表s);
                     extra: {
                         cls: "tabs playlist",
                         id: surl + "_线路_" + i,
-                        location: [{
+                        longClick: [{
                             title: "选集缓存",
                             js: $.toString(()=>{
     let 列表 = findItemsByCls('loadlist playlist') || [];
