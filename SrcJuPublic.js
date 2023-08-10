@@ -212,8 +212,7 @@ function getYiData(type,od) {
             
                         
             extra.stype = extra.stype||sourcedata[0].type;
-            extra.newWindow= true;
-            extra.windowId= extra.stype+"二级";
+            
             extra.pageTitle = extra.pageTitle || extra.name;
             if(item.url && !/js:|select:|\(|\)|=>|@|toast:|hiker:\/\/page/.test(item.url)){
                 extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g,"");
