@@ -659,7 +659,7 @@ putMyVar('sousuoPageType',input)
                     if (列表.length == 0) {
                         return 'toast://未获取到列表'
                     }
-                    deleteItemByCls('loadlist');
+                    deleteItemByCls('loadlist playlist');
                     if (getMyVar(sname + 'sort') == '1') {
                         putMyVar(sname + 'sort', '0');
                         updateItem('listsort', {
@@ -903,7 +903,7 @@ storage0.putMyVar("list",列表s);
                     }, "SrcJu_" + surl + "_page", pageid, i))
                     分页名.push(pageid == i ? '““””<span style="color: #87CEFA">' + it.title : it.title)
                 })
-                if (分页名.length > 0) {
+                if (分页名.length > 1) {
                     d.push({
                         col_type: "blank_block"
                     });
