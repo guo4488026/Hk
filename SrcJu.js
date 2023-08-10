@@ -769,11 +769,35 @@ storage0.putMyVar("list",列表s);
                     col_type: 'scroll_button',
                     extra: {
                         cls: "tabs playlist",
-                        id: surl + "_线路_" + i
+                        id: surl + "_线路_" + i,
+                        location: [{
+                            title: "选集缓存",
+                            js: $.toString(()=>{
+    let 列表 = findItemsByCls('loadlist playlist') || [];
+    storage0.putMyVar("dmList")
+    return "toast://缓存成功"
+})
+                        }]
+                        
                     }
                 })
             }
 
+if(storage0.getMyVar("dmList")){
+    addItemAfter("listsort",{
+        title: "选集缓存",
+        col_type: "scroll_button",
+        url: $("hiker://empty#noHistory#").rule(()=>{
+           
+            var list= storage0.getMyVar("dmList")
+            setResult(list)
+            
+        }),
+        extra: {
+            dm:1
+        }
+    })
+}
 
             if (Juconfig['yundiskLine'] == 1) {
                 d.push({
@@ -823,10 +847,13 @@ storage0.putMyVar("list",列表s);
                     col_type: 'scroll_button',
                     extra: {
                         cls: "tabs playlist",
+                        
                     }
                 });
 
             }
+            
+        
             if (getItem('enabledpush', '') == '1') {
                 let push = {
                     "name": MY_PARAMS.name,
