@@ -430,12 +430,14 @@ var erdata = {
         for (var it of list) {
             var img = pdfh(it, M[2]).startsWith("/") ? getHome(ssurl) + pdfh(it, M[2]) : pdfh(it, M[2]);
             var url = pdfh(it, M[4])
+            if(pdfh(it, M[1]).includes(name)){
             d.push({
                 title: pdfh(it, M[1]),
                 img: 公共.Referer ? img + 公共.Referer : img,
                 desc: pdfh(it, M[3]),
                 url: url.startsWith("/") ? getHome(ssurl) + url : url
             })
+          }
         }
         return d
 
