@@ -502,21 +502,23 @@ putMyVar('sousuoPageType',input)
 
             d.push({
                 title: "搜正版",
-                url: $("hiker://empty#noRecordHistory##noHistory##fullTheme###fypage").rule((name) => {
+                url: $("hiker://empty#noRecordHistory##noHistory##fullTheme###fypage").rule((keyword) => {
             addListener("onClose", $.toString(() => {
                 initConfig({
                     依赖: getMyVar('SrcJuCfg')
                 });
-                clearMyVar('SrcJuCfg');
+             clearMyVar("sousuoname")
+             clearMyVar('SrcJuCfg');
              
                 
             }));
-            putMyVar("sousuoname",name)
-putMyVar('sousuoPageType',"正版");
+            
+
             addListener('onRefresh', $.toString(() => {
                 initConfig({
                     依赖: getMyVar('SrcJuCfg')
                 });
+                clearMyVar("sousuoname")
                
             }));
             if (!getMyVar('SrcJuCfg')) {
@@ -528,9 +530,10 @@ putMyVar('sousuoPageType',"正版");
                 img: getItem("img_3", "http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),
                 col_type: "icon_4",
                 extra: {
+                     newWindow: true,
+                     windowId: MY_RULE.title + "搜索",
                     longClick: [{
-                        newWindow: true,
-                    windowId: MY_RULE.title + "搜索",
+                       
                         title: "更换图标",
                         js: $.toString(() => {
                             return $("").input(() => {
@@ -587,7 +590,7 @@ putMyVar('sousuoPageType',"正版");
                             extra: {
                                 cls: "SrcJudescload"
                             }
-                        }]);
+                        }]);x
                     }
                     return "hiker://empty";
                 }, erjidetails.desc || ""),
@@ -1353,8 +1356,7 @@ function search(keyword, mode, sdata, group, type) {
                         extra.img = extra.img || item.img || item.pic_url;
                         extra.stype = objdata.type;
                         extra.sname = objdata.name;
-                        extra.newWindow = true;
-                         extra.windowId= extra.stype+"二级";
+                        
                         extra.pageTitle = extra.pageTitle || extra.name;
                         extra.surl = item.url && !/js:|select:|\(|\)|=>|hiker:\/\/page|@|toast:/.test(item.url) ? item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#readTheme#|#autoPage#|#noLoading#|#/g, "") : "";
                         item.extra = extra;
