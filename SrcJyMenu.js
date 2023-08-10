@@ -393,6 +393,11 @@ function lookset() {
         desc: "",
         pic_url: "hiker://images/icon1"
     });
+    d.push({
+        title: "dm盒子",
+        url:"hiker://page/setting?rule=dm盒子",
+        col_type: "text_3",
+    })
     if ((MY_NAME == "海阔视界" && getAppVersion() >= 3369) || (MY_NAME == "嗅觉浏览器" && getAppVersion() >= 798)) {
         JYconfig['superweb'] = JYconfig.superweb == 0 ? 0 : 1;
         d.push({
