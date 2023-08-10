@@ -502,7 +502,7 @@ putMyVar('sousuoPageType',input)
 
             d.push({
                 title: "搜弹幕",
-                url: "hiker://page/loadDm?rule=云盘君.简&title="+encodeURIComponent(name);
+                url: "hiker://page/loadDm?rule=云盘君.简&title="+encodeURIComponent(name),
                 img: getItem("img_3", "http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),
                 col_type: "icon_4",
                 extra: {
