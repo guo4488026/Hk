@@ -501,32 +501,8 @@ putMyVar('sousuoPageType',input)
             })
 
             d.push({
-                title: "搜正版",
-                url: $("hiker://empty#noRecordHistory##noHistory##fullTheme###fypage").rule((keyword) => {
-            addListener("onClose", $.toString(() => {
-                initConfig({
-                    依赖: getMyVar('SrcJuCfg')
-                });
-             clearMyVar("sousuoname")
-             clearMyVar('SrcJuCfg');
-             
-                
-            }));
-            
-
-            addListener('onRefresh', $.toString(() => {
-                initConfig({
-                    依赖: getMyVar('SrcJuCfg')
-                });
-                clearMyVar("sousuoname")
-               
-            }));
-            if (!getMyVar('SrcJuCfg')) {
-                putMyVar('SrcJuCfg', config.依赖);
-            }
-            require(getMyVar('SrcJuCfg'));
-            newsousuopage();
-        },name),
+                title: "搜弹幕",
+                url: "hiker://page/loadDm?rule=云盘君.简&title="+encodeURIComponent(name);
                 img: getItem("img_3", "http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),
                 col_type: "icon_4",
                 extra: {
