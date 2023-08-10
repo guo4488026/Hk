@@ -655,7 +655,7 @@ putMyVar('sousuoPageType',input)
             d.push({
                 title: getMyVar(sname + 'sort') == '1' ? `““””<b><span style="color: #66CCEE">∨</span></b>` : `““””<b><span style="color: #55AA44">∧</span></b>`,
                 url: $("#noLoading#").lazyRule((sname) => {
-                    let 列表 = findItemsByCls('loadlist') || [];
+                    let 列表 = findItemsByCls('loadlist playlist') || [];
                     if (列表.length == 0) {
                         return 'toast://未获取到列表'
                     }
