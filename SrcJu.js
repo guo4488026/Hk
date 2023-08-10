@@ -1355,6 +1355,8 @@ function search(keyword, mode, sdata, group, type) {
                         extra.img = extra.img || item.img || item.pic_url;
                         extra.stype = objdata.type;
                         extra.sname = objdata.name;
+                        extra.newWindow= true;
+                        extra.windowId="搜视二级"
                         extra.pageTitle = extra.pageTitle || extra.name;
                         extra.surl = item.url && !/js:|select:|\(|\)|=>|hiker:\/\/page|@|toast:/.test(item.url) ? item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#readTheme#|#autoPage#|#noLoading#|#/g, "") : "";
                         item.extra = extra;
