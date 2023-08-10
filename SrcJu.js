@@ -947,8 +947,12 @@ storage0.putMyVar("list",列表s);
                 extra.id = 列表[i].url;
                 extra.url = 列表[i].url;
                 extra.cls = "loadlist playlist";
-               
+               if(getMyVar("SrcJu_"+surl+"_page")!=0){
+          var min=getMyVar("SrcJu_"+surl+"_page")     
+                   extra.linkid=(parseInt(min)*列表.length)-1+i
+               }else{
                 extra.linkid = i;
+                }
                 extra.name = name
                 
                 extra.jsLoadingInject = true;
