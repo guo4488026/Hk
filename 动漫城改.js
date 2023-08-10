@@ -96,6 +96,8 @@ let yidata = {
                                     sname: sname,
                                     surl: getHome(MY_URL) + pdfh(data, tu[4]),
                                     img: pdfh(data, tu[2]),
+                                    newWindow: true,
+                            windowId:"搜视二级"    
 
                                 }
                             };
