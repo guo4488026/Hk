@@ -507,7 +507,6 @@ putMyVar('sousuoPageType',input)
                 col_type: "icon_4",
                 extra: {
                     newWindow: true,
-                    windowId: "搜弹幕",
                     longClick: [{
                        
                         title: "更换图标",
