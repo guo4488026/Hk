@@ -485,8 +485,7 @@ putMyVar('sousuoPageType',input)
                     searchTerms: name,
                     longClick: [{
                         title: "更换图标",
-                        newWindow: true,
-                    windowId: MY_RULE.title + "云盘君",
+                        
                         js: $.toString(() => {
                             return $("").input(() => {
                                 if (input) {
@@ -502,7 +501,7 @@ putMyVar('sousuoPageType',input)
             })
 
             d.push({
-                title: "新搜索",
+                title: "搜正版",
                 url: $("hiker://empty#noRecordHistory##noHistory##fullTheme###fypage").rule((name) => {
             addListener("onClose", $.toString(() => {
                 initConfig({
@@ -510,9 +509,10 @@ putMyVar('sousuoPageType',input)
                 });
                 clearMyVar('SrcJuCfg');
              
-                clearMyVar('sousuoPageType');
+                
             }));
             putMyVar("sousuoname",name)
+putMyVar('sousuoPageType',"正版");
             addListener('onRefresh', $.toString(() => {
                 initConfig({
                     依赖: getMyVar('SrcJuCfg')
@@ -529,6 +529,8 @@ putMyVar('sousuoPageType',input)
                 col_type: "icon_4",
                 extra: {
                     longClick: [{
+                        newWindow: true,
+                    windowId: MY_RULE.title + "搜索",
                         title: "更换图标",
                         js: $.toString(() => {
                             return $("").input(() => {
