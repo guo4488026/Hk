@@ -61,9 +61,9 @@ function yiji() {
         d.push({
             title: "设置",
             url: $("hiker://empty#noRecordHistory##noHistory#").rule(() => {
-                        require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuSet.js');
-                        SRCSet();
-                    }),
+                require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuSet.js');
+                SRCSet();
+            }),
             pic_url: "https://hikerfans.com/tubiao/more/129.png",
             col_type: 'icon_5',
             extra: {
@@ -72,10 +72,10 @@ function yiji() {
             }
 
         })
-        if (parse && parse["排行"]||runMode=="正版") {
+        if (parse && parse["排行"] || runMode == "正版") {
             d.push({
                 title: "排行",
-                url:rulePage('排行', 页码["排行"]),
+                url: rulePage('排行', 页码["排行"]),
                 pic_url: "https://hikerfans.com/tubiao/more/229.png",
                 col_type: 'icon_5'
             })
@@ -215,7 +215,7 @@ function erji() {
         clearMyVar("sousuoname");
         clearMyVar("sousuoPageType");
         clearMyVar("listloading");
-   
+
         if (getMyVar('SrcBookCase')) {
             clearMyVar('SrcBookCase');
             refreshPage(false);
@@ -330,7 +330,7 @@ function erji() {
             detailextra.gradient = detailextra.gradient || true;
 
             d.push({
-                desc:getItem("float","240")+ '&&float',
+                desc: getItem("float", "240") + '&&float',
                 col_type: "x5_webview_single",
                 extra: {
                     ua: MOBILE_UA,
@@ -405,25 +405,25 @@ function erji() {
 
             let lazy;
             let itype;
-         
+
             let 解析 = parse['解析'];
 
-            
-          
+
+
             lazy = $("").lazyRule((解析, 参数) => {
                 eval(JSON.parse(fetch("hiker://page/lazy")).rule)
                 return Lazy(input)
-            },解析, {
+            }, 解析, {
                 "规则名": MY_RULE.title,
                 "标识": 标识
             });
 
 
-name=getPageTitle();
+            name = getPageTitle();
             d.push({
                 title: "搜索",
                 url: $(runModes, 2).select((name, sgroup) => {
-putMyVar('sousuoPageType',input)
+                    putMyVar('sousuoPageType', input)
 
                     return $("#noLoading#").lazyRule((name, sgroup, stype) => {
                         updateItem("listloading2", {
@@ -485,7 +485,7 @@ putMyVar('sousuoPageType',input)
                     searchTerms: name,
                     longClick: [{
                         title: "更换图标",
-                        
+
                         js: $.toString(() => {
                             return $("").input(() => {
                                 if (input) {
@@ -502,13 +502,13 @@ putMyVar('sousuoPageType',input)
 
             d.push({
                 title: "搜弹幕",
-                url: "hiker://page/loadDm?rule=云盘君.简&title="+encodeURIComponent(name),
+                url: "hiker://page/loadDm?rule=云盘君.简&title=" + encodeURIComponent(name),
                 img: getItem("img_3", "http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),
                 col_type: "icon_4",
                 extra: {
                     newWindow: true,
                     longClick: [{
-                       
+
                         title: "更换图标",
                         js: $.toString(() => {
                             return $("").input(() => {
@@ -565,7 +565,8 @@ putMyVar('sousuoPageType',input)
                             extra: {
                                 cls: "SrcJudescload"
                             }
-                        }]);x
+                        }]);
+                        x
                     }
                     return "hiker://empty";
                 }, erjidetails.desc || ""),
@@ -707,7 +708,7 @@ putMyVar('sousuoPageType',input)
             }
             let list_col_type = getItem('SrcJuList_col_type' + sname, 'text_2');
 
-storage0.putMyVar("list",列表s);
+            storage0.putMyVar("list", 列表s);
 
             for (var i in 线路s) {
                 if (线路s[i] == "undefined") {
@@ -715,47 +716,47 @@ storage0.putMyVar("list",列表s);
                 }
                 d.push({
                     title: getMyVar("SrcJu_" + surl + "_line", '0') == i ? `““””<b><span style="color: #AABBFF">` + 线路s[i] + `<small>⚡</small></span></b>` : 线路s[i],
-                    url: $("#noLoading#").lazyRule((surl, index, sname,线路,lazy,name) => {
+                    url: $("#noLoading#").lazyRule((surl, index, sname, 线路, lazy, name) => {
                         if (getMyVar("SrcJu_" + surl + "_line", '0') != index) {
                             putMyVar("SrcJu_" + surl + "_line", index);
-                            
-                       for(var j in 线路){
-                        updateItem(surl+"_线路_"+j,{
-                             title:j==index? `““””<b><span style="color: #AABBFF">` + 线路[j] + `<small>⚡</small></span></b>`: 线路[j]
-                         })  
-                            
-       }
-       deleteItemByCls("loadlist");
-       var lists = storage0.getMyVar("list");
-       var list=lists[index]
-       var 列表 =[]
-          for(var i in list){
-              var it= list[i]
-              let extra = it.extra || {};
-                extra.id =it.url;
-                extra.url = it.url;
-                extra.cls = "loadlist playlist";
-                
-          
-               
-                extra.linkid = i;
-                extra.name = name
-                extra.jsLoadingInject = true;
-                
-            列表.push({
-               title: it.title,
-               img: it.img?it.img:"",
-               desc: it.desc?it.desc:"",
-               url: /.torrent|ed2k:|magnet:|mp4|m3u8/.test(it.url)?it.url:"hiker://empty##" +it.url+lazy,
-               col_type: getItem("SrcJuList_col_type"+sname,"text_2"),
-               extra: extra
-           })
-       }
-       if(getMyVar(sname+"sort")=="1"){
-        列表.reverse();
-       }
-       addItemBefore(getMyVar("listloading", "1") == "1" ? "listloading" : "listloading2",列表);
-                                                       
+
+                            for (var j in 线路) {
+                                updateItem(surl + "_线路_" + j, {
+                                    title: j == index ? `““””<b><span style="color: #AABBFF">` + 线路[j] + `<small>⚡</small></span></b>` : 线路[j]
+                                })
+
+                            }
+                            deleteItemByCls("loadlist");
+                            var lists = storage0.getMyVar("list");
+                            var list = lists[index]
+                            var 列表 = []
+                            for (var i in list) {
+                                var it = list[i]
+                                let extra = it.extra || {};
+                                extra.id = it.url;
+                                extra.url = it.url;
+                                extra.cls = "loadlist playlist";
+
+
+
+                                extra.linkid = i;
+                                extra.name = name
+                                extra.jsLoadingInject = true;
+
+                                列表.push({
+                                    title: it.title,
+                                    img: it.img ? it.img : "",
+                                    desc: it.desc ? it.desc : "",
+                                    url: /.torrent|ed2k:|magnet:|mp4|m3u8/.test(it.url) ? it.url : "hiker://empty##" + it.url + lazy,
+                                    col_type: getItem("SrcJuList_col_type" + sname, "text_2"),
+                                    extra: extra
+                                })
+                            }
+                            if (getMyVar(sname + "sort") == "1") {
+                                列表.reverse();
+                            }
+                            addItemBefore(getMyVar("listloading", "1") == "1" ? "listloading" : "listloading2", 列表);
+
                         } else {
                             return $(["text_1", "text_2", "text_3", "text_4", "flex_button", "movie_2", "pic_2"], 2, "选集列表样式").select((sname) => {
                                 setItem("SrcJuList_col_type" + sname, input)
@@ -764,38 +765,41 @@ storage0.putMyVar("list",列表s);
                             }, sname)
                         }
                         return 'hiker://empty'
-                    }, surl, i, sname,线路s,lazy,name),
+                    }, surl, i, sname, 线路s, lazy, name),
                     col_type: 'scroll_button',
                     extra: {
                         cls: "tabs playlist",
                         id: surl + "_线路_" + i,
                         longClick: [{
                             title: "选集缓存",
-                            js: $.toString(()=>{
-    let 列表 = findItemsByCls('loadlist playlist') || [];
-    storage0.putMyVar("dmList",列表)
-    
-    refreshPage(false)
-    return "toast://缓存成功"
-})
+                            js: $.toString((name) => {
+                                let 列表 = findItemsByCls('loadlist playlist') || [];
+                                var result = {};
+                                result.name = name;
+                                result.list = 列表;
+                                storage0.putMyVar("dmList", result)
+
+                                refreshPage(false)
+                                return "toast://缓存成功"
+                            }, name)
                         }]
-                        
+
                     }
                 })
             }
 
-if(storage0.getMyVar("dmList")){
-    d.push({
-        title: "选集缓存",
-        col_type: "scroll_button",
-        url: "hiker://page/dmList#noHistory#",
-        extra: {
-            dm:1,
-            newWindow: true,
-            
-        }
-    })
-}
+            if (storage0.getMyVar("dmList")) {
+                d.push({
+                    title: "选集缓存",
+                    col_type: "scroll_button",
+                    url: "hiker://page/dmList#noHistory#",
+                    extra: {
+                        dm: 1,
+                        newWindow: true,
+
+                    }
+                })
+            }
 
             if (Juconfig['yundiskLine'] == 1) {
                 d.push({
@@ -845,13 +849,13 @@ if(storage0.getMyVar("dmList")){
                     col_type: 'scroll_button',
                     extra: {
                         cls: "tabs playlist",
-                        
+
                     }
                 });
 
             }
-            
-        
+
+
             if (getItem('enabledpush', '') == '1') {
                 let push = {
                     "name": MY_PARAMS.name,
@@ -864,11 +868,11 @@ if(storage0.getMyVar("dmList")){
                 let tvip = getItem('hikertvboxset', '');
                 d.push({
                     title: '推送TVBOX',
-                    url: $("#noLoading#").lazyRule((push,tvip) => {
+                    url: $("#noLoading#").lazyRule((push, tvip) => {
                         if (tvip == "") {
                             return 'toast://观影设置中设置TVBOX接收端ip地址，完成后回来刷新一下';
                         }
-                        var lists=storage0.getMyVar("list");
+                        var lists = storage0.getMyVar("list");
 
 
                         var url = ""
@@ -891,7 +895,7 @@ if(storage0.getMyVar("dmList")){
 
                         if (lists.length > 0) {
                             push['url'] = url;
-                           
+
                             var state = request(tvip + '/action', {
                                 headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -911,7 +915,7 @@ if(storage0.getMyVar("dmList")){
                             }
                         }
                         return 'toast://所有线路均不支持推送列表';
-                    }, push,tvip),
+                    }, push, tvip),
                     col_type: 'scroll_button',
                     extra: {
                         cls: "tabs playlist"
@@ -966,8 +970,8 @@ if(storage0.getMyVar("dmList")){
 
             }
 
-           
-            
+
+
             for (let i = 0; i < 列表.length; i++) {
                 let extra = 列表[i].extra || {};
                 try {
@@ -976,15 +980,15 @@ if(storage0.getMyVar("dmList")){
                 extra.id = 列表[i].url;
                 extra.url = 列表[i].url;
                 extra.cls = "loadlist playlist";
-               if(getMyVar("SrcJu_"+surl+"_page")!=0){
-          var min=getMyVar("SrcJu_"+surl+"_page")     
-                   extra.linkid=(parseInt(min)*列表.length)+i;
-               }else{
-                extra.linkid = i;
+                if (getMyVar("SrcJu_" + surl + "_page") != 0) {
+                    var min = getMyVar("SrcJu_" + surl + "_page")
+                    extra.linkid = (parseInt(min) * 列表.length) + i;
+                } else {
+                    extra.linkid = i;
                 }
-                
+
                 extra.name = name
-                
+
                 extra.jsLoadingInject = true;
                 let blockRules = ['.m4a', '.mp3', '.gif', '.jpeg', '.jpg', '.ico', '.png', 'hm.baidu.com', '/ads/*.js', 'cnzz.com', '51.la'];
                 if (extra.blockRules && $.type(extra.blockRules) == "array") {
@@ -997,12 +1001,12 @@ if(storage0.getMyVar("dmList")){
                 if (list_col_type.indexOf("_left") > -1) {
                     extra.textAlign = 'left';
                 }
-                
-                
-                
+
+
+
                 d.push({
                     title: 列表[i].title.trim().replace(/ |-|_/g, '').replace(name, ''),
-                    url: /\.torrent|ed2k:|magnet:|\.mp4|\.m3u8/.test(列表[i].url)?列表[i].url:"hiker://empty##" +列表[i].url+lazy,
+                    url: /\.torrent|ed2k:|magnet:|\.mp4|\.m3u8/.test(列表[i].url) ? 列表[i].url : "hiker://empty##" + 列表[i].url + lazy,
                     desc: 列表[i].desc,
                     img: 列表[i].img,
                     col_type: 列表[i].col_type || list_col_type.replace("_left", ""),
@@ -1025,10 +1029,10 @@ if(storage0.getMyVar("dmList")){
         if (getMyVar('已选择换源列表')) {
             putMyVar("listloading", "2");
         }
-        
-       
-        
-        
+
+
+
+
         d.push({
             title: "‘‘’’<small><font color=#f20c00>当前数据源：" + sname + (sauthor ? ", 作者：" + sauthor : "") + "</font></small>",
             url: 'hiker://empty',
@@ -1044,15 +1048,15 @@ if(storage0.getMyVar("dmList")){
             let diskMark = storage0.getMyVar('diskMark') || {};
             if (diskMark[MY_PARAMS.name]) {
                 deleteItemByCls("loadlist")
-                         
+
                 addItemBefore('listloading', diskMark[MY_PARAMS.name]);
             } else {
                 require(config.依赖.match(/http(s)?:\/\/.*\//)[0].replace("/Ju/", "/master/") + 'SrcJyAliDisk.js');
                 aliDiskSearch(MY_PARAMS.name);
             }
         }
-        
-        
+
+
 
         /*if (getMyVar("sousuoname")) {
 
@@ -1216,18 +1220,18 @@ function search(keyword, mode, sdata, group, type) {
         }
     }
     let name = keyword.split('  ')[0];
-    let searchMark = storage0.getMyVar('searchMark'+getMyVar('sousuoPageType')) || {}; //二级换源缓存
+    let searchMark = storage0.getMyVar('searchMark' + getMyVar('sousuoPageType')) || {}; //二级换源缓存
     if (mode == "erji" && searchMark[name]) {
         addItemBefore(updateItemid, searchMark[name]);
         updateItem(updateItemid, {
             title: getMyVar('SrcJuSearching') == "1" ? "‘‘’’<small>搜索中</small>" : "‘‘’’<small>当前搜索为缓存</small>",
-            url: $("确定删除“" + name + "”搜索缓存吗？").confirm((name,type) => {
-                let searchMark = storage0.getMyVar('searchMark'+type) || {};
+            url: $("确定删除“" + name + "”搜索缓存吗？").confirm((name, type) => {
+                let searchMark = storage0.getMyVar('searchMark' + type) || {};
                 delete searchMark[name];
-                storage0.putMyVar('searchMark'+type, searchMark);
+                storage0.putMyVar('searchMark' + type, searchMark);
                 refreshPage(true);
                 return "toast://已清除";
-            }, name,getMyVar('sousuoPageType'))
+            }, name, getMyVar('sousuoPageType'))
         });
         let i = 0;
         let one = "";
@@ -1362,7 +1366,7 @@ function search(keyword, mode, sdata, group, type) {
                         extra.img = extra.img || item.img || item.pic_url;
                         extra.stype = objdata.type;
                         extra.sname = objdata.name;
-                        
+
                         extra.pageTitle = extra.pageTitle || extra.name;
                         extra.surl = item.url && !/js:|select:|\(|\)|=>|hiker:\/\/page|@|toast:/.test(item.url) ? item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#readTheme#|#autoPage#|#noLoading#|#/g, "") : "";
                         item.extra = extra;
@@ -1438,10 +1442,10 @@ function search(keyword, mode, sdata, group, type) {
                     if (data.length > 0) {
                         success++;
                         if (mode == "erji") {
-                            let searchMark = storage0.getMyVar('searchMark'+getMyVar('sousuoPageType')) || {}; //二级换源缓存
+                            let searchMark = storage0.getMyVar('searchMark' + getMyVar('sousuoPageType')) || {}; //二级换源缓存
                             searchMark[name] = searchMark[name] || [];
                             searchMark[name] = searchMark[name].concat(data);
-                            storage0.putMyVar('searchMark'+getMyVar('sousuoPageType'), searchMark);
+                            storage0.putMyVar('searchMark' + getMyVar('sousuoPageType'), searchMark);
                             if (!getMyVar('已选择换源列表')) {
                                 addItemBefore("listloading", data);
                             }
