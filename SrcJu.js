@@ -736,8 +736,7 @@ storage0.putMyVar("list",列表s);
                 extra.url = it.url;
                 extra.cls = "loadlist playlist";
                 
-                extra.windowId="播放"
-                extra.newWindow= true
+          
                
                 extra.linkid = i;
                 extra.name = name
@@ -983,8 +982,7 @@ if(storage0.getMyVar("dmList")){
                }else{
                 extra.linkid = i;
                 }
-                extra.windowId="播放"
-                extra.newWindow= true
+                
                 extra.name = name
                 
                 extra.jsLoadingInject = true;
