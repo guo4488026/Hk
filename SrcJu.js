@@ -770,7 +770,7 @@ function erji() {
                     extra: {
                         cls: "tabs playlist",
                         id: surl + "_线路_" + i,
-                        longClick: [{
+                        longClick: stype=="正版"?[{
                             title: "选集缓存",
                             js: $.toString((name) => {
                                 let 列表 = findItemsByCls('loadlist playlist') || [];
@@ -782,7 +782,7 @@ function erji() {
                                 refreshPage(false)
                                 return "toast://缓存成功"
                             }, name)
-                        }]
+                        }]:[]
 
                     }
                 })
