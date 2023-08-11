@@ -796,6 +796,7 @@ function erji() {
                     extra: {
                         dm: 1,
                         newWindow: true,
+                        windowId: "选集缓存"
 
                     }
                 })
