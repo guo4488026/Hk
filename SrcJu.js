@@ -775,6 +775,8 @@ storage0.putMyVar("list",列表s);
                             js: $.toString(()=>{
     let 列表 = findItemsByCls('loadlist playlist') || [];
     storage0.putMyVar("dmList",列表)
+    
+    refreshPage(false)
     return "toast://缓存成功"
 })
                         }]
@@ -783,7 +785,18 @@ storage0.putMyVar("list",列表s);
                 })
             }
 
-
+if(storage0.getMyVar("dmList")){
+    d.push({
+        title: "选集缓存",
+        col_type: "scroll_button",
+        url: "hiker://page/dmList#noHistory#",
+        extra: {
+            dm:1,
+            newWindow: true,
+            
+        }
+    })
+}
 
             if (Juconfig['yundiskLine'] == 1) {
                 d.push({
@@ -1041,18 +1054,7 @@ storage0.putMyVar("list",列表s);
             }
         }
         
-        if(storage0.getMyVar("dmList")){
-    addItemAfter("listsort",{
-        title: "选集缓存",
-        col_type: "scroll_button",
-        url: "hiker://page/dmList#noHistory#",
-        extra: {
-            dm:1,
-            newWindow: true,
-            
-        }
-    })
-}
+        
 
         /*if (getMyVar("sousuoname")) {
 
