@@ -62,10 +62,11 @@ function bookCase() {
             col_type: 'scroll_button'
         })
     })
-    //log(Julist)
+    log(Julist[0])
     Julist.forEach(it => {
         try{
             let params = JSON.parse(it.params);
+            
             let stype = JSON.parse(params.params).stype;
             if(getMyVar("SrcJuBookType")==stype || getMyVar("SrcJuBookType","全部")=="全部"){
                 let name = it.mTitle.indexOf(JSON.parse(params.params).name)>-1?JSON.parse(params.params).name:it.mTitle;
