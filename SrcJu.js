@@ -566,7 +566,7 @@ function erji() {
                                 cls: "SrcJudescload"
                             }
                         }]);
-                        x
+                       
                     }
                     return "hiker://empty";
                 }, erjidetails.desc || ""),
@@ -715,14 +715,14 @@ function erji() {
                     线路s[i] = "线路" + (parseInt(i) + 1)
                 }
                 d.push({
-                    title: getMyVar("SrcJu_" + surl + "_line", '0') == i ? `““””<b><span style="color: #AABBFF">` + 线路s[i] + `<small>⚡</small></span></b>` : 线路s[i],
+                    title: getMyVar("SrcJu_" + surl + "_line", '0') == i ? `““””<b><span style="color: #AABBFF">` + 线路s[i] + `</span></b>` : 线路s[i],
                     url: $("#noLoading#").lazyRule((surl, index, sname, 线路, lazy, name) => {
                         if (getMyVar("SrcJu_" + surl + "_line", '0') != index) {
                             putMyVar("SrcJu_" + surl + "_line", index);
 
                             for (var j in 线路) {
                                 updateItem(surl + "_线路_" + j, {
-                                    title: j == index ? `““””<b><span style="color: #AABBFF">` + 线路[j] + `<small>⚡</small></span></b>` : 线路[j]
+                                    title: j == index ? `““””<b><span style="color: #AABBFF">` + 线路[j] + `</span></b>` : 线路[j]
                                 })
 
                             }
