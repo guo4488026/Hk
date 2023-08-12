@@ -549,7 +549,7 @@ var erdata = {
             }
         }
         var 更 = lists[n].length;
-        setResult("更新至第" + 更 + "集")
+        setResult("更新：第" + 更 + "集")
     },
     "解析": function(url) {
             eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
