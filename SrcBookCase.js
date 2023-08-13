@@ -157,8 +157,8 @@ function bookCase() {
                 let stype = JSON.parse(params.params).stype;
 
                 let group = it.group;
-                
-                if (tabs[getMyVar("weekbook", m[week])].indexOf(group)!=-1) {
+                var tabl=tabs[getMyVar("weekbook", m[week])];
+                if (group.includes(tabl)) {
                     let name = it.mTitle.indexOf(JSON.parse(params.params).name) > -1 ? JSON.parse(params.params).name : it.mTitle;
                     let sname = JSON.parse(params.params).sname;
                     let surl = JSON.parse(params.params).surl;
