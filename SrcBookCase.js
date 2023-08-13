@@ -123,7 +123,7 @@ function bookCase() {
             0: "6"
         };
 
-        /*var week = new Date().getDay();
+        var week = new Date().getDay();
         var tabs = ["一", "二", "三", "四", "五", "六", "日"];
         for (var i in tabs) {
             d.push({
@@ -136,7 +136,7 @@ function bookCase() {
                 col_type: "scroll_button"
             })
         }
-
+/*
 
         Julist.forEach(it => {
             try {
