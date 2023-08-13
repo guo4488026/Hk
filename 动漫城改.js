@@ -83,6 +83,7 @@ let yidata = {
                             return {
                                 title: pdfh(data, tu[1]),
                                 img: pd(data, tu[2]),
+                                desc: pdfh(data, tu[3]),
                                 url: "hiker://empty#immersiveTheme##autoCache#" + $("").rule(() => {
                                     require(config.依赖);
                                     erji();
