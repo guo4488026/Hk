@@ -136,7 +136,6 @@ function bookCase() {
                 col_type: "scroll_button"
             })
         }
-/*
 
         Julist.forEach(it => {
             try {
@@ -177,7 +176,7 @@ function bookCase() {
             } catch (e) {
                 log("√书架加载异常>" + e.message);
             }
-        })*/
+        })
 
     }
 
