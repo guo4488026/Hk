@@ -127,7 +127,7 @@ function bookCase() {
         var tabs = ["一", "二", "三", "四", "五", "六", "日"];
         for (var i in tabs) {
             d.push({
-                title: getMyVar("weekbook", m[week]) == i ? ? `““””<b><span style="color: #3399cc">` + tabs[i] + `</span></b>` : tabs[i],
+                title: getMyVar("weekbook", m[week]) == i  ? `““””<b><span style="color: #3399cc">` + tabs[i] + `</span></b>` : tabs[i],
                 url: $("hiker://empty").lazyRule((i) => {
                     putMyVar("weekbook", i)
                     refreshPage(false)
