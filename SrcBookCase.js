@@ -1,8 +1,8 @@
 function bookCase() {
     let publicfile;
-    try{
+    try {
         publicfile = config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js';
-    }catch(e){
+    } catch (e) {
         let cfgfile = "hiker://files/rules/Src/Hk/config.json";
         if (fileExist(cfgfile)) {
             eval("let Juconfig=" + fetch(cfgfile) + ";");
@@ -10,15 +10,18 @@ function bookCase() {
         }
     }
     require(publicfile);
+    addListener("onClose", $.toString(() => {
+        clearMyVar('SrcJuBookType')
+    }))
     let Julist = [];
-    let collection = JSON.parse(fetch("hiker://collection?rule="+MY_RULE.title));
+    let collection = JSON.parse(fetch("hiker://collection?rule=" + MY_RULE.title));
     collection.forEach(it => {
-        try{
-            if(it.params&& (JSON.parse(it.params).title==MY_RULE.title)){
+        try {
+            if (it.params && (JSON.parse(it.params).title == MY_RULE.title)) {
                 Julist.push(it);
             }
-        }catch(e){
-            log("√书架加载异常>"+e.message);
+        } catch (e) {
+            log("√书架加载异常>" + e.message);
         }
     })
     setPageTitle('我的收藏');
@@ -32,9 +35,9 @@ function bookCase() {
     d.push({
         title: ' 切换样式',
         url: $('#noLoading#').lazyRule((cfgfile, Juconfig) => {
-            if(Juconfig["bookCase_col_type"]=="movie_1_vertical_pic"){
+            if (Juconfig["bookCase_col_type"] == "movie_1_vertical_pic") {
                 Juconfig["bookCase_col_type"] = "movie_3_marquee";
-            }else{
+            } else {
                 Juconfig["bookCase_col_type"] = "movie_1_vertical_pic";
             }
             writeFile(cfgfile, JSON.stringify(Juconfig));
@@ -50,61 +53,136 @@ function bookCase() {
         })
     }
     let typebtn = runModes;
-    typebtn.unshift("全部");
-    typebtn.forEach(it =>{
-        d.push({
-            title: getMyVar("SrcJuBookType","全部")==it?`““””<b><span style="color: #3399cc">`+it+`</span></b>`:it,
-            url: $('#noLoading#').lazyRule((it) => {
-                putMyVar("SrcJuBookType",it);
-                refreshPage(false);
-                return "hiker://empty";
-            },it),
-            col_type: 'scroll_button'
+
+    if (getMyVar("SrcJuBookType")) {
+        typebtn.unshift("全部");
+        typebtn.forEach(it => {
+            d.push({
+                title: getMyVar("SrcJuBookType", "全部") == it ? `““””<b><span style="color: #3399cc">` + it + `</span></b>` : it,
+                url: $('#noLoading#').lazyRule((it) => {
+                    putMyVar("SrcJuBookType", it);
+                    refreshPage(false);
+                    return "hiker://empty";
+                }, it),
+                col_type: 'scroll_button'
+            })
         })
-    })
-    Julist[0]
-    Julist.forEach(it => {
-        try{
-            let params = JSON.parse(it.params);
-            
-            let stype = JSON.parse(params.params).stype;
-            if(getMyVar("SrcJuBookType")==stype || getMyVar("SrcJuBookType","全部")=="全部"){
-                let name = it.mTitle.indexOf(JSON.parse(params.params).name)>-1?JSON.parse(params.params).name:it.mTitle;
-                let sname = JSON.parse(params.params).sname;
-                let surl = JSON.parse(params.params).surl;
-                let extraData = it.extraData?JSON.parse(it.extraData):{};
-                let last = extraData.lastChapterStatus?extraData.lastChapterStatus:"";
-                let mask = it.lastClick?it.lastClick.split('@@')[0]:"";
-                let col = Juconfig["bookCase_col_type"] || 'movie_1_vertical_pic';
-                d.push({
-                    title: col=='movie_1_vertical_pic'?name + "\n\n‘‘’’<small>💠 "+stype+" | "+(sname||"")+"</small>":name,
-                    pic_url: it.picUrl,
-                    desc: col=='movie_1_vertical_pic'?"🕓 "+mask+"\n\n🔘 "+last:last,
-                    url: $("hiker://empty#immersiveTheme##autoCache#").rule(() => {
-                        require(config.依赖);
-                        erji();
-                        putMyVar('SrcBookCase','1');
-                    }),
-                    col_type: col,
-                    extra: {
-                        pageTitle: name,
-                        name: name,
-                        img: it.picUrl,
-                        sname: sname,
-                        surl: surl,
-                        stype: stype,
-                        sourcedata: JSON.parse(params.params).sourcedata,
-                        lineVisible: false,
-                        cls: "caselist"
-                    }
-                })
+
+
+
+
+
+        Julist.forEach(it => {
+            try {
+                let params = JSON.parse(it.params);
+
+                let stype = JSON.parse(params.params).stype;
+                if (getMyVar("SrcJuBookType") == stype || getMyVar("SrcJuBookType", "全部") == "全部") {
+                    let name = it.mTitle.indexOf(JSON.parse(params.params).name) > -1 ? JSON.parse(params.params).name : it.mTitle;
+                    let sname = JSON.parse(params.params).sname;
+                    let surl = JSON.parse(params.params).surl;
+                    let extraData = it.extraData ? JSON.parse(it.extraData) : {};
+                    let last = extraData.lastChapterStatus ? extraData.lastChapterStatus : "";
+                    let mask = it.lastClick ? it.lastClick.split('@@')[0] : "";
+                    let col = Juconfig["bookCase_col_type"] || 'movie_1_vertical_pic';
+                    d.push({
+                        title: col == 'movie_1_vertical_pic' ? name + "\n\n‘‘’’<small>💠 " + stype + " | " + (sname || "") + "</small>" : name,
+                        pic_url: it.picUrl,
+                        desc: col == 'movie_1_vertical_pic' ? "🕓 " + mask + "\n\n🔘 " + last : last,
+                        url: $("hiker://empty#immersiveTheme##autoCache#").rule(() => {
+                            require(config.依赖);
+                            erji();
+                            putMyVar('SrcBookCase', '1');
+                        }),
+                        col_type: col,
+                        extra: {
+                            pageTitle: name,
+                            name: name,
+                            img: it.picUrl,
+                            sname: sname,
+                            surl: surl,
+                            stype: stype,
+                            sourcedata: JSON.parse(params.params).sourcedata,
+                            lineVisible: false,
+                            cls: "caselist"
+                        }
+                    })
+                }
+            } catch (e) {
+                log("√书架加载异常>" + e.message);
             }
-        }catch(e){
-            log("√书架加载异常>"+e.message);
+        })
+    } else {
+        var m = {
+            1: "0",
+            2: "1",
+            3: "2",
+            4: "3",
+            5: "4",
+            6: "5",
+            0: "6"
+        };
+
+        var week = new Date().getDay();
+        var tabs = ["一", "二", "三", "四", "五", "六", "日"];
+        for (var i in tabs) {
+            d.push({
+                title: getMyVar("weekbook", m[week]) == i ? ? `““””<b><span style="color: #3399cc">` + tabs[i] + `</span></b>` : tabs[i],
+                url: $("hiker://empty").lazyRule((i) => {
+                    putMyVar("weekbook", i)
+                    refreshPage(false)
+                    return "hiker://empty"
+                }, i),
+                col_type: "scroll_button"
+            })
         }
-    })
+
+
+        Julist.forEach(it => {
+            try {
+                let params = JSON.parse(it.params);
+
+                let stype = JSON.parse(params.params).stype;
+                if (tabs[getMyVar("weekbook", m[week])] == stype) {
+                    let name = it.mTitle.indexOf(JSON.parse(params.params).name) > -1 ? JSON.parse(params.params).name : it.mTitle;
+                    let sname = JSON.parse(params.params).sname;
+                    let surl = JSON.parse(params.params).surl;
+                    let extraData = it.extraData ? JSON.parse(it.extraData) : {};
+                    let last = extraData.lastChapterStatus ? extraData.lastChapterStatus : "";
+                    let mask = it.lastClick ? it.lastClick.split('@@')[0] : "";
+                    let col = Juconfig["bookCase_col_type"] || 'movie_1_vertical_pic';
+                    d.push({
+                        title: col == 'movie_1_vertical_pic' ? name + "\n\n‘‘’’<small>💠 " + stype + " | " + (sname || "") + "</small>" : name,
+                        pic_url: it.picUrl,
+                        desc: col == 'movie_1_vertical_pic' ? "🕓 " + mask + "\n\n🔘 " + last : last,
+                        url: $("hiker://empty#immersiveTheme##autoCache#").rule(() => {
+                            require(config.依赖);
+                            erji();
+                            putMyVar('SrcBookCase', '1');
+                        }),
+                        col_type: col,
+                        extra: {
+                            pageTitle: name,
+                            name: name,
+                            img: it.picUrl,
+                            sname: sname,
+                            surl: surl,
+                            stype: stype,
+                            sourcedata: JSON.parse(params.params).sourcedata,
+                            lineVisible: false,
+                            cls: "caselist"
+                        }
+                    })
+                }
+            } catch (e) {
+                log("√书架加载异常>" + e.message);
+            }
+        })
+
+    }
+
     d.push({
-        title: Julist.length==0?"书架空空如也~~♥收藏即加入书架":"",
+        title: Julist.length == 0 ? "书架空空如也~~♥收藏即加入书架" : "",
         url: "hiker://empty",
         col_type: "text_center_1",
         extra: {
