@@ -30,7 +30,7 @@ function bookCase() {
         title: '我的收藏',
         url: "hiker://collection?rule=搜视",
         img: "https://hikerfans.com/tubiao/messy/70.svg",
-        col_type: "icon_2"
+        col_type: "icon_small_3"
     });
     d.push({
         title: ' 切换样式',
@@ -45,8 +45,22 @@ function bookCase() {
             return 'hiker://empty';
         }, cfgfile, Juconfig),
         img: "https://hikerfans.com/tubiao/messy/85.svg",
-        col_type: "icon_2"
+        col_type: "icon_small_3"
     });
+    d.push({
+        title: ' 切换模式',
+        url: $('#noLoading#').lazyRule(() => {
+            if (getMyVar("SrcJuBookType")) {
+                clearMyVar("SrcJuBookType")
+            } else {
+                putMyVar("SrcJuBookType", "全部")
+            }
+            refreshPage(false)
+            return "hiker://empty"
+        }),
+        img: "https://hikerfans.com/tubiao/messy/9.svg",
+       col_type:"icon_small_3"
+    })
     for (let i = 0; i < 8; i++) {
         d.push({
             col_type: "blank_block"
@@ -127,7 +141,7 @@ function bookCase() {
         var tabs = ["一", "二", "三", "四", "五", "六", "日"];
         for (var i in tabs) {
             d.push({
-                title: getMyVar("weekbook", m[week]) == i  ? `““””<b><span style="color: #3399cc">` + tabs[i] + `</span></b>` : tabs[i],
+                title: getMyVar("weekbook", m[week]) == i ? `““””<b><span style="color: #3399cc">` + tabs[i] + `</span></b>` : tabs[i],
                 url: $("hiker://empty").lazyRule((i) => {
                     putMyVar("weekbook", i)
                     refreshPage(false)
@@ -140,8 +154,10 @@ function bookCase() {
         Julist.forEach(it => {
             try {
                 let params = JSON.parse(it.params);
+                let stype = JSON.parse(params.params).stype;
 
                 let group = it.group;
+                log(group)
                 if (tabs[getMyVar("weekbook", m[week])] == group) {
                     let name = it.mTitle.indexOf(JSON.parse(params.params).name) > -1 ? JSON.parse(params.params).name : it.mTitle;
                     let sname = JSON.parse(params.params).sname;
