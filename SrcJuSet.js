@@ -321,6 +321,7 @@ function jiekouapi(sourcefile, data) {
         clearMyVar('jiekoupublic');
         clearMyVar('jiekouedit');
     }));
+
     if (data && getMyVar('jiekouedit') != "1") {
         storage0.putMyVar('jiekoudata', data);
         putMyVar('jiekouedit', '1');
@@ -429,14 +430,14 @@ function jiekouapi(sourcefile, data) {
             })
         }
     });
-    
-    if(data.updatetime){
+    var data = storage0.getMyVar("jiekoudata", {})
+    if (data.updatetime) {
         d.push({
-            title: "更新时间："+data.updatetime,
+            title: "更新时间：" + data.updatetime,
             url: "hiker://empty",
-            col_type:"text_1",
+            col_type: "text_1",
             extra: {
-                "lineVisible":false
+                "lineVisible": false
             }
         })
     }
