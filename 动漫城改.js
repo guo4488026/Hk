@@ -550,6 +550,7 @@ var erdata = {
             }
         }
         var list= lists[n];
+        log(list)
         var 更=pdfh(list[list.length-1],"a&&Text");
         setResult("更新：" + 更 )
     },
