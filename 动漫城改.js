@@ -550,8 +550,8 @@ var erdata = {
             }
         }
         var list= lists[n];
-        log(list)
-        var 更=pdfh(list[list.length-1],"a&&Text");
+     
+        var 更= list[list.length-1].title;
         setResult("更新：" + 更 )
     },
     "解析": function(url) {
