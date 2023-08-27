@@ -549,8 +549,9 @@ var erdata = {
                 n = i
             }
         }
-        var 更 = lists[n].length;
-        setResult("更新：第" + 更 + "集")
+        var list= lists[n];
+        var 更=pdfh(list[list.length-1],"a&&Text");
+        setResult("更新：" + 更 )
     },
     "解析": function(url) {
             eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
