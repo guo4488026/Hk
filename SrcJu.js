@@ -747,7 +747,7 @@ function erji() {
                                     title: it.title,
                                     img: it.img ? it.img : "",
                                     desc: it.desc ? it.desc : "",
-                                    url: /.torrent|ed2k:|magnet:|mp4|m3u8/.test(it.url) ? it.url : "hiker://empty##" + it.url + lazy,
+                                    url:"hiker://empty##" + it.url + lazy,
                                     col_type: getItem("SrcJuList_col_type" + sname, "text_2"),
                                     extra: extra
                                 })
@@ -1007,7 +1007,7 @@ function erji() {
 
                 d.push({
                     title: 列表[i].title.trim().replace(/ |-|_/g, '').replace(name, ''),
-                    url: (/\.torrent|ed2k:|magnet:|\.mp4|\.m3u8/.test(列表[i].url)&&sname!="低端影视") ? 列表[i].url : "hiker://empty##" + 列表[i].url + lazy,
+                    url: "hiker://empty##" + 列表[i].url + lazy,
                     desc: 列表[i].desc,
                     img: 列表[i].img,
                     col_type: 列表[i].col_type || list_col_type.replace("_left", ""),
