@@ -311,6 +311,7 @@ function lookset() {
 
             JYconfig["parsemode"] = 2;
             writeFile(cfgfile, JSON.stringify(JYconfig));
+            setItem("parsemode","2")
             refreshPage(false);
             return "toast://\u89e3\u6790\u6a21\u5f0f\uff1a\u5f3a\u5236\u65ad\u63d2";
         }, JYconfig, cfgfile),
