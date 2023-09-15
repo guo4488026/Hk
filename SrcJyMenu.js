@@ -89,7 +89,7 @@ function lookset() {
             } else {
                 setItem("dm", "0")
             }
-            back()
+         
             refreshPage(false);
             return 'toast://切换成功';
         }),
@@ -118,7 +118,7 @@ function lookset() {
                     putMyVar('yundiskLine', '0');
                 }
                 writeFile(cfgfile, JSON.stringify(JYconfig));
-                back()
+             
                 refreshPage(false);
                 return 'toast://' + (JYconfig['alistLine'] ? '已开启云盘搜索线路' : '已关闭云盘搜索线路');
             }, JYconfig, cfgfile),
@@ -274,7 +274,7 @@ function lookset() {
             JYconfig['parsemode'] = 1;
             writeFile(cfgfile, JSON.stringify(JYconfig));
             setItem("parsemode", "1")
-            back();
+          
             refreshPage(false);
             return 'toast://解析模式：聚影智能';
         }, JYconfig, cfgfile),
@@ -337,7 +337,7 @@ function lookset() {
 
             setItem("parsemode", "3");
             writeFile(cfgfile, JSON.stringify(JYconfig));
-            back();
+         
             refreshPage(false);
             return 'toast://解析模式：强制嗅探';
         }, JYconfig, cfgfile),
@@ -419,7 +419,7 @@ function lookset() {
                     JYconfig["superweb"] = 1;
                 }
                 writeFile(cfgfile, JSON.stringify(JYconfig));
-                back()
+            
                 refreshPage(false);
                 return 'toast://切换成功';
             }, JYconfig, cfgfile),
@@ -438,7 +438,7 @@ function lookset() {
             } else {
                 setItem('dmRoute', '1');
             }
-            back()
+         
             refreshPage(false);
             return 'toast://切换成功';
         }),
