@@ -7,7 +7,7 @@ let yidata = {
         var d = []
 
 
-        eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
+        eval("var data="+fetch("hiker://files/rules/cy/动漫城.json"))
 
         var rules = data.rules
         var rule = rules[公共.sname];
