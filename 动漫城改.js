@@ -191,7 +191,7 @@ let yidata = {
     },
     "分类": function() {
         var d = [];
-        eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
+        eval("var data="+fetch("hiker://files/rules/cy/动漫城.json"))
         var rules = data.rules
         var rule = rules[公共.sname];
         
@@ -417,7 +417,7 @@ let yidata = {
 var erdata = {
     "搜索": function(name, page) {
         var d = []
-        eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
+        eval("var data="+fetch("hiker://files/rules/cy/动漫城.json"))
         var rules = data.rules
         var rule=rules[公共.sname]
         var ssurl =rule.syurl+ rule.ssurl;
@@ -515,7 +515,7 @@ var erdata = {
     },
     "最新": function(surl) {
         try {
-            eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
+            eval("var data="+fetch("hiker://files/rules/cy/动漫城.json"))
             var rules = data.rules
             var rule = rules[公共.sname];
 
@@ -555,7 +555,7 @@ var erdata = {
         setResult("更新：" + 更 )
     },
     "解析": function(url) {
-            eval(fetchCache("https://gitcode.net/gf4488026/Hk/-/raw/Ju/动漫城.json",48))
+            eval("var data="+fetch("hiker://files/rules/cy/动漫城.json"));
             eval("var lazy=" + data.rules[公共.sname].lazy)
             return lazy(url)       
     }
