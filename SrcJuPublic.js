@@ -191,7 +191,7 @@ function getYiData(type,od) {
             eval("let 数据 = " + parse[type])
             data = 数据();
         }catch(e){
-            if(runMode=="正版"&&type！="主页"){
+            if(runMode=="正版"&&type!="主页"){
                 eval(JSON.parse(fetch("hiker://page/updata")).rule);
                 data = d
             }
