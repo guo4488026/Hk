@@ -458,7 +458,7 @@ function erji() {
                     }, name, sgroup, input)
                 }, name, sgroup),
                 img: getItem("img_1", "https://hikerfans.com/tubiao/more/103.png"),
-                col_type: "icon_4",
+                col_type: "icon_small_4",
                 extra: {
                     longClick: [{
                         title: "更换图标",
@@ -479,7 +479,7 @@ function erji() {
                 title: "云盘君",
                 url: "hiker://page/sou#noHistory#?rule=云盘君.简&p=fypage",
                 img: getItem("img_2", "https://p2.itc.cn/q_70/images03/20211009/59c75745d3524163b9277c4006020ac0.jpeg"),
-                col_type: "icon_4",
+                col_type: "icon_small_4",
                 extra: {
                     pageTitle: "搜索" + name,
                     searchTerms: name,
@@ -501,10 +501,10 @@ function erji() {
             })
 
             d.push({
-                title: "搜弹幕",
+                title: "弹幕",
                 url: "hiker://page/dmMount#noHistory#",
                 img: getItem("img_3", "http://pp.myapp.com/ma_icon/0/icon_42375936_1689215707/256"),
-                col_type: "icon_4",
+                col_type: "icon_small_4",
                 extra: {
                     newWindow: true,
                     name: name,
@@ -528,7 +528,7 @@ function erji() {
                 title: "聚影",
                 url: "hiker://search?rule=聚影√&s=" + name,
                 img: getItem("img_4", "https://hikerfans.com/tubiao/movie/61.svg"),
-                col_type: "icon_4",
+                col_type: "icon_small_4",
                 extra: {
                     longClick: [{
                         title: "更换图标",
