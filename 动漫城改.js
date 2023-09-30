@@ -257,7 +257,7 @@ let yidata = {
             var true_url = getVar(MY_RULE.url, MY_URL)
 
 
-            type = true_url.split("show/")[1].split(".")[0]
+            type = rule.dtfl.id;
             time = "" + new Date().getTime()
             key = md5("DS" + time + "DCC147D11943AF75")
 
