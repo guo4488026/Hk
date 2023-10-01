@@ -258,7 +258,7 @@ var sname=公共.sname;
 
 
 
-            type = true_url.match(/show\/(\d+)/)[1];
+            type = true_url.match(/show\/id\/(\d+)/)[1];
             log(type);
             time = "" + new Date().getTime()
             key = md5("DS" + time + "DCC147D11943AF75")
