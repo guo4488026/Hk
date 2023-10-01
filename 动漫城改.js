@@ -7,14 +7,14 @@ let yidata = {
         var d = []
 
 
-        eval("var data="+fetch("hiker://files/rules/cy/动漫城.json"))
+        eval("var data=" + fetch("hiker://files/rules/cy/动漫城.json"))
 
         var rules = data.rules
         var rule = rules[公共.sname];
-        if(公共.host){
-            MY_URL=公共.host
-        }else{
-        MY_URL = rule.syurl;
+        if (公共.host) {
+            MY_URL = 公共.host
+        } else {
+            MY_URL = rule.syurl;
         }
         var cookie = rule.Cookie;
         var parStr = rule.parStr;
@@ -32,7 +32,7 @@ let yidata = {
         var 更新表 = M[6]
         var 大标题 = M[7]
         var 大列表 = M[5]
-       
+
         var len = pdfa(html, 大列表);
         if (更新表 && 更新表 != "*") {
             var tabs = ["一", "二", "三", "四", "五", "六", "日"];
@@ -63,7 +63,7 @@ let yidata = {
             tabs.forEach((data, id) => {
                 d.push({
                     title: getMyVar(MY_URL, 定位(week)) == id ? '‘‘’’<strong><font color="#FA7298">☀周' + data + '</font></strong>' : data,
-                    url: $("#noLoading#").lazyRule((线路, id, MY_URL, tu, sname,runMode) => {
+                    url: $("#noLoading#").lazyRule((线路, id, MY_URL, tu, sname, runMode) => {
                         MY_URL = MY_URL
                         var lists = storage0.getMyVar("lists_1");
 
@@ -98,7 +98,7 @@ let yidata = {
                                     surl: getHome(MY_URL) + pdfh(data, tu[4]),
                                     img: pdfh(data, tu[2]),
                                     newWindow: true,
-                            windowId:"搜视二级"    
+                                    windowId: "搜视二级"
 
                                 }
                             };
@@ -106,7 +106,7 @@ let yidata = {
                         deleteItemByCls(MY_URL + "_选集");
                         addItemBefore(MY_URL + "footer", cp);
                         return "hiker://empty"
-                    }, tabs, id, MY_URL, M, 公共.sname,runMode),
+                    }, tabs, id, MY_URL, M, 公共.sname, runMode),
                     col_type: 'flex_button',
                     extra: {
                         id: MY_URL + "_线路" + id
@@ -155,13 +155,13 @@ let yidata = {
 
         for (var i in len) {
 
-            
+
             var le = pdfa(len[i], M[0]).slice(0, 6)
 
-            if(rule.libs){
-            eval("var libs ="+rule.libs)
-            var title = libs[i]
-             } else {
+            if (rule.libs) {
+                eval("var libs =" + rule.libs)
+                var title = libs[i]
+            } else {
                 title = pdfh(len[i], 大标题);
             }
             d.push({
@@ -191,13 +191,13 @@ let yidata = {
     },
     "分类": function() {
         var d = [];
-        eval("var data="+fetch("hiker://files/rules/cy/动漫城.json"))
+        eval("var data=" + fetch("hiker://files/rules/cy/动漫城.json"))
         var rules = data.rules
         var rule = rules[公共.sname];
-        
-        var svurl =rule.syurl+ rule.svurl;
-        if(公共.host){
-            var svurl =公共.host+ rule.svurl;
+
+        var svurl = rule.syurl + rule.svurl;
+        if (公共.host) {
+            var svurl = 公共.host + rule.svurl;
         }
         var page = MY_PAGE
         MY_URL = svurl;
@@ -247,19 +247,22 @@ let yidata = {
         } else {
 
 
-var sname=公共.sname;
+            var sname = 公共.sname;
             addListener('onClose', $.toString((sname) => {
-                clearMyVar(sname+"_url");
-                clearMyVar(sname+"_title");
+                clearMyVar(sname + "_url");
+                clearMyVar(sname + "_title");
                 clearMyVar("data");
-            },sname))
+            }, sname))
 
-            var true_url = getMyVar(sname+"_url", MY_URL)
+            var true_url = getMyVar(sname + "_url", MY_URL)
+
+            try {
+                type = true_url.match(/show\/(\d+)/)[1];
+            } catch (e) {
+                type = true_url.match(/show\/id\/(\d+)/)[1];
+            }
 
 
-
-            type = true_url.match(/show\/id\/(\d+)/)[1];
-            log(type);
             time = "" + new Date().getTime()
             key = md5("DS" + time + "DCC147D11943AF75")
 
@@ -294,7 +297,7 @@ var sname=公共.sname;
             }
 
             var fold = getVar(MY_RULE.group, "0")
-            var cate_temp_json = getMyVar(sname+"_title", JSON.stringify(init_cate))
+            var cate_temp_json = getMyVar(sname + "_title", JSON.stringify(init_cate))
             var cate_temp = JSON.parse(cate_temp_json)
 
             if (parseInt(page) === 1) {
@@ -322,7 +325,7 @@ var sname=公共.sname;
                                     params.cate_temp.forEach((cate, index) => {
                                         new_cate.push(index === 0 ? params.key.toString() : "0")
                                     });
-                                    var sname=params.sname;
+                                    var sname = params.sname;
                                     if (params.val == "") {
                                         storage0.putMyVar("data", {})
                                     } else {
@@ -330,9 +333,9 @@ var sname=公共.sname;
                                         result[params.type] = params.val;
                                         storage0.putMyVar("data", result)
                                     }
-                                    putMyVar(sname+"_title", JSON.stringify(new_cate));
-                                    
-                                    putMyVar(sname+"_url", input)
+                                    putMyVar(sname + "_title", JSON.stringify(new_cate));
+
+                                    putMyVar(sname + "_url", input)
                                     refreshPage(true)
                                     return "hiker://empty"
                                 }, {
@@ -341,7 +344,7 @@ var sname=公共.sname;
                                     val: pdfh(item, 'li&&data-val'),
                                     type: pdfh(item, 'li&&data-type'),
                                     page: page,
-                                sname:sname    
+                                    sname: sname
                                 }),
                                 col_type: 'scroll_button',
                             })
@@ -359,8 +362,8 @@ var sname=公共.sname;
                                 title: key.toString() === cate_temp[index] ? "““””" + title.fontcolor(分类颜色) : title,
                                 url: $(pd(item, 分类链接) + '#noLoading#').lazyRule((params) => {
                                     params.cate_temp[params.index] = params.key.toString();
-                                    var sname= params.sname;
-                                    
+                                    var sname = params.sname;
+
                                     if (params.val == "") {
                                         storage0.putMyVar("data", {})
                                     } else {
@@ -368,8 +371,8 @@ var sname=公共.sname;
                                         result[params.type] = params.val;
                                         storage0.putMyVar("data", result)
                                     }
-                                    putMyVar(sname+"_title", JSON.stringify(params.cate_temp))
-                                    putMyVar(sname+"_url", input)
+                                    putMyVar(sname + "_title", JSON.stringify(params.cate_temp))
+                                    putMyVar(sname + "_url", input)
                                     refreshPage(true)
                                     return "hiker://empty"
                                 }, {
@@ -379,7 +382,7 @@ var sname=公共.sname;
                                     val: pdfh(item, 'li&&data-val'),
                                     type: pdfh(item, 'li&&data-type'),
                                     page: page,
-                                    sname:sname
+                                    sname: sname
                                 }),
                                 col_type: 'scroll_button',
                             })
@@ -426,12 +429,12 @@ var sname=公共.sname;
 var erdata = {
     "搜索": function(name, page) {
         var d = []
-        eval("var data="+fetch("hiker://files/rules/cy/动漫城.json"))
+        eval("var data=" + fetch("hiker://files/rules/cy/动漫城.json"))
         var rules = data.rules
-        var rule=rules[公共.sname]
-        var ssurl =rule.syurl+ rule.ssurl;
-        if(公共.host){
-           ssurl =公共.host+ rule.ssurl;
+        var rule = rules[公共.sname]
+        var ssurl = rule.syurl + rule.ssurl;
+        if (公共.host) {
+            ssurl = 公共.host + rule.ssurl;
         }
         ssurl = ssurl.replace("**", name).replace("fypage", page);
 
@@ -443,14 +446,14 @@ var erdata = {
         for (var it of list) {
             var img = pdfh(it, M[2]).startsWith("/") ? getHome(ssurl) + pdfh(it, M[2]) : pdfh(it, M[2]);
             var url = pdfh(it, M[4])
-            if(pdfh(it, M[1]).includes(name)){
-            d.push({
-                title: pdfh(it, M[1]),
-                img: 公共.Referer ? img + 公共.Referer : img,
-                desc: pdfh(it, M[3]),
-                url: url.startsWith("/") ? getHome(ssurl) + url : url
-            })
-          }
+            if (pdfh(it, M[1]).includes(name)) {
+                d.push({
+                    title: pdfh(it, M[1]),
+                    img: 公共.Referer ? img + 公共.Referer : img,
+                    desc: pdfh(it, M[3]),
+                    url: url.startsWith("/") ? getHome(ssurl) + url : url
+                })
+            }
         }
         return d
 
@@ -524,7 +527,7 @@ var erdata = {
     },
     "最新": function(surl) {
         try {
-            eval("var data="+fetch("hiker://files/rules/cy/动漫城.json"))
+            eval("var data=" + fetch("hiker://files/rules/cy/动漫城.json"))
             var rules = data.rules
             var rule = rules[公共.sname];
 
@@ -558,14 +561,14 @@ var erdata = {
                 n = i
             }
         }
-        var list= lists[n];
-     
-        var 更= list[list.length-1].title;
-        setResult("更新：" + 更 )
+        var list = lists[n];
+
+        var 更 = list[list.length - 1].title;
+        setResult("更新：" + 更)
     },
     "解析": function(url) {
-            eval("var data="+fetch("hiker://files/rules/cy/动漫城.json"));
-            eval("var lazy=" + data.rules[公共.sname].lazy)
-            return lazy(url)       
+        eval("var data=" + fetch("hiker://files/rules/cy/动漫城.json"));
+        eval("var lazy=" + data.rules[公共.sname].lazy)
+        return lazy(url)
     }
 }
