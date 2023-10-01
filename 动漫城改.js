@@ -257,7 +257,11 @@ let yidata = {
             var true_url = getMyVar(sname + "_url", MY_URL)
 
             try {
+                if(sname=="宫下动漫"){
+                    type=true_url.match(/vodshow\/(\d+)--/)[1]
+                }else{
                 type = true_url.match(/show\/(\d+)/)[1];
+                }
             } catch (e) {
                 type = true_url.match(/show\/id\/(\d+)/)[1];
             }
