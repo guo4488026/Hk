@@ -256,7 +256,7 @@ var sname=公共.sname;
 
             var true_url = getMyVar(sname+"_url", MY_URL)
 
-log(true_url);
+
 
             type = true_url.split("show/")[1].split(".")[0];
             time = "" + new Date().getTime()
@@ -270,7 +270,6 @@ log(true_url);
             };
 
 
-log(result);
             var data = Object.assign(storage0.getMyVar("data", {}), result)
 
 
@@ -330,7 +329,7 @@ log(result);
                                         result[params.type] = params.val;
                                         storage0.putMyVar("data", result)
                                     }
-                                    putMyVar(sname+"_url", JSON.stringify(new_cate));
+                                    putMyVar(sname+"_title", JSON.stringify(new_cate));
                                     
                                     putMyVar(sname+"_url", input)
                                     refreshPage(true)
