@@ -247,14 +247,14 @@ let yidata = {
         } else {
 
 
+var sname=公共.sname;
+            addListener('onClose', $.toString((sname) => {
+                clearMyVar(sname+"_url");
+                clearMyVar(sname+"_title");
+                clearMyVar("data");
+            },sname))
 
-            addListener('onClose', $.toString(() => {
-                clearVar(MY_RULE.url)
-                clearVar(MY_RULE.title)
-                clearMyVar("data")
-            }))
-
-            var true_url = getVar(MY_RULE.url, MY_URL)
+            var true_url = getMyVar(sname+"_url", MY_URL)
 
 log(true_url);
 
@@ -294,7 +294,7 @@ log(result);
             }
 
             var fold = getVar(MY_RULE.group, "0")
-            var cate_temp_json = getVar(MY_RULE.title, JSON.stringify(init_cate))
+            var cate_temp_json = getMyVar(sname+"_title", JSON.stringify(init_cate))
             var cate_temp = JSON.parse(cate_temp_json)
 
             if (parseInt(page) === 1) {
@@ -322,6 +322,7 @@ log(result);
                                     params.cate_temp.forEach((cate, index) => {
                                         new_cate.push(index === 0 ? params.key.toString() : "0")
                                     });
+                                    var sname=params.sname;
                                     if (params.val == "") {
                                         storage0.putMyVar("data", {})
                                     } else {
@@ -329,8 +330,9 @@ log(result);
                                         result[params.type] = params.val;
                                         storage0.putMyVar("data", result)
                                     }
-                                    putVar(MY_RULE.title, JSON.stringify(new_cate))
-                                    putVar(MY_RULE.url, input)
+                                    putMyVar(sname+"_url", JSON.stringify(new_cate));
+                                    
+                                    putMyVar(sname+"_url", input)
                                     refreshPage(true)
                                     return "hiker://empty"
                                 }, {
@@ -339,6 +341,7 @@ log(result);
                                     val: pdfh(item, 'li&&data-val'),
                                     type: pdfh(item, 'li&&data-type'),
                                     page: page,
+                                sname:sname    
                                 }),
                                 col_type: 'scroll_button',
                             })
@@ -355,7 +358,9 @@ log(result);
                             d.push({
                                 title: key.toString() === cate_temp[index] ? "““””" + title.fontcolor(分类颜色) : title,
                                 url: $(pd(item, 分类链接) + '#noLoading#').lazyRule((params) => {
-                                    params.cate_temp[params.index] = params.key.toString()
+                                    params.cate_temp[params.index] = params.key.toString();
+                                    var sname= params.sname;
+                                    
                                     if (params.val == "") {
                                         storage0.putMyVar("data", {})
                                     } else {
@@ -363,8 +368,8 @@ log(result);
                                         result[params.type] = params.val;
                                         storage0.putMyVar("data", result)
                                     }
-                                    putVar(MY_RULE.title, JSON.stringify(params.cate_temp))
-                                    putVar(MY_RULE.url, input)
+                                    putMyVar(sname+"_title", JSON.stringify(params.cate_temp))
+                                    putMyVar(sname+"_url", input)
                                     refreshPage(true)
                                     return "hiker://empty"
                                 }, {
@@ -374,6 +379,7 @@ log(result);
                                     val: pdfh(item, 'li&&data-val'),
                                     type: pdfh(item, 'li&&data-type'),
                                     page: page,
+                                    sname:sname
                                 }),
                                 col_type: 'scroll_button',
                             })
