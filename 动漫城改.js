@@ -201,8 +201,8 @@ let yidata = {
         }
         var page = MY_PAGE
         MY_URL = svurl;
-        log(rule.dtfl["type"])
-        if (rule.dtfl["type"] == "0") {
+        eval("var dt="+rule.dtfl)
+        if (dt.type == "0") {
 
 
             addListener('onClose', $.toString(() => {
