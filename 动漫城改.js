@@ -268,6 +268,8 @@ let yidata = {
                 'key': key
             };
 
+
+log(result);
             var data = Object.assign(storage0.getMyVar("data", {}), result)
 
 
