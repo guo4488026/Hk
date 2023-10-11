@@ -8,7 +8,7 @@ function toerji(item,info) {
     extra.pageTitle = extra.pageTitle || extra.name;
     if(item.url && !/js:|select:|\(|\)|=>|@|toast:|hiker:\/\/page/.test(item.url) && item.col_type!="x5_webview_single" && item.url!='hiker://empty'){
         extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g,"");
-        extra.sname = info.name;
+        extra.sname = extra.sname || info.name;
         item.url = $("hiker://empty?type="+info.type+"#immersiveTheme##autoCache#").rule(() => {
             require(config.依赖);
             erji();
