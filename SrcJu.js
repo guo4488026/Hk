@@ -218,7 +218,7 @@ function erji() {
     let 公共;
     let 标识;
     let details;
-    let stype = myerjiextra.stype||MY_PARAMS.stype;
+    let stype = myerjiextra.stype || MY_PARAMS.stype;
     let datasource = [myerjiextra, MY_PARAMS, getMark(name, stype)];
     let erjiextra;
     let sname;
@@ -1338,7 +1338,7 @@ function search(keyword, mode, sdata, group, type) {
                                     }
                                 }, extra);
                             }
-                            item.title = objmode == "erji" ? objdata.name : item.title;
+                            item.title = objmode == "erji" ? item.title + "(" + objdata.name + ")" : item.title;
                             //item.content = item.content || item.desc;
                             item.desc = item.desc || "";
                             item.desc = objmode == "sousuo" || objmode == "sousuopage" ? MY_RULE.title + ' · ' + objdata.name + ' · ' + item.desc : objmode == "sousuotest" ? (item.content || item.desc) : (extra.desc || item.desc);
