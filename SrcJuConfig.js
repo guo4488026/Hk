@@ -1,4 +1,4 @@
-let cfgfile = "hiker://files/rules/Src/Ju/config.json";
+let cfgfile = "hiker://files/rules/Src/Hk/config.json";
 let Jucfg=fetch(cfgfile);
 if(Jucfg != ""){
     eval("var Juconfig=" + Jucfg+ ";");

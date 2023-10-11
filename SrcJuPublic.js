@@ -4,10 +4,12 @@ if(Jucfg != ""){
     eval("var Juconfig=" + Jucfg+ ";");
 }else{
     var Juconfig= {};
+    Juconfig["依赖"] = config.依赖 || "https://gitcode.net/src48597962/hk/-/raw/Hk/SrcJuPublic.js";
     writeFile(cfgfile, JSON.stringify(Juconfig));
 }
-let runModes = ["正版","动漫","影视","其他"];
+let runModes = ["正版","动漫","影视","云盘","直播"];
 let runMode = Juconfig["runMode"] || "影视";
+
 let sourcename = Juconfig[runMode+'sourcename'] || "";//主页源名称
 
 let sourcefile = "hiker://files/rules/Src/Hk/jiekou.json";
@@ -32,6 +34,7 @@ let yidatalist = yxdatalist.filter(it=>{
 let erdatalist = yxdatalist.filter(it=>{
     return it.erparse;
 });
+
 function selectsource(input) {
     let sourcenames = [];
     yidatalist.forEach(it=>{
@@ -52,17 +55,27 @@ function selectsource(input) {
         }else{
             toast("软件版本过低，可能存在异常");
         }
-        clearMyVar(MY_RULE.title + "分类");
-        clearMyVar(MY_RULE.title + "更新");
-        clearMyVar(MY_RULE.title + "类别");
-        clearMyVar(MY_RULE.title + "地区");
-        clearMyVar(MY_RULE.title + "进度");
-        clearMyVar(MY_RULE.title + "排序");
-        clearMyVar("排名");
-        clearMyVar("分类");
-        clearMyVar("更新");
-        clearMyVar(runMode+"_"+sourcename);
-        clearMyVar("一级源接口信息");
+        try{
+            let listMyVar = listMyVarKeys();
+            listMyVar.forEach(it=>{
+                if(!/^SrcJu_|initConfig/.test(it)){
+                    clearMyVar(it);
+                }
+            })
+        }catch(e){
+            xlog('清MyVar失败>'+e.message);
+            clearMyVar(MY_RULE.title + "分类");
+            clearMyVar(MY_RULE.title + "更新");
+            clearMyVar(MY_RULE.title + "类别");
+            clearMyVar(MY_RULE.title + "地区");
+            clearMyVar(MY_RULE.title + "进度");
+            clearMyVar(MY_RULE.title + "排序");
+            clearMyVar("排名");
+            clearMyVar("分类");
+            clearMyVar("更新");
+            clearMyVar(runMode+"_"+sourcename);
+            clearMyVar("一级源接口信息");
+        }
         Juconfig["runMode"] = runMode;
         Juconfig[runMode+'sourcename'] = input;
         writeFile(cfgfile, JSON.stringify(Juconfig));
@@ -70,14 +83,6 @@ function selectsource(input) {
         return 'toast://'+runMode+' 主页源已设置为：' + input;
     }, input, sourcename, cfgfile, Juconfig)
 }
-function rulePage(type,page) {
-    return $("hiker://empty#noRecordHistory##noHistory#" + (page ? "?page=fypage" : "")).rule((type) => {
-        require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js');
-        getYiData(type);
-    },type)
-}
-
-
 function lunbo(start, arr, data, cfg) {
      
     let id = 'juyue';
@@ -155,8 +160,16 @@ function lunbo(start, arr, data, cfg) {
     }, obj))
 
 }
+
+function rulePage(datatype,ispage) {
+    return $("hiker://empty#noRecordHistory##noHistory#" + (ispage ? "?page=fypage" : "")).rule((datatype) => {
+        require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuPublic.js');
+        getYiData(datatype);
+    },datatype)
+}
+
 //获取一级数据
-function getYiData(type,od) {
+function getYiData(datatype,od) {
     let d = od || [];
     let sourcedata = yidatalist.filter(it=>{
         return it.name==sourcename && it.type==runMode;
@@ -174,7 +187,7 @@ function getYiData(type,od) {
             }
         }
     }catch(e){
-        log("√一级源接口加载异常>"+e.message);
+        xlog("√一级源接口加载异常>"+e.message);
     }
     if(parse){
         eval("let gonggong = " + sourcedata[0].public);
@@ -184,18 +197,60 @@ function getYiData(type,od) {
         }
         公共 = gonggong || parse['公共'] || {};
         let info = storage0.getMyVar('一级源接口信息');
+        //let info = {type: sourcedata[0].type, name: sourcedata[0].name};
         let 标识 = info.type + "_" + info.name;
+        let itemid = 标识 + "_" + datatype;
+        /*
+        d.push({
+            title: "加载中",
+            url: "hiker://empty",
+            col_type: "text_center_1",
+            extra: {
+                id: itemid
+            }
+        })
+        setResult(d);
+        */
         let page = MY_PAGE || 1;
+        let loading;
+        if (page==1 && typeof(setPreResult)!="undefined" && getMyVar('动态加载loading')!=itemid) {           
+            loading = 1;
+            d.push({
+                title: "",
+                col_type: "text_1",
+                extra: {
+                    lineVisible: false,
+                    cls: "loading_gif"
+                }
+            })
+            d.push({
+                title: "",
+                col_type: "text_1",
+                extra: {
+                    lineVisible: false,
+                    cls: "loading_gif"
+                }
+            })
+            d.push({
+                pic_url: "https://hikerfans.com/weisyr/img/Loading1.gif",
+                col_type: "pic_1_center",
+                extra: {
+                    cls: "loading_gif"
+                }
+            })
+            setPreResult(d);
+            d = [];
+            putMyVar('动态加载loading', itemid);
+        }
         let data = [];
         try{
-            eval("let 数据 = " + parse[type])
+            eval("let 数据 = " + parse[datatype])
             data = 数据();
         }catch(e){
-            if(runMode=="正版"&&type!="主页"){
-                eval(JSON.parse(fetch("hiker://page/updata")).rule);
-                data = d
-            }
-            log(e.message);
+            xlog(e.message);
+        }
+        if(loading){
+            deleteItemByCls("loading_gif");
         }
         if(data.length==0 && page==1){
             data.push({
@@ -203,42 +258,37 @@ function getYiData(type,od) {
                 url: "hiker://empty",
                 col_type: "text_center_1",
             })
+        }else if(data.length>0){
+            require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcJuMethod.js');
+            data.forEach(item => {
+                item = toerji(item,info);
+            })
         }
-        data.forEach(item => {
-            let extra = item.extra || {};
-         
-            extra.name = extra.name || extra.pageTitle || (item.title?item.title.replace(/‘|’|“|”|<[^>]+>/g,""):"");
-            extra.img = extra.img || item.pic_url || item.img;
-            
-                        
-            extra.stype = extra.stype||sourcedata[0].type;
-            
-            extra.pageTitle = extra.pageTitle || extra.name;
-            if(item.url && !/js:|select:|\(|\)|=>|@|toast:|hiker:\/\/page/.test(item.url)){
-                extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g,"");
-                extra.sname = extra.sname||sourcename;
-            }
-            if((item.col_type!="scroll_button") || item.extra){
-                item.extra = extra;
-            }
-            item.url = (extra.surl||!item.url)?$('hiker://empty#immersiveTheme##autoCache#').rule(() => {
-                require(config.依赖);
-                erji();
-            }):item.url
-          
-        })
         d = d.concat(data);
+        /*
+        addItemBefore(itemid, data);
+        */
+        
+        setResult(d);
     }else{
         d.push({
-            title: "请先配置一个主页源\n设置-选择影视/动漫/...",
+            title: "请先配置一个主页源\n设置-选择漫画/小说/听书/...",
+            desc: "设置长按菜单可以开启界面切换开关",
             url: "hiker://empty",
             col_type: "text_center_1",
         })
+        setResult(d);
     }
-    setResult(d);
 }
 //简繁互转,x可不传，默认转成简体，传2则是转成繁体
 function jianfan(str,x) {
     require(config.依赖.match(/http(s)?:\/\/.*\//)[0] + 'SrcSimple.js');
     return PYStr(str,x);
+}
+//重定义打印日志，只允许调试模式下打印
+var xlog = log;
+log = function(msg){
+    if(getMyVar("SrcJu_调试模式") || getItem("SrcJu_接口日志")){
+        xlog(msg);
+    }
 }

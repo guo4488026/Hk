@@ -6,17 +6,17 @@ function toerji(item,info) {
     extra.img = extra.img || item.pic_url || item.img;
     extra.stype = info.type;
     extra.pageTitle = extra.pageTitle || extra.name;
-    if(item.url && !/js:|select:|\(|\)|=>|@|toast:/.test(item.url)){
+    if(item.url && !/js:|select:|\(|\)|=>|@|toast:|hiker:\/\/page/.test(item.url) && item.col_type!="x5_webview_single" && item.url!='hiker://empty'){
         extra.surl = item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#noLoading#|#/g,"");
         extra.sname = info.name;
+        item.url = $("hiker://empty?type="+info.type+"#immersiveTheme##autoCache#").rule(() => {
+            require(config.依赖);
+            erji();
+        })
     }
     if((item.col_type!="scroll_button") || item.extra){
         item.extra = extra;
     }
-    item.url = (extra.surl||!item.url)?$('hiker://empty#immersiveTheme##autoCache#').rule(() => {
-        require(config.依赖);
-        erji();
-    }):item.url
     return item;
 }
 //简繁互转,x可不传，默认转成简体，传2则是转成繁体
@@ -31,6 +31,32 @@ function cacheData(jkdata){
     if (!fileExist(cachefile)) {
         writeFile(cachefile,JSON.stringify(jkdata));
     }
+}
+//接口管理多选方法
+function duoselect(datas){
+    let datalist = [];
+    if($.type(datas)=="array"){
+        datalist = datas;
+    }else if($.type(datas)=="object"){
+        datalist.push(datas);
+    }
+    let duoselect = storage0.getMyVar('SrcJu_duoselect')?storage0.getMyVar('SrcJu_duoselect'):[];
+    datalist.forEach(data=>{
+        let id = data.type+"_"+data.name;
+        if(!duoselect.some(item => item.name == data.name && item.type==data.type)){
+            duoselect.push(data);
+            updateItem(id, {title:'<font color=#3CB371>'+data.name + (data.parse ? " [主页源]" : "") + (data.erparse ? " [搜索源]" : "")});
+        }else{
+            for(var i = 0; i < duoselect.length; i++) {
+                if(duoselect[i].type+"_"+duoselect[i].name == id) {
+                    duoselect.splice(i, 1);
+                    break;
+                }
+            }
+            updateItem(id, {title:(data.stop?`<font color=#f20c00>`:"") + data.name + (data.parse ? " [主页源]" : "") + (data.erparse ? " [搜索源]" : "") + (data.stop?`</font>`:"")});
+        }
+    })
+    storage0.putMyVar('SrcJu_duoselect',duoselect);
 }
 //来自阿尔法大佬的主页幻灯片
 function banner(start, arr, data, cfg){
