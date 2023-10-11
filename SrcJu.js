@@ -1311,7 +1311,7 @@ function search(keyword, mode, sdata, group, type) {
                     let extra = item.extra || {};
                     extra.name = extra.name || extra.pageTitle || (item.title ? item.title.replace(/‘|’|“|”|<[^>]+>|全集|国语|粤语/g, "").trim() : "");
                     if ((objmode == "erji" && ((getItem('searchMatch', '1') == "1" && extra.name.toLowerCase() == name.toLowerCase()) || (getItem('searchMatch') == "2" && extra.name.toLowerCase().includes(name.toLowerCase())))) || objmode != "erji") {
-                        let keepurl = /js:|select:|\(|\)|=>|hiker:\/\/page|toast:/;//定义保留传值的项目url
+                        let keepurl = /js:|select:|\(|\)|=>|hiker:\/\/page|toast:|.rule/;//定义保留传值的项目url
                         if ((!keepurl.test(item.url) && extra.name.toLowerCase().includes(name.toLowerCase())) || keepurl.test(item.url)) {
                             extra.img = extra.img || item.img || item.pic_url;
                             extra.stype = objdata.type;
@@ -1319,6 +1319,7 @@ function search(keyword, mode, sdata, group, type) {
                             extra.pageTitle = extra.pageTitle || extra.name;
                             extra.surl = item.url && !keepurl.test(item.url) ? item.url.replace(/hiker:\/\/empty|#immersiveTheme#|#autoCache#|#noRecordHistory#|#noHistory#|#readTheme#|#autoPage#|#noLoading#|#/g, "") : "";
                             item.extra = extra;
+    
                             item.url = /sousuo/.test(objmode) ? (keepurl.test(item.url) || item.url == 'hiker://empty') ? item.url : $("hiker://empty?type=" + objdata.type + "#immersiveTheme##autoCache#").rule(() => {
                                 require(config.依赖);
                                 erji();
@@ -1333,7 +1334,7 @@ function search(keyword, mode, sdata, group, type) {
                                     return "toast://已切换源：" + extra.sname;
                                 }
                             }, extra);
-                            //item.title = objmode == "erji" ? objdata.name : item.title;
+                            item.title = objmode == "erji" ? item.title+"("+objdata.name+")" : item.title;
                             //item.content = item.content || item.desc;
                             item.desc = item.desc || "";
                             item.desc = objmode == "sousuo" || objmode == "sousuopage" ? MY_RULE.title + ' · ' + objdata.name + ' · ' + item.desc : objmode == "sousuotest" ? (item.content || item.desc) : (extra.desc || item.desc);
