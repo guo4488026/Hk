@@ -1333,7 +1333,7 @@ function search(keyword, mode, sdata, group, type) {
                                     return "toast://已切换源：" + extra.sname;
                                 }
                             }, extra);
-                            item.title = objmode == "erji" ? objdata.name : item.title;
+                            //item.title = objmode == "erji" ? objdata.name : item.title;
                             //item.content = item.content || item.desc;
                             item.desc = item.desc || "";
                             item.desc = objmode == "sousuo" || objmode == "sousuopage" ? MY_RULE.title + ' · ' + objdata.name + ' · ' + item.desc : objmode == "sousuotest" ? (item.content || item.desc) : (extra.desc || item.desc);
